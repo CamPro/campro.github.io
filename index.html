@@ -1,19 +1,384 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>My Learn</title>
-	<link rel="icon" href="favicon.ico">
-	<link rel="stylesheet" href="">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Learn</title>
+  <link rel="stylesheet" href="plugins/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
+  <link rel="stylesheet" href="css/adminlte.min.css">
+  <link rel="stylesheet" href="css/mystyle.css">
 </head>
-<body>
-	<h1>My Learn</h1>
-	<a href="pages/spiderum/1-cai-ten-2-quan-diem-its-time-for-some-spi-do-ramaaa.html" title="">1-cai-ten-2-quan-diem-its-time-for-some-spi-do-ramaaa</a>
 
-	<script type="text/javascript">
-		document.write("javascript chay roi ne");
-		console.log("log day ne");
-	</script>
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+
+  <div class="wrapper">
+
+	<nav class="main-header navbar navbar-expand border-bottom-0 text-sm navbar-light" id="header">
+	  <ul class="navbar-nav">
+		<li class="nav-item">
+		  <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+		</li>
+		<li class="nav-item d-none d-sm-inline-block">
+		  <a href="/" class="nav-link">Khu Vườn</a>
+		</li>
+	  </ul>
+	  <ul class="navbar-nav ml-auto">
+		<li class="nav-item">
+		  <span class="nav-link" id="my-clock" onclick="myClock()"><i class="far fa-clock"></i></span>
+		</li>
+		<li class="nav-item">
+		  <a class="nav-link" href="/"><i class="fas fa-home"></i></a>
+		</li>
+		<li class="nav-item dropdown">
+		  <a class="nav-link" data-toggle="dropdown" href="#">
+			<i class="far fa-comments"></i>
+			<span class="badge badge-danger navbar-badge">0</span>
+		  </a>
+		</li>
+		<li class="nav-item dropdown">
+		  <a class="nav-link" data-toggle="dropdown" href="#">
+			<i class="far fa-bell"></i>
+			<span class="badge badge-warning navbar-badge">0</span>
+		  </a>
+		</li>
+		<li class="nav-item">
+		  <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+			<i class="fas fa-th-large"></i>
+		  </a>
+		</li>
+	  </ul>
+	</nav>
+
+	<aside class="main-sidebar sidebar-dark-primary elevation-4">
+	  <a href="/" class="brand-link">
+		<img src="https://graph.facebook.com/100007543845219/picture?height=100&width=100&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662" class="brand-image img-circle elevation-3">
+		<span class="brand-text font-weight-light">MY LEARN</span>
+	  </a>
+	  <div class="sidebar">
+		<div class="user-panel mt-3 pb-3 d-flex">
+		  <div class="">
+			<a href="#" class="d-block" id="hello-user"></a>
+		  </div>
+		</div>
+		<div class="form-inline">
+		  <div class="input-group" data-widget="sidebar-search">
+			<input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+			<div class="input-group-append">
+			  <button class="btn btn-sidebar">
+				<i class="fas fa-search fa-fw"></i>
+			  </button>
+			</div>
+		  </div>
+		  <div class="sidebar-search-results">
+			<div class="list-group">
+			</div>
+		  </div>
+		</div>
+		<nav class="mt-2">
+		  <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+			<li class="nav-item">
+			  <a href="/home.html" class="nav-link ">
+				<i class="nav-icon fas fa-tachometer-alt"></i><p>Ngôi Nhà Vĩ Nhân</p>
+			  </a>
+			</li>
+			<li class="nav-item">
+			  <a href="/learning.html" class="nav-link ">
+				<i class="nav-icon fas fa-rocket"></i><p>Học Lại Từ Đầu</p>
+			  </a>
+			</li>
+			<li class="nav-item">
+			  <a href="/posts.html" class="nav-link ">
+				<i class="nav-icon fas fa-cloud-sun"></i><p>Kho Tàng Tri Thức</p>
+			  </a>
+			</li>
+			<li class="nav-item">
+			  <a href="/booking.html" class="nav-link ">
+				<i class="nav-icon fas fa-book"></i><p>Từ Sách Đến Đời</p>
+			  </a>
+			</li>
+			<li class="nav-item">
+			  <a href="/crawler.html" class="nav-link ">
+				<i class="nav-icon fas fa-leaf"></i><p>Duyệt Kinh Điển</p>
+			  </a>
+			</li>
+			<li class="nav-item">
+			  <a href="/backup.html" class="nav-link ">
+				<i class="nav-icon fas fa-dove"></i><p>Trường Sinh Bất Lão</p>
+			  </a>
+			</li>
+			<li class="nav-item">
+			  <a href="/signin.html" class="nav-link">
+				<i class="nav-icon fas fa-sign-in-alt"></i><p>Đăng Nhập</p>
+			  </a>
+			</li>
+			<li class="nav-item">
+			  <a href="#" class="nav-link" id="sign-out">
+				<i class="nav-icon fas fa-sign-out-alt"></i><p>Đăng Xuất</p>
+			  </a>
+			</li>
+			<li class="nav-item">
+			  <a href="/" class="nav-link ">
+				<i class="nav-icon fas fa-"></i><p>Hương Vị Trí Tuệ</p>
+			  </a>
+			</li>
+			<li class="nav-item">
+			  <a href="/" class="nav-link ">
+				<i class="nav-icon fas fa-"></i><p>Khám Phá Diệu Kỳ</p>
+			  </a>
+			</li>
+			<li class="nav-item">
+			  <a href="/" class="nav-link ">
+				<i class="nav-icon fas fa-"></i><p>Ý Tưởng Sáng Tạo</p>
+			  </a>
+			</li>
+			<li class="nav-item">
+			  <a href="/" class="nav-link ">
+				<i class="nav-icon fas fa-"></i><p>Khoa Học Hữu Ích</p>
+			  </a>
+			</li>
+			<li class="nav-item">
+			  <a href="/" class="nav-link ">
+				<i class="nav-icon fas fa-"></i><p>Chinh Phục Kỳ Quan</p>
+			  </a>
+			</li>
+			<li class="nav-item">
+			  <a href="/" class="nav-link ">
+				<i class="nav-icon fas fa-"></i><p>Nghệ Thuật Sống Động</p>
+			  </a>
+			</li>
+			<li class="nav-item">
+			  <a href="/" class="nav-link ">
+				<i class="nav-icon fas fa-"></i><p>Kiến Tạo Xuất Chúng</p>
+			  </a>
+			</li>
+		  </ul>
+		</nav>
+	  </div>
+	</aside>
+
+	<aside class="control-sidebar control-sidebar-dark">
+	  <div class="p-3">
+		<h5>Thanh Công Cụ</h5>
+		<div class="mb-4"><input type="checkbox" id="dark-mode" class="mr-1"><span>Dark Mode</span></div>
+
+		<button class="btn btn-sm btn-default" id="highlight-text"><span class="badge bg-success" id="number-knowledge"></span> <i class="fas fa-spell-check"></i> highlight text</button>
+		<textarea class="form-control" id="text-to-knowledge" rows="8"></textarea>
+		<input type="text" list="courses" class="form-control" name="create-course" id="create-course" placeholder="chọn khóa học">
+		<datalist id="courses">
+		  <option value="Sức Khỏe"/>
+		  <option value="Sự Nghiệp"/>
+		  <option value="Gia Đình"/>
+		  <option value="Bạn Bè"/>
+		  <option value="Giao Tiếp"/>
+		  <option value="Con Gái">*</option>
+		  <option value="Tán Gái">*</option>
+		  <option value="Tìm Hiểu Nhàn">*</option>
+		  <option value="Cuộc Sống"/>
+		  <option value="Công Việc"/>
+		  <option value="Xã Hội"/>
+		  <option value="Tình Yêu"/>
+		  <option value="Phụ Nữ"/>
+		  <option value="Tiền Bạc/Tài Chính"/>
+		  <option value="Tư Duy"/>
+		  <option value="Khoa Học"/>
+		  <option value="Thời Gian"/>
+		  <option value="Con Người"/>
+		  <option value="Sách"/>
+		</datalist>
+		<input type="text" class="form-control" name="create-image" id="create-image" placeholder="url hình ảnh">
+		<button class="btn btn-sm btn-primary" id="create-knowledge"><i class="fas fa-edit"></i> Kiến Tạo</button>
+	  </div>
+	</aside>
+
+  </div>
+  <div id="back-to-top" onclick="backToTop()"><i class="fa fa-chevron-up"></i></div>
+  <script src="plugins/jquery/jquery.min.js"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+  <!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+  <script src="plugins/moment/moment.min.js"></script>
+  <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+  <script src="js/adminlte.min.js"></script>
+  <script src="js/myfirebase.js"></script>
+  <script type="text/javascript">
+	var rtdb = firebase.database();
+	var fsdb = firebase.firestore();
+  </script>
+  <script src="js/myscript.js"></script>
+  <script type="text/javascript">
+	var lastIndex = 0;
+	rtdb.ref('knowledge/').orderByKey().limitToLast(1).on('value', function(snapshot) {
+	  let value = snapshot.val();
+	  if (value) {
+		lastIndex = Object.keys(value)[0];
+	  }
+	  else
+	  {
+		lastIndex = 0;
+	  }
+	  $('#number-knowledge').text(lastIndex);
+	});
+
+	$('[data-widget="control-sidebar"],#highlight-text').click(function ()
+	{
+	  let highlight = getSelectText().trim();
+	  $('#text-to-knowledge').val(highlight);
+	  $('#create-knowledge').prop('disabled', false);
+	  clearSelectText();
+	});
+
+	$('#text-to-knowledge').change(function ()
+	{
+	  let highlight = $('#text-to-knowledge').val().toLowerCase();
+	  $('#create-course option').each(function ()
+	  {
+		let course = this.value.toLowerCase();
+		if (highlight.includes(course))
+		{
+		  //$('#create-course').val(this.value);
+		}
+	  })
+	});
+
+	$('#create-knowledge').click(function ()
+	{
+	  let highlight = $('#text-to-knowledge').val().trim();
+	  let course = $('#create-course').val().trim();
+	  let image = $('#create-image').val().trim();
+
+	  let button = $('#create-knowledge').html();
+	  if (highlight.length > 0 && course.length > 0)
+	  {
+		++lastIndex;
+
+		highlight = highlight.charAt(0).toUpperCase() + highlight.slice(1);
+
+		KnowledgeSave(lastIndex, highlight, course, image);
+		
+		$('#text-to-knowledge').val('');
+		$('#create-course').val('');
+		$('#create-knowledge').html('<i class="fas fa-check"></i></i> Kiến Tạo Thành Công');
+		$('#create-knowledge').removeClass('btn-primary').addClass('btn-success');
+		setTimeout(function(){
+		  $('#create-knowledge').html(button).removeClass('btn-success').addClass('btn-primary');
+		  document.querySelector('a[data-widget="control-sidebar"]').click();
+		}, 500);
+	  }
+	});
+
+	var timer = null;
+	$('[data-widget="sidebar-search"] input').on('keyup change', function()
+	{
+		clearTimeout(timer);
+		timer = setTimeout(searchAction, 1000);
+	});
+
+	$('div.content-wrapper div.content').click(function () {
+	  if ($('body.control-sidebar-slide-open').length > 0)
+	  {
+		document.querySelector('a[data-widget="control-sidebar"]').click();
+	  }
+	})
+
+  </script>
+
+  <script type="text/javascript">
+
+	function searchAction()
+	{
+	  let keyword = $('[data-widget="sidebar-search"] input').val().trim();
+
+	  var firstSearch = fsdb.collection("posts").where('title', '==', keyword).limit(5).get()
+	  .then((querySnapshot) => {
+		querySnapshot.forEach((doc) => {
+		  RenderSearch(doc);
+		});
+	  })
+	  .catch((error) => {
+		console.log(error);
+	  });
+
+	  firstSearch = fsdb.collection("posts").where('creator', '==', keyword).limit(5).get()
+	  .then((querySnapshot) => {
+		querySnapshot.forEach((doc) => {
+		  RenderSearch(doc);
+		});
+	  })
+	  .catch((error) => {
+		console.log(error);
+	  });
+
+	  firstSearch = fsdb.collection("posts").where('slug', '==', keyword).limit(5).get()
+	  .then((querySnapshot) => {
+		querySnapshot.forEach((doc) => {
+		  RenderSearch(doc);
+		});
+	  })
+	  .catch((error) => {
+		console.log(error);
+	  });
+
+	  firstSearch = fsdb.collection("posts").where('category', '==', keyword).limit(5).get()
+	  .then((querySnapshot) => {
+		querySnapshot.forEach((doc) => {
+		  RenderSearch(doc);
+		});
+	  })
+	  .catch((error) => {
+		console.log(error);
+	  });
+	}
+
+	function RenderSearch(doc)
+	{
+	  let docid = doc.id;
+	  let docdata = doc.data();
+	  
+	  let linkurl = '/post/' + docdata.source + '/' + docdata.slug + '/' + docid;
+
+	  let item = '<a href="'+linkurl+'" class="list-group-item"><div class="search-title">'+docdata.title+'</div><div class="search-path">'+docdata.creator+', '+docdata.category+'</div></a>';
+
+	  $('.sidebar-search-results .list-group').append(item);
+	}
+
+	function KnowledgeSave(klgIndex, learn, course, image = '')
+	{
+	  let created_at = moment().unix();
+
+	  rtdb.ref('knowledge/' + klgIndex).set({
+		learn : learn,
+		course: course,
+		created_at: created_at,
+		repeat: 0,
+		practice_at: 0,
+		image: image
+	  }).catch((error) => {
+		console.log(error);
+	  });
+	}
+
+	function myClock() {
+	  let days = ["Chủ Nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"];
+	  let d = new Date();
+	  let day = days[d.getDay()];
+	  let hr = d.getHours();
+	  let min = d.getMinutes();
+	  if (min < 10) {
+		  min = "0" + min;
+	  }
+	  let date = d.getDate();
+	  let month = d.getMonth()+1;
+	  let year = d.getFullYear();
+	  let clock = day + ", " + date + "/" + month + " " + hr + ":" + min;
+	  $('#my-clock').text(clock);
+	}
+	myClock();
+	setInterval(myClock, 30*1000);
+
+  </script>
 </body>
 </html>
