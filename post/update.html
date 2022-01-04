@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Khai Sáng Bản Ngã</title>
+	<title>Làm Mới Bản Thân</title>
 	<link rel="stylesheet" href="plugins/fontawesome/css/all.min.css">
 	<link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
 	<link rel="stylesheet" href="css/adminlte.min.css">
@@ -190,44 +190,101 @@
 				<button class="btn btn-sm btn-primary" id="create-knowledge"><i class="fas fa-edit"></i> Kiến Tạo</button>
 			</div>
 		</aside>
+
 		<div class="content-wrapper">
 			<div class="content-header">
 				<div class="container-fluid">
-					<div class="row">
-						<table class="table table-responsive">
-							<tr>
-								<td class="mailbox-star"><i class="fas fa-map-marker-alt"></i> <a href="#" id="post-source"></a></td>
-								<td class="mailbox-name"><i class="fas fa-user-edit"></i> <a href="#" id="post-creator"></a></td>
-								<td class="mailbox-subject"><i class="fas fa-cubes"></i> <span id="post-category"></span></td>
-								<td class="mailbox-attachment"><i class="far fa-thumbs-up"></i> <span id="post-vote"></span></td>
-								<td class="mailbox-date"><i class="far fa-calendar-minus"></i> <span id="post-created"></span></td>
-							</tr>
-						</table>
-						<table class="table table-responsive">
-							<tr>
-								<td><a href="" target="_blank" id="post-link"><button class="btn btn-sm btn-default"><i class="fas fa-external-link-alt"></i> Gốc</button></a></td>
-								<td><a href="" id="post-edit"><button class="btn btn-sm btn-default"><i class="fas fa-edit"></i> Sửa</button></a></td>
-								<td><button class="btn btn-sm btn-default" id="post-read"><i class="fas fa-eye"></i> Đã Đọc <span id="post-number-read"></span></button></td>
-								<td><button class="btn btn-sm btn-default" id="post-delete"><i class="fas fa-trash"></i> Xóa</button></td>
-							</tr>
-						</table>
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1 class="m-0">Làm Mới Bản Thân</h1>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="content">
-				<div class="container-fluid text-lg">
+				<div class="container-fluid" id="page-box">
+					@if (isset($docid))
 					<div class="row">
-						<div class="col-lg-2"></div>
-						<div class="col-lg-6">
-							<h2 class="m-0" id="post-title"></h2>
-							<div id="post-content">
-								*Nội dung*
+						<div class="col-sm-7">
+							<div class="card card-default">
+								<div class="card-header">
+									<button class="btn btn-sm btn-success" id="post-update">Cập Nhật Bản Thân</button>
+								</div>
+								<div class="card-body">
+									<div class="form-group">
+										<label class="col-form-label" for="post-title"><i class="fas fa-spa"></i> Tiêu Đề</label>
+										<input type="text" class="form-control" id="post-title" value="">
+									</div>
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label><i class="fas fa-map-marker-alt"></i> source</label>
+												<input type="text" class="form-control" id="post-source" value="">
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label><i class="fas fa-cubes"></i> category</label>
+												<input type="text" class="form-control" id="post-category" value="">
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label><i class="fas fa-tags"></i> tags</label>
+												<input type="text" class="form-control" id="post-tags" value="">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label><i class="fas fa-user-edit"></i> creator</label>
+												<input type="text" class="form-control" id="post-creator" value="">
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label><i class="far fa-calendar-minus"></i> created</label>
+												<input type="text" class="form-control" id="post-created" value="">
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label><i class="far fa-thumbs-up"></i> vote</label>
+												<input type="text" class="form-control" id="post-vote" value="">
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label><i class="far fa-eye"></i> number read</label>
+												<input type="text" class="form-control" id="post-number-read" value="">
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="post-image"><i class="fas fa-image"></i> image</label>
+										<input type="text" class="form-control" id="post-image" value="">
+									</div>
+									<div class="row">
+										<div class="col-sm-9">
+											<div class="form-group">
+												<label class="col-form-label" for="post-slug"><i class="fas fa-paperclip"></i> slug</label>
+												<input type="text" class="form-control" id="post-slug" value="">
+											</div>
+											<div class="form-group">
+												<label class="col-form-label" for="post-link"><i class="fas fa-link"></i> link</label>
+												<input type="text" class="form-control" id="post-link" value="">
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<img id="post-avatar" class="attachment-img elevation-2" src="">
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="text-center">
-					<button class="btn btn-sm btn-default" id="post-readed"><i class="fas fa-eye"></i> Đánh Dấu Đã Đọc <span id="post-number-readed"></span></button>
+					@endif
 				</div>
 			</div>
 		</div>
@@ -246,44 +303,32 @@
 	<script src="js/myfirebase.js"></script>
 	<script src="js/myscript.js"></script>
 	<script type="text/javascript">
-		let source = "";
-		let slug = "";
 		let docid = "";
-
+		
 		var url_string = window.location.href;
 		var url = new URL(url_string);
-		source = url.searchParams.get("source");
-		slug = url.searchParams.get("slug");
 		docid = url.searchParams.get("docid");
 
-		fetch('https://raw.githubusercontent.com/CamPro/'+url.host+'/main/pages/'+source+'/'+slug+'.html')
-		.then(response => response.text())
-		.then(data => {
-			$('#post-content').html(data);
-		});
+		fsdb.collection("posts").doc(docid).get("*").then((doc) => {
+			let docdata = doc.data();
+			console.log(docdata);
 
-		fsdb.collection("posts").doc(docid).get().then((doc) => {
-			if (doc.exists)
-			{
-				let docdata = doc.data();
-				$('#post-source').text(docdata.source);
-				$('#post-title').text(docdata.title);
-				$('#post-creator').text(docdata.creator);
-				$('#post-category').text(docdata.category);
-				$('#post-vote').text(docdata.vote);
-				$('#post-number-read').text(docdata.number_reads);
+			$('#post-source').val(docdata.source);
+			$('#post-tags').val(docdata.tags);
+			$('#post-title').val(docdata.title);
+			$('#post-creator').val(docdata.creator);
+			$('#post-category').val(docdata.category);
+			$('#post-vote').val(docdata.vote);
+			$('#post-image').val(docdata.image);
+			$('#post-slug').val(docdata.slug);
+			$('#post-link').val(docdata.link);
+			$('#post-number-read').val(docdata.number_reads);
+			$('#post-avatar').attr('src', docdata.image);
 
-				$('#post-link').attr('href', docdata.link);
-				$('#post-edit').attr('href', 'post/update.html?docid='+docid);
+			let created = moment.unix(docdata.created).format("YYYY-MM-DD");
+			$('#post-created').val(created);
 
-				let created = moment.unix(docdata.created).format("DD/MM/YYYY");
-				$('#post-created').text(created);
-
-				if (docdata.title) {
-					document.title = docdata.title;
-				}
-			}
-			else
+			if (!doc.exists)
 			{
 				console.log("No such document!");
 			}
@@ -291,40 +336,50 @@
 			console.log("Error getting document:", error);
 		});
 
-		let number_reads = 0;
-		fsdb.collection("posts").doc(docid).onSnapshot((doc) =>
-		{
-			number_reads = doc.data().number_reads;
-			$('#post-number-read').text(number_reads);
-			$('#post-number-readed').text(number_reads);
-		});
-
-		$('#post-readed, #post-read').click(function ()
+		$('#post-update').click(function ()
 		{
 			$(this).prop('disabled', true);
-			fsdb.collection("posts").doc(docid).update({
-				number_reads: ++number_reads
+			let source = $('#post-source').val().trim();
+			let category = $('#post-category').val().trim();
+			let tags = $('#post-tags').val().trim();
+			let title = $('#post-title').val().trim();
+			let vote = $('#post-vote').val().trim();
+			let creator = $('#post-creator').val().trim();
+			let created = $('#post-created').val().trim();
+			let image = $('#post-image').val().trim();
+			let link = $('#post-link').val().trim();
+			let slug = $('#post-slug').val().trim();
+			let number_reads = $('#post-number-read').val().trim();
+
+			vote = Number(vote);
+			created = moment(created).unix();
+
+			fsdb.collection("posts").doc(docid).set({
+				source: source,
+				category: category,
+				tags: tags,
+				title: title,
+				vote: vote,
+				creator: creator,
+				created: created,
+				image: image,
+				link: link,
+				slug: slug,
+				number_reads: number_reads
 			})
 			.then(() => {
-
+				console.log("Document successfully written!");
+				window.location.reload();
 			})
 			.catch((error) => {
-				console.log(error);
+				Toast.fire({ icon: 'error', title: error });
 			});
 		});
 
-		$('#post-delete').click(function ()
+		$('#post-image').change(function ()
 		{
-			if (confirm('Xóa kinh điển?'))
-			{
-				console.log('delete');
-			/*
-			fsdb.collection("posts").doc(docid).delete()
-			.catch((error) => {
-			console.log(error);
-			});*/
-			}
-		});
-</script>
+			$('#post-avatar').attr('src', this.value);
+		})
+	</script>
 </body>
 </html>
