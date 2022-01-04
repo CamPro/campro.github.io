@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Khai Sáng Bản Ngã</title>
+	<title>Chứng Minh Đi</title>
 	<link rel="stylesheet" href="plugins/fontawesome/css/all.min.css">
 	<link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
 	<link rel="stylesheet" href="css/adminlte.min.css">
@@ -190,47 +190,70 @@
 				<button class="btn btn-sm btn-primary" id="create-knowledge"><i class="fas fa-edit"></i> Kiến Tạo</button>
 			</div>
 		</aside>
+
 		<div class="content-wrapper">
 			<div class="content-header">
 				<div class="container-fluid">
-					<div class="row">
-						<table class="table table-responsive">
-							<tr>
-								<td class="mailbox-star"><i class="fas fa-map-marker-alt"></i> <a href="#" id="post-source"></a></td>
-								<td class="mailbox-name"><i class="fas fa-user-edit"></i> <a href="#" id="post-creator"></a></td>
-								<td class="mailbox-subject"><i class="fas fa-cubes"></i> <span id="post-category"></span></td>
-								<td class="mailbox-attachment"><i class="far fa-thumbs-up"></i> <span id="post-vote"></span></td>
-								<td class="mailbox-date"><i class="far fa-calendar-minus"></i> <span id="post-created"></span></td>
-							</tr>
-						</table>
-						<table class="table table-responsive">
-							<tr>
-								<td><a href="" target="_blank" id="post-link"><button class="btn btn-sm btn-default"><i class="fas fa-external-link-alt"></i> Gốc</button></a></td>
-								<td><a href="" id="post-edit"><button class="btn btn-sm btn-default"><i class="fas fa-edit"></i> Sửa</button></a></td>
-								<td><button class="btn btn-sm btn-default" id="post-read"><i class="fas fa-eye"></i> Đã Đọc <span id="post-number-read"></span></button></td>
-								<td><button class="btn btn-sm btn-default" id="post-delete"><i class="fas fa-trash"></i> Xóa</button></td>
-							</tr>
-						</table>
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1 class="m-0"></h1>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="content">
-				<div class="container-fluid text-lg">
+				<div class="container-fluid" id="page-box">
 					<div class="row">
-						<div class="col-lg-2"></div>
-						<div class="col-lg-6">
-							<h2 class="m-0" id="post-title"></h2>
-							<div id="post-content">
-								*Nội dung*
+						<div class="col-sm-7">
+							<div class="card card-default">
+								<div class="card-header">
+									<button class="btn btn-sm btn-success" id="learn-update">Chứng Minh Đi</button>
+								</div>
+								<div class="card-body">
+									<div class="form-group">
+										<label class="col-form-label" for="learn-learn"><i class="fas fa-fire"></i> Bài Học</label>
+										<textarea class="form-control" rows="7" id="learn-learn"></textarea>
+									</div>
+									<div class="row">
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label><i class="fas fa-dice-d6"></i> Khóa Học</label>
+												<input type="text" class="form-control" id="learn-course">
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label><i class="fas fa-recycle"></i> Lặp Lại</label>
+												<input type="number" class="form-control" id="learn-repeat">
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label><i class="fas fa-paint-brush"></i> Khai Thiên</label>
+												<input type="text" class="form-control" id="learn-created">
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label><i class="fas fa-mosque"></i> Lập Địa</label>
+												<input type="text" class="form-control" id="learn-practice">
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label><i class="fas fa-camera-retro"></i> Minh Họa</label>
+										<input type="text" class="form-control" id="learn-image">
+									</div>
+
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="text-center">
-					<button class="btn btn-sm btn-default" id="post-readed"><i class="fas fa-eye"></i> Đánh Dấu Đã Đọc <span id="post-number-readed"></span></button>
-				</div>
 			</div>
 		</div>
+
+		<!-- footer -->
 
 	</div>
 	<div id="back-to-top" onclick="backToTop()"><i class="fa fa-chevron-up"></i></div>
@@ -246,86 +269,63 @@
 	<script src="js/myfirebase.js"></script>
 	<script src="js/myscript.js"></script>
 	<script type="text/javascript">
-		let source = "";
-		let slug = "";
-		let docid = "";
+		var index = "";
 
 		var url_string = window.location.href;
 		var url = new URL(url_string);
-		source = url.searchParams.get("source");
-		slug = url.searchParams.get("slug");
-		docid = url.searchParams.get("docid");
+		index = url.searchParams.get("docid");
 
-		fetch('https://raw.githubusercontent.com/CamPro/'+url.host+'/main/pages/'+source+'/'+slug+'.html')
-		.then(response => response.text())
-		.then(data => {
-			$('#post-content').html(data);
-		});
-
-		fsdb.collection("posts").doc(docid).get().then((doc) => {
-			if (doc.exists)
+		rtdb.ref('knowledge').child(index).get().then((snapshot) => {
+			if (snapshot.exists())
 			{
-				let docdata = doc.data();
-				$('#post-source').text(docdata.source);
-				$('#post-title').text(docdata.title);
-				$('#post-creator').text(docdata.creator);
-				$('#post-category').text(docdata.category);
-				$('#post-vote').text(docdata.vote);
-				$('#post-number-read').text(docdata.number_reads);
+				var doc = snapshot.val();
 
-				$('#post-link').attr('href', docdata.link);
+				$('#learn-learn').val(doc.learn);
+				$('#learn-course').val(doc.course);
+				$('#learn-repeat').val(doc.repeat);
+				$('#learn-image').val(doc.image);
 
-				$('#post-edit').attr('href', 'update.html?docid='+docid);
+				let created = moment.unix(doc.created_at).format("YYYY-MM-DD");
+				$('#learn-created').val(created).prop('disabled', true);
 
-				let created = moment.unix(docdata.created).format("DD/MM/YYYY");
-				$('#post-created').text(created);
-
-				if (docdata.title) {
-					document.title = docdata.title;
-				}
+				let practice = moment.unix(doc.practice_at).format("YYYY-MM-DD");
+				$('#learn-practice').val(practice).prop('disabled', true);
 			}
 			else
 			{
-				console.log("No such document!");
+				Toast.fire({ icon: 'error', title: "No data available" });
 			}
 		}).catch((error) => {
-			console.log("Error getting document:", error);
+			Toast.fire({ icon: 'error', title: error });
 		});
 
-		let number_reads = 0;
-		fsdb.collection("posts").doc(docid).onSnapshot((doc) =>
-		{
-			number_reads = doc.data().number_reads;
-			$('#post-number-read').text(number_reads);
-			$('#post-number-readed').text(number_reads);
-		});
-
-		$('#post-readed, #post-read').click(function ()
+		$('#learn-update').click(function ()
 		{
 			$(this).prop('disabled', true);
-			fsdb.collection("posts").doc(docid).update({
-				number_reads: ++number_reads
-			})
-			.then(() => {
 
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-		});
+			let learn = $('#learn-learn').val().trim();
+			let course = $('#learn-course').val().trim();
+			let repeat = $('#learn-repeat').val().trim();
+			let image = $('#learn-image').val().trim();
 
-		$('#post-delete').click(function ()
-		{
-			if (confirm('Xóa kinh điển?'))
+			repeat = Number(repeat);
+
+			rtdb.ref('knowledge').child(index).update(
 			{
-				console.log('delete');
-			/*
-			fsdb.collection("posts").doc(docid).delete()
+				learn: learn,
+				course: course,
+				repeat: repeat,
+				image: image
+			})
+			.then({
+
+			})
 			.catch((error) => {
-			console.log(error);
-			});*/
-			}
-		});
-</script>
+				Toast.fire({ icon: 'error', title: error });
+			});
+
+		})
+
+	</script>
 </body>
 </html>
