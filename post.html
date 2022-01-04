@@ -256,11 +256,11 @@
 		slug = url.searchParams.get("slug");
 		docid = url.searchParams.get("docid");
 
-		fetch('pages/'+source+'/'+slug+'.hlml')
+		fetch('https://raw.githubusercontent.com/CamPro/campro.github.io/main/pages/'+source+'/'+slug+'.hlml')
 		.then(response => response.text())
 		.then(data => {
 			console.log(data);
-			document.getElementById("post-content").innerHTML = data;
+			$('#post-content').html(data);
 		});
 
 		fsdb.collection("posts").doc(docid).get().then((doc) => {
