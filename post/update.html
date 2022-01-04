@@ -309,7 +309,7 @@
 
 		fsdb.collection("posts").doc(docid).get("*").then((doc) => {
 			let docdata = doc.data();
-			console.log(docdata);
+			/*console.log(docdata);*/
 
 			$('#post-source').val(docdata.source);
 			$('#post-tags').val(docdata.tags);
