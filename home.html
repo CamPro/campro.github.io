@@ -328,98 +328,98 @@
 
 		let index = 0;
 
-// get last index
-fsdb.collection("posts").orderBy("index", "desc").limit(1).get()
-.then((querySnapshot) => {
-	querySnapshot.forEach((doc) =>
-	{
-		let docdata = doc.data();
-		index = docdata.index;
-	});
-index = Math.floor(Math.random() * index); // random 0-max
-GetOnePost(index);
-})
-.catch((error) => {
-	console.log(error);
-});
-
-function GetOnePost(idx)
-{
-	console.log(idx);
-	let active = true;
-
-	var firstNew = fsdb.collection("posts").where("index", "==", idx).get()
-	.then((querySnapshot) => {
-		querySnapshot.forEach((doc) => {
-
-			let docid = doc.id;
-			let docdata = doc.data();
-
-			let linkurl = '/post.html?source=' + docdata.source + '&slug=' + docdata.slug + '&docid=' + docid;
-
-			let html = '<div class="carousel-item '+(active ? 'active' : '')+'">'
-			html += '<img class="bd-placeholder-img" width="100%" height="100%" src="'+docdata.image+'">';
-			html += '<div class="container">';
-			html += '<div class="carousel-caption text-left">';
-			html += '<h1 class="multicolor">'+docdata.title+'</h1>';
-			html += '<p class="twocolor">'+docdata.creator+' ('+docdata.category+')</p>';
-			html += '<p><a class="btn btn-lg btn-primary" href="'+linkurl+'">Kinh Điển ('+docdata.number_reads+')</a></p>';
-			html += '</div>';
-			html += '</div>';
-			html += '</div>';
-			$('.carousel-inner').append(html);
-			active = false;
-
+		/* get last index */
+		fsdb.collection("posts").orderBy("index", "desc").limit(1).get()
+		.then((querySnapshot) => {
+			querySnapshot.forEach((doc) =>
+			{
+				let docdata = doc.data();
+				index = docdata.index;
+			});
+			index = Math.floor(Math.random() * index); /* random 0-max */
+			GetOnePost(index);
+		})
+		.catch((error) => {
+			console.log(error);
 		});
-	})
-	.catch((error) => {
-		console.log(error);
-	});
-}
 
-</script>
-<script type="text/javascript">
+		function GetOnePost(idx)
+		{
+			console.log(idx);
+			let active = true;
 
-// get note
-fsdb.collection("notes").doc('1').get().then((doc) =>{
-	if (doc.exists) {
-		$('#note-data-1').val(doc.data().note);
-		$('#note-data-1').prop('rows', doc.data().note.split("\n").length + 1);
-	}
-})
+			var firstNew = fsdb.collection("posts").where("index", "==", idx).get()
+			.then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
 
-// get note
-fsdb.collection("notes").doc('2').get().then((doc) =>{
-	if (doc.exists) {
-		$('#note-data-2').val(doc.data().note);
-		$('#note-data-2').prop('rows', doc.data().note.split("\n").length + 1);
-	}
-})
+					let docid = doc.id;
+					let docdata = doc.data();
 
-// get note
-fsdb.collection("notes").doc('3').get().then((doc) =>{
-	if (doc.exists) {
-		$('#note-data-3').val(doc.data().note);
-		$('#note-data-3').prop('rows', doc.data().note.split("\n").length + 1);
-	}
-})
+					let linkurl = '/post.html?source=' + docdata.source + '&slug=' + docdata.slug + '&docid=' + docid;
 
-// get note
-fsdb.collection("notes").doc('4').get().then((doc) =>{
-	if (doc.exists) {
-		$('#note-data-4').val(doc.data().note);
-		$('#note-data-4').prop('rows', doc.data().note.split("\n").length + 1);
-	}
-})
+					let html = '<div class="carousel-item '+(active ? 'active' : '')+'">'
+					html += '<img class="bd-placeholder-img" width="100%" height="100%" src="'+docdata.image+'">';
+					html += '<div class="container">';
+					html += '<div class="carousel-caption text-left">';
+					html += '<h1 class="multicolor">'+docdata.title+'</h1>';
+					html += '<p class="twocolor">'+docdata.creator+' ('+docdata.category+')</p>';
+					html += '<p><a class="btn btn-lg btn-primary" href="'+linkurl+'">Kinh Điển ('+docdata.number_reads+')</a></p>';
+					html += '</div>';
+					html += '</div>';
+					html += '</div>';
+					$('.carousel-inner').append(html);
+					active = false;
 
-// get note
-fsdb.collection("notes").doc('5').get().then((doc) =>{
-	if (doc.exists) {
-		$('#note-data-5').val(doc.data().note);
-		$('#note-data-5').prop('rows', doc.data().note.split("\n").length + 1);
-	}
-})
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		}
 
-</script>
+	</script>
+	<script type="text/javascript">
+
+		/* get note */
+		fsdb.collection("notes").doc('1').get().then((doc) =>{
+			if (doc.exists) {
+				$('#note-data-1').val(doc.data().note);
+				$('#note-data-1').prop('rows', doc.data().note.split("\n").length + 1);
+			}
+		})
+
+		/* get note */
+		fsdb.collection("notes").doc('2').get().then((doc) =>{
+			if (doc.exists) {
+				$('#note-data-2').val(doc.data().note);
+				$('#note-data-2').prop('rows', doc.data().note.split("\n").length + 1);
+			}
+		})
+
+		/* get note */
+		fsdb.collection("notes").doc('3').get().then((doc) =>{
+			if (doc.exists) {
+				$('#note-data-3').val(doc.data().note);
+				$('#note-data-3').prop('rows', doc.data().note.split("\n").length + 1);
+			}
+		})
+
+		/* get note */
+		fsdb.collection("notes").doc('4').get().then((doc) =>{
+			if (doc.exists) {
+				$('#note-data-4').val(doc.data().note);
+				$('#note-data-4').prop('rows', doc.data().note.split("\n").length + 1);
+			}
+		})
+
+		/* get note */
+		fsdb.collection("notes").doc('5').get().then((doc) =>{
+			if (doc.exists) {
+				$('#note-data-5').val(doc.data().note);
+				$('#note-data-5').prop('rows', doc.data().note.split("\n").length + 1);
+			}
+		})
+
+	</script>
 </body>
 </html>
