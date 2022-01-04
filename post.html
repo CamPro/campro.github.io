@@ -256,7 +256,11 @@
 		slug = url.searchParams.get("slug");
 		docid = url.searchParams.get("docid");
 
-		fetch('pages/'+source+'/'+slug+'.hlml').then(response => response.text()).then(data => document.getElementById("post-content").innerHTML = data);
+		fetch('pages/'+source+'/'+slug+'.hlml')
+		.then(response => response.text())
+		.then(data => {
+			document.getElementById("post-content").innerHTML = data;
+		});
 
 		fsdb.collection("posts").doc(docid).get().then((doc) => {
 			if (doc.exists)
