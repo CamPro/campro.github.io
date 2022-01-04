@@ -259,6 +259,7 @@
 		fetch('pages/'+source+'/'+slug+'.hlml')
 		.then(response => response.text())
 		.then(data => {
+			console.log(data);
 			document.getElementById("post-content").innerHTML = data;
 		});
 
