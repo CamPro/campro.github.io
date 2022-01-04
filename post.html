@@ -256,7 +256,7 @@
 		slug = url.searchParams.get("slug");
 		docid = url.searchParams.get("docid");
 
-		fetch('https://raw.githubusercontent.com/CamPro/campro.github.io/main/pages/'+source+'/'+slug+'.html')
+		fetch('https://raw.githubusercontent.com/CamPro/'+url.host+'/main/pages/'+source+'/'+slug+'.html')
 		.then(response => response.text())
 		.then(data => {
 			$('#post-content').html(data);
