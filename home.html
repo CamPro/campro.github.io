@@ -354,7 +354,7 @@ function GetOnePost(idx)
 			let docid = doc.id;
 			let docdata = doc.data();
 
-			let linkurl = '/post/' + docdata.source + '/' + docdata.slug + '/' + docid;
+			let linkurl = '/post.html?source=' + docdata.source + '&slug=' + docdata.slug + '&docid=' + docid;
 
 			let html = '<div class="carousel-item '+(active ? 'active' : '')+'">'
 			html += '<img class="bd-placeholder-img" width="100%" height="100%" src="'+docdata.image+'">';
