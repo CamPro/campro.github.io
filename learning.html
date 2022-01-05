@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Từ Sách Đến Đời Bằng URL</title>
+	<title>Học Lại Từ Đầu</title>
 	<link rel="stylesheet" href="./public/plugins/fontawesome/css/all.min.css">
 	<link rel="stylesheet" href="./public/plugins/sweetalert2/sweetalert2.min.css">
 	<link rel="stylesheet" href="./public/css/adminlte.min.css">
@@ -191,55 +191,42 @@
 			</div>
 		</aside>
 
-		<div class="content-wrapper">
-			<div class="content-header">
-				<div class="container-fluid">
-					<div class="row mb-2">
-						<div class="col-sm-6">
-							<h1 class="m-0">Từ Sách Đến Đời Bằng URL</h1>
-						</div>
-					</div>
-				</div>
-			</div>
+		<div class="content-wrapper" style="margin-left:0">
 			<div class="content">
-				<div class="container-fluid" id="page-box">
-					<div class="row">
-						<div class="col-sm-6">
-							<div class="input-group input-group-sm">
-								<input type="text" class="form-control" id="page-link" value="" placeholder="https://www.facebook.com/ID/posts/ID/">
-								<span class="input-group-append">
-									<button type="button" class="btn btn-info btn-flat" id="page-go">Tìm Hiểu Ngay</button>
-								</span>
-							</div>
+				<div class="card card-success">
+					<div class="card-header">
+						<h3 class="card-title">LOADING ...</h3>
+
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool">
+								<a href="/knowledge//edit" target="_blank" id="learn-link"><i class="fas fa-edit"></i></a>
+							</button>
+							<button type="button" class="btn btn-tool" data-card-widget="maximize">
+								<i class="fas fa-expand"></i>
+							</button>
+							<button type="button" class="btn btn-tool" data-card-widget="collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+							<button type="button" class="btn btn-tool" data-card-widget="remove">
+								<i class="fas fa-times"></i>
+							</button>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<button class="btn btn-sm btn-default" data-link="https://spiderum.com/tat-ca?sort=top">Spiderum Top</button>
-							<button class="btn btn-sm btn-default" data-link="https://vnhacker.blogspot.com">Vnhacker Blogspot</button>
-							<button class="btn btn-sm btn-default" data-link="https://genk.vn/kham-pha.chn">Khám phá GenK</button>
-							<button class="btn btn-sm btn-default" data-link="https://khoahoc.tv">khoahoc.tv</button>
-							<button class="btn btn-sm btn-default" data-link="https://tamlyhoctoipham.com">Tâm Lý Học</button>
-							<button class="btn btn-sm btn-default" data-link="https://phamngocanh.com">Phạm Ngọc Anh</button>
-						</div>
+
+					<div class="card-body text-center">
+						Loading ...
 					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<a class="btn btn-sm btn-default" href="https://www.facebook.com/teammonsterbox" target="_blank">Monster Box</a>
-							<a class="btn btn-sm btn-default" href="https://www.ted.com/talks?sort=newest&language=vi" target="_blank">TED Talks</a>
-							<a class="btn btn-sm btn-default" href="https://ed.ted.com/lessons?direction=desc&sort=featured-position&user_by_click=student" target="_blank">TED Ed</a>
-							<a class="btn btn-sm btn-default" href="https://www.youtube.com/c/TED/videos" target="_blank">TED YouTube</a>
-							<a class="btn btn-sm btn-default" href="https://www.youtube.com/user/TEDxTalks/videos" target="_blank">TEDx Talks YouTube</a>
-							<a class="btn btn-sm btn-default" href="https://www.youtube.com/teded/videos" target="_blank">TED-Ed YouTube</a>
+
+					<div class="card-footer">
+						<div class="text-right">
+							<button type="button" class="btn btn-default" style="border-radius:25%" id="learn-next"><i class="fas fa-play"></i> Đã Ngấm Đòn <i class="fas fa-chevron-right"></i></button>
 						</div>
-					</div>
-					<div class="row">
-						<iframe src="" width="100%" height="1000px" id="page-frame" style="border:none;overflow:hidden" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+						<button type="button" class="btn btn-default" style="border-radius:25%" id="learn-prev">Chưa Đủ Đòn</button>
 					</div>
 				</div>
-				<div class="container-fluid" id="page-content"></div>
 			</div>
 		</div>
+
 	</div>
 	<div id="back-to-top" onclick="backToTop()"><i class="fa fa-chevron-up"></i></div>
 	<script src="./public/plugins/jquery/jquery.min.js"></script>
@@ -254,26 +241,110 @@
 	<script src="./public/js/myfirebase.js"></script>
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
-		$('#page-go').click(function ()
-		{
-			var link = $('#page-link').val();
-			var regex = /facebook.com\/groups\/[\w\d.]+\/posts\/\d+|facebook.com\/[\w\d.]+\/posts\/\d+|facebook.com\/groups\/[\w\d.]+\/permalink\/\d+|facebook.com\/permalink.php\?story_fbid=\d+&id=\d+/;
 
-			if (link.match(regex))
+		var load = document.createElement('div');
+		load.className = 'overlay';
+		load.innerHTML = '<i class="fas fa-2x fa-sync-alt fa-spin"></i>';
+
+		$('div.card').append(load);
+
+		var learning = {};
+		var keys = [];
+		var index = 0;
+
+		rtdb.ref('knowledge').orderByChild('practice_at').limitToFirst(7).get().then((snapshot) => {
+			load.remove();
+			if (snapshot.exists())
 			{
-				link = link.match(regex)[0];
-				link = 'https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.' + encodeURIComponent(link) + '&show_text=true&width=750';
+				learning = snapshot.val();
+				keys = Object.keys(learning);
+				RenderLeaning();
+
+				let list = '';
+				for (var i = 0; i < keys.length; i++)
+				{
+					list += '<div class="p-3">'+learning[keys[i]].course+': '+learning[keys[i]].learn+'</div>';
+				}
+				$('aside.control-sidebar').append(list);
+			}
+			else
+			{
+				$('div.card-body').text("No data available");
+			}
+		}).catch((error) => {
+			Toast.fire({ icon: 'error', title: error });
+		});
+
+		$('button#learn-prev').hide();
+		$('button#learn-prev').click(function ()
+		{
+			--index;
+			RenderLeaning();
+		})
+
+		$('button#learn-next').click(function ()
+		{
+			UpdateLearned(index);
+			++index;
+			RenderLeaning();
+		})
+
+		function RenderLeaning()
+		{
+			if (index <= 0)
+			{
+				$('button#learn-prev').hide();
+				index = 0;
+			}
+			else
+			{
+				$('button#learn-prev').show();
+			}
+			if (index >= keys.length)
+			{
+				index = keys.length-1;
+				Toast.fire({ icon: 'success', title: 'Đã No Đòn.' });
+				return;
 			}
 
-			$('#page-link').val(link);
-			$('#page-frame').attr('src', link);
-		});
-		$('button[data-link]').click(function ()
+			let key = keys[index];
+			let doc = learning[key];
+
+			$('h3.card-title').html((index + 1) + '. ' + doc.course);
+			$('div.card-body').html('<h1 class="text-primary">' + doc.learn + '</h1>');
+			if (doc.image)
+			{
+				$('div.card-body').append('<img src="'+doc.image+'">');
+			}
+			$('a#learn-link').attr('href', '/knowledge/'+key+'/edit');
+
+			$('button#learn-next').hide();
+			setTimeout(function(){ $('button#learn-next').show(); }, 5000);
+			window.scrollTo(0, 0);
+		}
+
+		function UpdateLearned(keyid)
 		{
-			var link = $(this).data('link');
-			$('#page-link').val(link);
-			$('#page-frame').attr('src', link);
-		});
+			if (keyid < 0 || keyid >= keys.length) {
+				return;
+			}
+			let key = keys[keyid];
+
+			let doc = learning[key];
+
+			let today = moment().unix();
+
+			var practice_next = today + 24*60*60 * Math.pow(1.5, doc.repeat);
+			var repeat_next = doc.repeat + 1;
+
+			rtdb.ref('knowledge/' + key).update({
+				practice_at: practice_next,
+				repeat: repeat_next
+			}, (error) => {
+				console.log(error);
+			});
+
+		}
 	</script>
 </body>
 </html>
