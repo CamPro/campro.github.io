@@ -469,12 +469,14 @@
 
 		function farmContent()
 		{
-			myContent = document.getElementById('post-frame').contentWindow.document.documentElement.outerHTML;
+			var iframeView = document.getElementById('post-frame').contentWindow || document.getElementById('post-frame').contentDocument;
+			myContent = iframeView.document.documentElement.outerHTML;
 			myContent = myContent.replace('<html>', '').replace('<head>', '').replace('</head>', '').replace('<body contenteditable="true">', '');
 			myContent = myContent.replace('<body>', '').replace('</body>', '').replace('</html>', '');
 			myContent = myContent.replace('contenteditable="true"', '').replace('contenteditable="false"', '').replace(/contenteditable|contentEditable/gm, '');
 			$('#post-content').val(myContent);
 		}
+
 		function to_slug(str)
 		{
 			/* Chuyển hết sang chữ thường */
