@@ -257,21 +257,14 @@
 		$('#page-go').click(function ()
 		{
 			let link = $('#page-link').val();
-			let regex = /facebook.com\/groups\/[\w\d.]+\/posts\/\d+\/|facebook.com\/groups\/[\w\d.]+\/permalink\/\d+\//;
+			let regex = /facebook.com\/groups\/[\w\d.]+\/posts\/\d+|facebook.com\/groups\/[\w\d.]+\/permalink\/\d+|facebook.com\/permalink.php\?story_fbid=\d+&id=\d+/;
 
 			if (link.match(regex))
 			{
-				link = link.match(regex);
-				let facebook = '<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0" nonce="P7BX7oeK"><\/script>';
-				facebook += '<div class="fb-post" data-href="https://www.'+link+'" data-width="750" data-show-text="true"></div>';
-
-				$('#page-box').html(facebook);
-				$('#page-frame').hide();
+				link = 'https://www.facebook.com/plugins/post.php?href=https://www.'+link.match(regex)+'&show_text=true&width=750';
 			}
-			else
-			{
-				$('#page-frame').attr("src", link);
-			}
+			
+			$('#page-frame').attr("src", link);
 		});
 		$('button[data-link]').click(function () {
 			let link = $(this).data('link');
