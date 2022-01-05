@@ -206,7 +206,7 @@
 					<div class="row">
 						<div class="col-sm-6">
 							<div class="input-group input-group-sm">
-								<input type="text" class="form-control" id="page-link" value="">
+								<input type="text" class="form-control" id="page-link" value="" placeholder="https://www.facebook.com/ID/posts/ID/">
 								<span class="input-group-append">
 									<button type="button" class="btn btn-info btn-flat" id="page-go">Tìm Hiểu Ngay</button>
 								</span>
@@ -259,7 +259,16 @@
 			let link = $('#page-link').val();
 			if (link.includes('facebook.com'))
 			{
-				let facebook = '<div class="fb-post" data-href="' + link + '" data-width="750" data-show-text="true"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0" nonce="btIAEPch"><\/script>';
+				link = link.match(/facebook.com\/groups\/[\w\d.]+\/posts\/\d+\/|facebook.com\/groups\/[\w\d.]+\/permalink\/\d+\//);
+				console.log(link);
+				if (!link)
+				{
+					$('#page-link').val('');
+					return;
+				}
+				let facebook = '<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0" nonce="P7BX7oeK"><\/script>';
+				facebook += '<div class="fb-post" data-href="https://www.'+link+'" data-width="750" data-show-text="true"></div>';
+
 				$('#page-box').html(facebook);
 				$('#page-frame').hide();
 			}
@@ -274,5 +283,6 @@
 			$('#page-frame').attr("src", link);
 		});
 	</script>
+
 </body>
 </html>
