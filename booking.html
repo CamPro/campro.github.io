@@ -234,7 +234,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<iframe src="" width="100%" height="1000px" id="page-frame" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+						<iframe src="" width="100%" height="1000px" id="page-frame" style="border:none;overflow:hidden" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
 					</div>
 				</div>
 				<div class="container-fluid" id="page-content"></div>
@@ -256,8 +256,8 @@
 	<script type="text/javascript">
 		$('#page-go').click(function ()
 		{
-			let link = $('#page-link').val();
-			let regex = /facebook.com\/groups\/[\w\d.]+\/posts\/\d+|facebook.com\/[\w\d.]+\/posts\/\d+|facebook.com\/groups\/[\w\d.]+\/permalink\/\d+|facebook.com\/permalink.php\?story_fbid=\d+&id=\d+/;
+			var link = $('#page-link').val();
+			var regex = /facebook.com\/groups\/[\w\d.]+\/posts\/\d+|facebook.com\/[\w\d.]+\/posts\/\d+|facebook.com\/groups\/[\w\d.]+\/permalink\/\d+|facebook.com\/permalink.php\?story_fbid=\d+&id=\d+/;
 
 			if (link.match(regex))
 			{
@@ -265,13 +265,16 @@
 				link = 'https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.' + encodeURIComponent(link) + '&show_text=true&width=750';
 			}
 
-			$('#page-frame').attr("src", link);
-		});
-		$('button[data-link]').click(function () {
-			let link = $(this).data('link');
 			$('#page-link').val(link);
-			$('#page-frame').attr("src", link);
+			$('#page-frame').attr('src', link);
 		});
+		$('button[data-link]').click(function ()
+		{
+			var link = $(this).data('link');
+			$('#page-link').val(link);
+			$('#page-frame').attr('src', link);
+		});
+
 	</script>
 
 </body>
