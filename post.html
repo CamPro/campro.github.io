@@ -250,8 +250,7 @@
 		let slug = "";
 		let docid = "";
 
-		var url_string = window.location.href;
-		var url = new URL(url_string);
+		var url = new URL(window.location.href);
 		source = url.searchParams.get("source");
 		slug = url.searchParams.get("slug");
 		docid = url.searchParams.get("docid");

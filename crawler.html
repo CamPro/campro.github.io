@@ -8,6 +8,20 @@
 	<link rel="stylesheet" href="./public/plugins/sweetalert2/sweetalert2.min.css">
 	<link rel="stylesheet" href="./public/css/adminlte.min.css">
 	<link rel="stylesheet" href="./public/css/mystyle.css">
+	<script type="text/javascript">
+		function iframeChange()
+		{
+			document.getElementById('post-frame').contentWindow.onkeyup = function()
+			{
+				farmContent();
+			};
+
+			document.getElementById('post-frame').contentDocument.onchange = function()
+			{
+				farmContent();
+			};
+		}
+	</script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
@@ -195,7 +209,7 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="m-0">Duyệt Kinh Điển <span>({{ $count }})</span></h1>
+							<h1 class="m-0">Duyệt Kinh Điển <span>( $count )</span></h1>
 						</div>
 					</div>
 				</div>
@@ -209,8 +223,8 @@
 								<div class="card-header">
 									<h3 class="card-title">
 										Chi tiết kinh điển
-										<a id="page-prev" href="/crawler/{{ $index - 1 }}" class="btn btn-xs btn-default @if($index <= 0) disabled @endif"><i class="fas fa-chevron-left"></i></a>
-										<a id="page-next" href="/crawler/{{ $index + 1 }}" class="btn btn-xs btn-default @if($index+1 >= $count) disabled @endif"><i class="fas fa-chevron-right"></i></a>
+										<a id="page-prev" href="/crawler/{{ $index - 1 }}" class="btn btn-xs btn-default disabled"><i class="fas fa-chevron-left"></i></a>
+										<a id="page-next" href="/crawler/{{ $index + 1 }}" class="btn btn-xs btn-default disabled"><i class="fas fa-chevron-right"></i></a>
 									</h3>
 									<div class="card-tools">
 										<ul class="nav nav-pills ml-auto">
@@ -226,25 +240,25 @@
 								<div class="card-body">
 									<div class="form-group">
 										<label class="col-form-label" for="post-title"><i class="fas fa-spa"></i> Tiêu Đề</label>
-										<input type="text" class="form-control" id="post-title" value="@if(isset($crawl)){{ $crawl->title }}@endif">
+										<input type="text" class="form-control" id="post-title" value="$crawl->title">
 									</div>
 									<div class="row">
 										<div class="col-sm-4">
 											<div class="form-group">
 												<label><i class="fas fa-map-marker-alt"></i> source</label>
-												<input type="text" class="form-control" id="post-source" value="@if(isset($crawl)){{ $crawl->source }}@endif">
+												<input type="text" class="form-control" id="post-source" value="$crawl->source">
 											</div>
 										</div>
 										<div class="col-sm-4">
 											<div class="form-group">
 												<label><i class="fas fa-cubes"></i> category</label>
-												<input type="text" class="form-control" id="post-category" value="@if(isset($crawl)){{ $crawl->category }}@endif">
+												<input type="text" class="form-control" id="post-category" value="$crawl->category">
 											</div>
 										</div>
 										<div class="col-sm-4">
 											<div class="form-group">
 												<label><i class="fas fa-tags"></i> tags</label>
-												<input type="text" class="form-control" id="post-tags" value="@if(isset($crawl)){{ $crawl->tags }}@endif">
+												<input type="text" class="form-control" id="post-tags" value="$crawl->tags">
 											</div>
 										</div>
 									</div>
@@ -252,39 +266,39 @@
 										<div class="col-sm-4">
 											<div class="form-group">
 												<label><i class="fas fa-user-edit"></i> creator</label>
-												<input type="text" class="form-control" id="post-creator" value="@if(isset($crawl)){{ $crawl->creator }}@endif">
+												<input type="text" class="form-control" id="post-creator" value="$crawl->creator">
 											</div>
 										</div>
 										<div class="col-sm-4">
 											<div class="form-group">
 												<label><i class="far fa-calendar-minus"></i> created</label>
-												<input type="text" class="form-control" id="post-created" value="@if(isset($crawl)){{ $crawl->created }}@endif">
+												<input type="text" class="form-control" id="post-created" value="$crawl->created">
 											</div>
 										</div>
 										<div class="col-sm-4">
 											<div class="form-group">
 												<label><i class="far fa-thumbs-up"></i> vote</label>
-												<input type="text" class="form-control" id="post-vote" value="@if(isset($crawl)){{ $crawl->vote }}@endif">
+												<input type="text" class="form-control" id="post-vote" value="$crawl->vote">
 											</div>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="post-image"><i class="fas fa-image"></i> image</label>
-										<input type="text" class="form-control" id="post-image" value="@if(isset($crawl)){{ $crawl->image }}@endif">
+										<input type="text" class="form-control" id="post-image" value="$crawl->image">
 									</div>
 									<div class="row">
 										<div class="col-sm-9">
 											<div class="form-group">
 												<label class="col-form-label" for="post-slug"><i class="fas fa-paperclip"></i> slug</label>
-												<input type="text" class="form-control" id="post-slug" value="@if(isset($crawl)){{ $crawl->slug }}@endif">
+												<input type="text" class="form-control" id="post-slug" value="$crawl->slug">
 											</div>
 											<div class="form-group">
-												<label class="col-form-label" for="post-link"><a href="@if(isset($crawl)){{ $crawl->link }}@endif" target="_blank"><i class="fas fa-link"></i> link</a></label>
-												<input type="text" class="form-control is-warning is-invalid is-valid" id="post-link" value="@if(isset($crawl)){{ $crawl->link }}@endif">
+												<label class="col-form-label" for="post-link"><a href="$crawl->link" target="_blank"><i class="fas fa-link"></i> link</a></label>
+												<input type="text" class="form-control is-warning is-invalid is-valid" id="post-link" value="$crawl->link">
 											</div>
 										</div>
 										<div class="col-sm-3">
-											<a href="@if(isset($crawl)){{ $crawl->link }}@endif" target="_blank"><img id="post-avatar" class="attachment-img elevation-2" src="@if(isset($crawl)){{ $crawl->image }}@endif"></a>
+											<a href="$crawl->link" target="_blank"><img id="post-avatar" class="attachment-img elevation-2" src="$crawl->image"></a>
 										</div>
 									</div>
 								</div>
@@ -297,7 +311,7 @@
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<textarea class="form-control" rows="20" id="post-content">@if(isset($crawl)){{ $crawl->content }}@endif</textarea>
+										<textarea class="form-control" rows="20" id="post-content"></textarea>
 										<label class="btn btn-sm btn-default" id="post-view">HTML Preview <i class="fas fa-arrow-down"></i></label>
 										<label class="btn btn-sm btn-default" onclick="farmContent()">HTML Update <i class="fas fa-arrow-up"></i></label>
 									</div>
@@ -306,7 +320,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<iframe width="100%" height="1000px" id="post-frame"></iframe>
+						<iframe width="100%" height="1000px" id="post-frame" onload="iframeChange()"></iframe>
 					</div>
 
 				</div>
@@ -329,6 +343,14 @@
 	<script type="text/javascript">
 
 		let index = 0;
+		var url = new URL(window.location.href);
+
+		fetch('https://raw.githubusercontent.com/CamPro/'+url.host+'/main/pages/posts.json')
+		.then(response => response.text())
+		.then(data => {
+			var obj = JSON.parse(data);
+			console.log(obj);
+		});
 
 		/* get last index */
 		fsdb.collection("posts").orderBy("index", "desc").limit(1).get()
@@ -441,16 +463,6 @@
 		$('#post-title').change(function () {
 			$('#post-slug').val(to_slug(this.value));
 		})
-
-		document.getElementById('post-frame').contentWindow.onkeyup = function()
-		{
-			farmContent();
-		};
-
-		document.getElementById('post-frame').contentDocument.onchange = function()
-		{
-			farmContent();
-		};
 
 		function farmContent()
 		{
