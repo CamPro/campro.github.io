@@ -455,9 +455,12 @@
 			var myContent = $('#post-content').val();
 			myContent = '<body contentEditable="true">' + myContent + '</body>';
 
-			var iframeView = document.getElementById('post-frame').contentWindow || document.getElementById('post-frame').contentDocument.document || document.getElementById('post-frame').contentDocument;
+			var iframeView = document.getElementById('post-frame').contentWindow || document.getElementById('post-frame').contentDocument;
 			iframeView.document.write(myContent);
 			iframeView.document.close();
+
+			//change the height of the iframe
+			document.getElementById('post-frame').height = iframeView.document.body.scrollHeight;
 		});
 
 		$('#post-title').change(function () {
