@@ -257,13 +257,14 @@
 		$('#page-go').click(function ()
 		{
 			let link = $('#page-link').val();
-			let regex = /facebook.com\/groups\/[\w\d.]+\/posts\/\d+|facebook.com\/groups\/[\w\d.]+\/permalink\/\d+|facebook.com\/permalink.php\?story_fbid=\d+&id=\d+/;
+			let regex = /facebook.com\/groups\/[\w\d.]+\/posts\/\d+|facebook.com\/[\w\d.]+\/posts\/\d+|facebook.com\/groups\/[\w\d.]+\/permalink\/\d+|facebook.com\/permalink.php\?story_fbid=\d+&id=\d+/;
 
 			if (link.match(regex))
 			{
-				link = 'https://www.facebook.com/plugins/post.php?href=https://www.'+link.match(regex)+'&show_text=true&width=750';
+				link = link.match(regex)[0];
+				link = 'https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.' + encodeURIComponent(link) + '&show_text=true&width=750';
 			}
-			
+
 			$('#page-frame').attr("src", link);
 		});
 		$('button[data-link]').click(function () {
