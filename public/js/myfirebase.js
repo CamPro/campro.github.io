@@ -19,7 +19,7 @@ firebase.auth().onAuthStateChanged(() => {
 		$('#hello-user').text(email);
 	} else {
 		//logged out
-		window.location.href = 'signin.html';
+		//window.location.href = 'signin.html';
 	}
 });
 
