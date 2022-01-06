@@ -400,6 +400,7 @@
 			let value = snapshot.val();
 			if (value) {
 				lastTemp = Object.keys(value)[0];
+				$('#post-sync').prop('disabled', true);
 			}
 			else
 			{
