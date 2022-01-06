@@ -352,7 +352,7 @@
 			vote = Number(vote);
 			created = moment(created).unix();
 
-			fsdb.collection("posts").doc(docid).set({
+			fsdb.collection("posts").doc(docid).update({
 				source: source,
 				category: category,
 				tags: tags,
@@ -367,7 +367,7 @@
 			})
 			.then(() => {
 				console.log("Document successfully written!");
-				window.location.reload();
+				Toast.fire({ icon: 'success', title: 'Đã cập nhật' });
 			})
 			.catch((error) => {
 				Toast.fire({ icon: 'error', title: error });
