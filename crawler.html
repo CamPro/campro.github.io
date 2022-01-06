@@ -407,6 +407,7 @@
 
 		/* get last index */
 		fsdb.collection("posts").orderBy("index", "desc").limit(1).onSnapshot((querySnapshot) => {
+			console.log("read");
 			querySnapshot.forEach((doc) =>
 			{
 				let docdata = doc.data();
