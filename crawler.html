@@ -388,6 +388,8 @@
 				.then(data => {
 					$('#post-content').val(data);
 				});
+				// enable approval
+				$('#post-approval').prop('disabled', false);
 			}
 		});
 
@@ -452,6 +454,7 @@
 
 		$('#post-approval').click(function ()
 		{
+			$('#post-approval').prop('disabled', true);
 			let source = $('#post-source').val().trim();
 			let category = $('#post-category').val().trim();
 			let tags = $('#post-tags').val().trim();
