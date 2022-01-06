@@ -349,7 +349,7 @@
 		.then(response => response.text())
 		.then(data => {
 			var obj = JSON.parse(data);
-			console.log(obj[0]);
+			//console.log(obj[0]);
 
 			if (obj.length > 0)
 			{
@@ -365,7 +365,7 @@
 				$('#post-slug').val(obj[0].slug);
 				$('#post-content').val(obj[0].content);
 
-				$('#post-avatar').attr('src', obj[0].link);
+				$('#post-avatar').attr('src', obj[0].image);
 				$('a.post-link').attr('href', obj[0].link);
 
 				fetch('https://raw.githubusercontent.com/CamPro/'+url.host+'/main/pages/'+obj[0].source+'/'+obj[0].slug+'.html')
