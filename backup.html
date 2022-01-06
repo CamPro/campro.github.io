@@ -234,7 +234,7 @@
 			$('#post-count').text(querySnapshot.size);
 		});
 
-
+		var postIndex = 0;
 		$('#post-backup').click(function ()
 		{
 			let char = false;
@@ -250,6 +250,11 @@
 					$('#content-data').append(json);
 
 					char = true;
+
+					fsdb.collection("posts").doc(docid).update({
+						index: ++postIndex
+					}).catch((error) => console.log(error));
+
 				});
 				$('#content-data').append(']');
 			})
