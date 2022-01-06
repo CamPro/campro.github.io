@@ -235,7 +235,7 @@
 												<button class="btn btn-sm btn-success" id="post-approval">Phê Duyệt Vào CSDL <span id="post-index"></span></button>
 											</li>
 											<li class="nav-item">
-												<button class="btn btn-sm btn-warning" id="post-skip">Không duyệt</button>
+												<button class="btn btn-sm btn-warning" id="post-skip">Không duyệt <span id="post-skip"></span></button>
 											</li>
 										</ul>
 									</div>
@@ -364,6 +364,8 @@
 			if (value)
 			{
 				tempIndex = Object.keys(value)[0];
+				$('#post-skip').text('#' + tempIndex);
+
 				value = value[tempIndex];
 
 				$('#post-source').val(value.source);
