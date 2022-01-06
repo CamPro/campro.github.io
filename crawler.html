@@ -365,9 +365,14 @@
 				$('#post-slug').val(obj[0].slug);
 				$('#post-content').val(obj[0].content);
 
-
 				$('#post-avatar').attr('src', obj[0].link);
 				$('a.post-link').attr('href', obj[0].link);
+
+				fetch('https://raw.githubusercontent.com/CamPro/'+url.host+'/main/pages/'+obj[0].source+'/'+obj[0].slug+'.html')
+				.then(response => response.text())
+				.then(data => {
+					$('#post-content').html(data);
+				});
 			}
 		});
 
