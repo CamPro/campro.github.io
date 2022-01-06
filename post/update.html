@@ -379,8 +379,8 @@
 				index: index
 			})
 			.then(() => {
-				$('#post-update').prop('disabled', false);
 				Toast.fire({ icon: 'success', title: 'Đã cập nhật' });
+				$('#post-update').prop('disabled', false);
 			})
 			.catch((error) => {
 				Toast.fire({ icon: 'error', title: error });
