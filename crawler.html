@@ -407,7 +407,6 @@
 
 		/* get last index */
 		fsdb.collection("posts").orderBy("index", "desc").limit(1).onSnapshot((querySnapshot) => {
-			console.log("read");
 			querySnapshot.forEach((doc) =>
 			{
 				let docdata = doc.data();
@@ -463,7 +462,7 @@
 			let image = $('#post-image').val().trim();
 			let link = $('#post-link').val().trim();
 			let slug = $('#post-slug').val().trim();
-			let content = $('#post-content').val().trim();
+			//let content = $('#post-content').val().trim();
 
 			if (title.length <= 0)
 			{
