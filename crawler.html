@@ -361,6 +361,21 @@
 		rtdb.ref('temps/').limitToFirst(1).on('value', function(snapshot) {
 			let value = snapshot.val();
 			//console.log(value);
+			$('#post-source').val('');
+			$('#post-category').val('');
+			$('#post-tags').val('');
+			$('#post-title').val('');
+			$('#post-vote').val('');
+			$('#post-creator').val('');
+			$('#post-created').val('');
+			$('#post-image').val('');
+			$('#post-link').val('');
+			$('#post-slug').val('');
+			$('#post-content').val('');
+			$('#post-avatar').attr('src', '#');
+			$('a.post-link').attr('href', '#');
+			$('#post-content').val('');
+
 			if (value)
 			{
 				tempIndex = Object.keys(value)[0];
