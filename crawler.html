@@ -345,7 +345,9 @@
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
 
-		let postIndex = 0;
+		var postIndex = 0;
+		var tempIndex = 0;
+
 		var url = new URL(window.location.href);
 
 		fetch('https://raw.githubusercontent.com/CamPro/'+url.host+'/main/pages/posts.json')
@@ -361,8 +363,8 @@
 			//console.log(value);
 			if (value)
 			{
-				var key = Object.keys(value)[0];
-				value = value[key];
+				tempIndex = Object.keys(value)[0];
+				value = value[tempIndex];
 
 				$('#post-source').val(value.source);
 				$('#post-category').val(value.category);
@@ -495,6 +497,8 @@
 			})
 			.then((docRef) => {
 				console.log("OK Document ID: ", docRef.id);
+				// remove temp post
+				rtdb.ref('temps/' + tempIndex).remove().catch((error) => console.log(error));
 			})
 			.catch((error) => {
 				console.log(error);
@@ -503,21 +507,7 @@
 
 		$('#post-skip').click(function ()
 		{
-			$(this).prop('disabled', true);
-			let source = $('#post-source').val();
-			let slug = $('#post-slug').val();
-			$.post("/crawler/remove", {source:source, slug:slug}, function(result)
-			{
-				let obj = JSON.parse(result);
-				if (obj.success)
-				{
-					window.location.reload();
-				}
-				else
-				{
-					Toast.fire({ icon: 'error', title: obj.message });
-				}
-			});
+			rtdb.ref('temps/' + tempIndex).remove().catch((error) => console.log(error));
 		});
 
 		$('#post-image').change(function () {
