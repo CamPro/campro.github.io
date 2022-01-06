@@ -229,6 +229,9 @@
 									<div class="card-tools">
 										<ul class="nav nav-pills ml-auto">
 											<li class="nav-item">
+												<button class="btn btn-sm btn-primary" id="post-sync">Đồng Bộ Trải Nghiệm <span id="sync-count"></span></button>
+											</li>
+											<li class="nav-item">
 												<button class="btn btn-sm btn-success" id="post-approval">Phê Duyệt Vào CSDL</button>
 											</li>
 											<li class="nav-item">
@@ -351,6 +354,7 @@
 			var obj = JSON.parse(data);
 			//console.log(obj[0]);
 			$('#post-count').text('('+obj.length+')');
+			$('#sync-count').text(obj.length);
 
 			if (obj.length > 0)
 			{
@@ -390,6 +394,37 @@
 		.catch((error) => {
 			console.log(error);
 		});
+
+
+		$('#post-sync').click(function ()
+		{
+			fetch('https://raw.githubusercontent.com/CamPro/'+url.host+'/main/pages/posts.json')
+			.then(response => response.text())
+			.then(data => {
+				var objs = JSON.parse(data);
+
+				for (var i = 0; i < objs.length; i++)
+				{
+					var obj = objs[i];
+
+					rtdb.ref('posts/' + (i+1)).set({
+						source: obj.source,
+						category: obj.category,
+						tags: obj.tags,
+						title: obj.title,
+						slug: obj.slug,
+						vote: obj.vote,
+						creator: obj.creator,
+						created: obj.created,
+						image: obj.image,
+						link: obj.link,
+						file: obj.file
+					}).catch((error) => {
+						console.log(error);
+					});
+				}
+			});
+		})
 
 		$('#post-approval').click(function ()
 		{
@@ -431,21 +466,7 @@
 				number_reads: 0
 			})
 			.then((docRef) => {
-				console.log("Document ID: ", docRef.id);
-
-				$.post("/crawler/remove", {source:source, slug:slug}, function(result)
-				{
-					let obj = JSON.parse(result);
-					if (obj.success)
-					{
-						window.location.reload();
-					}
-					else
-					{
-						Toast.fire({ icon: 'error', title: obj.message });
-					}
-				});
-
+				console.log("OK Document ID: ", docRef.id);
 			})
 			.catch((error) => {
 				console.log(error);
