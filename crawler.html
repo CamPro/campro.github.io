@@ -371,7 +371,7 @@
 				fetch('https://raw.githubusercontent.com/CamPro/'+url.host+'/main/pages/'+obj[0].source+'/'+obj[0].slug+'.html')
 				.then(response => response.text())
 				.then(data => {
-					$('#post-content').html(data);
+					$('#post-content').val(data);
 				});
 			}
 		});
