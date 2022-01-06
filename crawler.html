@@ -209,7 +209,7 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="m-0">Duyệt Kinh Điển <span>( $count )</span></h1>
+							<h1 class="m-0">Duyệt Kinh Điển <span id="post-count">(0)</span></h1>
 						</div>
 					</div>
 				</div>
@@ -350,6 +350,7 @@
 		.then(data => {
 			var obj = JSON.parse(data);
 			//console.log(obj[0]);
+			$('#post-count').text('('+obj.length+')');
 
 			if (obj.length > 0)
 			{
