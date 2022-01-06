@@ -542,7 +542,7 @@
 			iframeView.document.close();
 
 			//change the height of the iframe
-			document.getElementById('post-frame').height = (iframeView.document.body.scrollHeight + 50) + 'px';
+			document.getElementById('post-frame').height = (iframeView.document.body.offsetHeight + 50) + 'px';
 		});
 
 		$('#post-title').change(function () {
