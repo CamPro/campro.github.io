@@ -413,9 +413,6 @@
 				postIndex = docdata.index;
 			});
 			$('#post-index').text('#' + postIndex);
-		})
-		.catch((error) => {
-			console.log(error);
 		});
 
 		// update posts.json to database
@@ -475,7 +472,7 @@
 
 			vote = Number(vote);
 			created = moment(created).unix();
-			++postIndex;
+			//++postIndex;
 
 			fsdb.collection("posts").add({
 				index: postIndex,
