@@ -395,7 +395,7 @@
 			console.log(error);
 		});
 
-
+		// update posts.json to database
 		$('#post-sync').click(function ()
 		{
 			fetch('https://raw.githubusercontent.com/CamPro/'+url.host+'/main/pages/posts.json')
@@ -407,7 +407,7 @@
 				{
 					var obj = objs[i];
 
-					rtdb.ref('posts/' + (i+1)).set({
+					rtdb.ref('temps/' + (i+1)).set({
 						source: obj.source,
 						category: obj.category,
 						tags: obj.tags,
