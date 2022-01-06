@@ -523,6 +523,7 @@
 
 		$('#post-skip').click(function ()
 		{
+			$('#post-approval').prop('disabled', true);
 			$('#post-skip').prop('disabled', true);
 			rtdb.ref('temps/' + tempIndex).remove().catch((error) => console.log(error));
 		});
