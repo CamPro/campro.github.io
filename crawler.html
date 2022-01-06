@@ -232,7 +232,7 @@
 												<button class="btn btn-sm btn-primary" id="post-sync">Đồng Bộ Trải Nghiệm (<span id="sync-count"></span>)</button>
 											</li>
 											<li class="nav-item">
-												<button class="btn btn-sm btn-success" id="post-approval">Phê Duyệt Vào CSDL</button>
+												<button class="btn btn-sm btn-success" id="post-approval">Phê Duyệt Vào CSDL <span id="post-index"></span></button>
 											</li>
 											<li class="nav-item">
 												<button class="btn btn-sm btn-warning" id="post-skip">Không duyệt</button>
@@ -345,7 +345,7 @@
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
 
-		let index = 0;
+		let postIndex = 0;
 		var url = new URL(window.location.href);
 
 		fetch('https://raw.githubusercontent.com/CamPro/'+url.host+'/main/pages/posts.json')
@@ -358,12 +358,11 @@
 		/* get first temp data */
 		rtdb.ref('temps/').limitToFirst(1).on('value', function(snapshot) {
 			let value = snapshot.val();
-
+			//console.log(value);
 			if (value)
 			{
 				var key = Object.keys(value)[0];
 				value = value[key];
-				console.log(value);
 
 				$('#post-source').val(value.source);
 				$('#post-category').val(value.category);
@@ -412,9 +411,9 @@
 			querySnapshot.forEach((doc) =>
 			{
 				let docdata = doc.data();
-				index = docdata.index;
+				postIndex = docdata.index;
 			});
-			console.log(index);
+			$('#post-index').text('#' + postIndex);
 		})
 		.catch((error) => {
 			console.log(error);
@@ -478,10 +477,10 @@
 
 			vote = Number(vote);
 			created = moment(created).unix();
-			++index;
+			++postIndex;
 
 			fsdb.collection("posts").add({
-				index: index,
+				index: postIndex,
 				source: source,
 				category: category,
 				tags: tags,
