@@ -389,10 +389,6 @@
 					$('#post-content').val(data);
 				});
 			}
-			else
-			{
-				
-			}
 		});
 
 		/* get last temp index */
@@ -410,8 +406,8 @@
 		});
 
 		/* get last index */
-		fsdb.collection("posts").orderBy("index", "desc").limit(1).get()
-		.then((querySnapshot) => {
+		fsdb.collection("posts").orderBy("index", "desc").limit(1).get().then((querySnapshot) => {
+			console.log('reload');
 			querySnapshot.forEach((doc) =>
 			{
 				let docdata = doc.data();
