@@ -162,7 +162,7 @@ function RenderSearch(doc)
 	let docid = doc.id;
 	let docdata = doc.data();
 	
-	let linkurl = '/post/' + docdata.source + '/' + docdata.slug + '/' + docid;
+	let linkurl = '/post.html?source=' + docdata.source + '&slug=' + docdata.slug + '&docid=' + docid;
 
 	let item = '<a href="'+linkurl+'" class="list-group-item"><div class="search-title">'+docdata.title+'</div><div class="search-path">'+docdata.creator+', '+docdata.category+'</div></a>';
 
