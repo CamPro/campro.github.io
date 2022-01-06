@@ -361,6 +361,7 @@
 		rtdb.ref('temps/').limitToFirst(1).on('value', function(snapshot) {
 			let value = snapshot.val();
 			//console.log(value);
+			// reset form
 			$('#post-source').val('');
 			$('#post-category').val('');
 			$('#post-tags').val('');
@@ -486,9 +487,9 @@
 			let slug = $('#post-slug').val().trim();
 			//let content = $('#post-content').val().trim();
 
-			if (title.length <= 0)
+			if (title == '' || slug == '')
 			{
-				alert('Không có tiêu đề');
+				alert('Không có tiêu đề, slug');
 				return;
 			}
 
