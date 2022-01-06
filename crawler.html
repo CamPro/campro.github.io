@@ -352,31 +352,39 @@
 		.then(response => response.text())
 		.then(data => {
 			var obj = JSON.parse(data);
-			//console.log(obj[0]);
 			$('#sync-count').text(obj.length);
+		});
 
-			if (obj.length > 0)
+		/* get first temp data */
+		rtdb.ref('temps/').limitToLast(1).on('value', function(snapshot) {
+			let value = snapshot.val();
+			console.log(value);
+			if (value)
 			{
-				$('#post-source').val(obj[0].source);
-				$('#post-category').val(obj[0].category);
-				$('#post-tags').val(obj[0].tags);
-				$('#post-title').val(obj[0].title);
-				$('#post-vote').val(obj[0].vote);
-				$('#post-creator').val(obj[0].creator);
-				$('#post-created').val(obj[0].created);
-				$('#post-image').val(obj[0].image);
-				$('#post-link').val(obj[0].link);
-				$('#post-slug').val(obj[0].slug);
-				$('#post-content').val(obj[0].content);
+				$('#post-source').val(value.source);
+				$('#post-category').val(value.category);
+				$('#post-tags').val(value.tags);
+				$('#post-title').val(value.title);
+				$('#post-vote').val(value.vote);
+				$('#post-creator').val(value.creator);
+				$('#post-created').val(value.created);
+				$('#post-image').val(value.image);
+				$('#post-link').val(value.link);
+				$('#post-slug').val(value.slug);
+				$('#post-content').val(value.content);
 
-				$('#post-avatar').attr('src', obj[0].image);
-				$('a.post-link').attr('href', obj[0].link);
+				$('#post-avatar').attr('src', value.image);
+				$('a.post-link').attr('href', value.link);
 
-				fetch('https://raw.githubusercontent.com/CamPro/'+url.host+'/main/pages/'+obj[0].source+'/'+obj[0].slug+'.html')
+				fetch('https://raw.githubusercontent.com/CamPro/'+url.host+'/main/pages/'+value.source+'/'+value.slug+'.html')
 				.then(response => response.text())
 				.then(data => {
 					$('#post-content').val(data);
 				});
+			}
+			else
+			{
+				
 			}
 		});
 
