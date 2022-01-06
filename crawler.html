@@ -240,25 +240,25 @@
 								<div class="card-body">
 									<div class="form-group">
 										<label class="col-form-label" for="post-title"><i class="fas fa-spa"></i> Tiêu Đề</label>
-										<input type="text" class="form-control" id="post-title" value="$crawl->title">
+										<input type="text" class="form-control" id="post-title" value="">
 									</div>
 									<div class="row">
 										<div class="col-sm-4">
 											<div class="form-group">
 												<label><i class="fas fa-map-marker-alt"></i> source</label>
-												<input type="text" class="form-control" id="post-source" value="$crawl->source">
+												<input type="text" class="form-control" id="post-source" value="">
 											</div>
 										</div>
 										<div class="col-sm-4">
 											<div class="form-group">
 												<label><i class="fas fa-cubes"></i> category</label>
-												<input type="text" class="form-control" id="post-category" value="$crawl->category">
+												<input type="text" class="form-control" id="post-category" value="">
 											</div>
 										</div>
 										<div class="col-sm-4">
 											<div class="form-group">
 												<label><i class="fas fa-tags"></i> tags</label>
-												<input type="text" class="form-control" id="post-tags" value="$crawl->tags">
+												<input type="text" class="form-control" id="post-tags" value="">
 											</div>
 										</div>
 									</div>
@@ -266,39 +266,39 @@
 										<div class="col-sm-4">
 											<div class="form-group">
 												<label><i class="fas fa-user-edit"></i> creator</label>
-												<input type="text" class="form-control" id="post-creator" value="$crawl->creator">
+												<input type="text" class="form-control" id="post-creator" value="">
 											</div>
 										</div>
 										<div class="col-sm-4">
 											<div class="form-group">
 												<label><i class="far fa-calendar-minus"></i> created</label>
-												<input type="text" class="form-control" id="post-created" value="$crawl->created">
+												<input type="text" class="form-control" id="post-created" value="">
 											</div>
 										</div>
 										<div class="col-sm-4">
 											<div class="form-group">
 												<label><i class="far fa-thumbs-up"></i> vote</label>
-												<input type="text" class="form-control" id="post-vote" value="$crawl->vote">
+												<input type="text" class="form-control" id="post-vote" value="">
 											</div>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="post-image"><i class="fas fa-image"></i> image</label>
-										<input type="text" class="form-control" id="post-image" value="$crawl->image">
+										<input type="text" class="form-control" id="post-image" value="">
 									</div>
 									<div class="row">
 										<div class="col-sm-9">
 											<div class="form-group">
 												<label class="col-form-label" for="post-slug"><i class="fas fa-paperclip"></i> slug</label>
-												<input type="text" class="form-control" id="post-slug" value="$crawl->slug">
+												<input type="text" class="form-control" id="post-slug" value="">
 											</div>
 											<div class="form-group">
-												<label class="col-form-label" for="post-link"><a href="$crawl->link" target="_blank"><i class="fas fa-link"></i> link</a></label>
-												<input type="text" class="form-control is-warning is-invalid is-valid" id="post-link" value="$crawl->link">
+												<label class="col-form-label" for="post-link"><a href="#" class="post-link" target="_blank"><i class="fas fa-link"></i> link</a></label>
+												<input type="text" class="form-control is-warning is-invalid is-valid" id="post-link" value="">
 											</div>
 										</div>
 										<div class="col-sm-3">
-											<a href="$crawl->link" target="_blank"><img id="post-avatar" class="attachment-img elevation-2" src="#$crawl->image"></a>
+											<a href="#" class="post-link" target="_blank"><img id="post-avatar" class="attachment-img elevation-2" src="#$crawl->image"></a>
 										</div>
 									</div>
 								</div>
@@ -364,6 +364,10 @@
 				$('#post-link').val(obj[0].link);
 				$('#post-slug').val(obj[0].slug);
 				$('#post-content').val(obj[0].content);
+
+
+				$('#post-avatar').attr('src', obj[0].link);
+				$('a.post-link').attr('href', obj[0].link);
 			}
 		});
 
