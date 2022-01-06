@@ -209,6 +209,7 @@
 					<textarea class="form-control" rows="25" id="content-data" placeholder="Từ khóa | catelog"></textarea>
 					<button class="btn btn-default" id="keyword-update">Cập Nhật Từ Khóa (<span id="keyword-count"></span>)</button>
 					<button class="btn btn-default" id="crush-update">Cập Nhật Thả Thính (<span id="crush-count"></span>)</button>
+					<button class="btn btn-default" id="post-reindex">Đánh index Kho Tàng</button>
 				</div>
 			</div>
 		</div>
@@ -234,11 +235,10 @@
 			$('#post-count').text(querySnapshot.size);
 		});
 
-		var postIndex = 0;
 		$('#post-backup').click(function ()
 		{
 			let char = false;
-			var firstNew = fsdb.collection("posts").orderBy("created", "desc").get()
+			fsdb.collection("posts").orderBy("created", "desc").get()
 			.then((querySnapshot) => {
 				querySnapshot.forEach((doc) =>
 				{
@@ -250,11 +250,6 @@
 					$('#content-data').append(json);
 
 					char = true;
-
-					fsdb.collection("posts").doc(docid).update({
-						index: ++postIndex
-					}).catch((error) => console.log(error));
-
 				});
 				$('#content-data').append(']');
 			})
@@ -262,6 +257,25 @@
 				console.log(error);
 			});
 		});
+
+		var postIndex = 0;
+		$('#post-reindex').click(function ()
+		{
+			fsdb.collection("posts").get()
+			.then((querySnapshot) => {
+				querySnapshot.forEach((doc) =>
+				{
+					let docid = doc.id;
+
+					fsdb.collection("posts").doc(docid).update({
+						index: ++postIndex
+					}).catch((error) => console.log(error));
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		})
 
 		$('#keyword-backup').click(function () {
 			fsdb.collection("keywords").get()
