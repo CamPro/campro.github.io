@@ -356,11 +356,15 @@
 		});
 
 		/* get first temp data */
-		rtdb.ref('temps/').limitToLast(1).on('value', function(snapshot) {
+		rtdb.ref('temps/').limitToFirst(1).on('value', function(snapshot) {
 			let value = snapshot.val();
-			console.log(value);
+
 			if (value)
 			{
+				var key = Object.keys(value)[0];
+				value = value[key];
+				console.log(value);
+
 				$('#post-source').val(value.source);
 				$('#post-category').val(value.category);
 				$('#post-tags').val(value.tags);
