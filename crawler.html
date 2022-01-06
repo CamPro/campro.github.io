@@ -209,7 +209,7 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="m-0">Duyệt Kinh Điển <span id="post-count">(0)</span></h1>
+							<h1 class="m-0">Duyệt Kinh Điển (<span id="post-count"></span>)</h1>
 						</div>
 					</div>
 				</div>
@@ -229,7 +229,7 @@
 									<div class="card-tools">
 										<ul class="nav nav-pills ml-auto">
 											<li class="nav-item">
-												<button class="btn btn-sm btn-primary" id="post-sync">Đồng Bộ Trải Nghiệm <span id="sync-count"></span></button>
+												<button class="btn btn-sm btn-primary" id="post-sync">Đồng Bộ Trải Nghiệm (<span id="sync-count"></span>)</button>
 											</li>
 											<li class="nav-item">
 												<button class="btn btn-sm btn-success" id="post-approval">Phê Duyệt Vào CSDL</button>
@@ -353,7 +353,6 @@
 		.then(data => {
 			var obj = JSON.parse(data);
 			//console.log(obj[0]);
-			$('#post-count').text('('+obj.length+')');
 			$('#sync-count').text(obj.length);
 
 			if (obj.length > 0)
@@ -381,6 +380,20 @@
 			}
 		});
 
+		/* get last temp index */
+		var lastTemp = 0;
+		rtdb.ref('temps/').orderByKey().limitToLast(1).on('value', function(snapshot) {
+			let value = snapshot.val();
+			if (value) {
+				lastTemp = Object.keys(value)[0];
+			}
+			else
+			{
+				lastTemp = 0;
+			}
+			$('#post-count').text(lastTemp);
+		});
+
 		/* get last index */
 		fsdb.collection("posts").orderBy("index", "desc").limit(1).get()
 		.then((querySnapshot) => {
@@ -406,8 +419,9 @@
 				for (var i = 0; i < objs.length; i++)
 				{
 					var obj = objs[i];
+					var num_stt = i + 1;
 
-					rtdb.ref('temps/' + (i+1)).set({
+					rtdb.ref('temps/' + num_stt).set({
 						source: obj.source,
 						category: obj.category,
 						tags: obj.tags,
@@ -419,6 +433,9 @@
 						image: obj.image,
 						link: obj.link,
 						file: obj.file
+					})
+					.then(() => {
+						// Data saved successfully!
 					}).catch((error) => {
 						console.log(error);
 					});
