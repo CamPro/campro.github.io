@@ -349,7 +349,22 @@
 		.then(response => response.text())
 		.then(data => {
 			var obj = JSON.parse(data);
-			console.log(obj);
+			console.log(obj[0]);
+
+			if (obj.length > 0)
+			{
+				$('#post-source').val(obj[0].source);
+				$('#post-category').val(obj[0].category);
+				$('#post-tags').val(obj[0].tags);
+				$('#post-title').val(obj[0].title);
+				$('#post-vote').val(obj[0].vote);
+				$('#post-creator').val(obj[0].creator);
+				$('#post-created').val(obj[0].created);
+				$('#post-image').val(obj[0].image);
+				$('#post-link').val(obj[0].link);
+				$('#post-slug').val(obj[0].slug);
+				$('#post-content').val(obj[0].content);
+			}
 		});
 
 		/* get last index */
