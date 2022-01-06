@@ -406,8 +406,7 @@
 		});
 
 		/* get last index */
-		fsdb.collection("posts").orderBy("index", "desc").limit(1).get().then((querySnapshot) => {
-			console.log('reload');
+		fsdb.collection("posts").orderBy("index", "desc").limit(1).onSnapshot((querySnapshot) => {
 			querySnapshot.forEach((doc) =>
 			{
 				let docdata = doc.data();
