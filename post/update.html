@@ -215,22 +215,28 @@
 										<input type="text" class="form-control" id="post-title" value="">
 									</div>
 									<div class="row">
-										<div class="col-sm-4">
+										<div class="col-sm-3">
 											<div class="form-group">
 												<label><i class="fas fa-map-marker-alt"></i> source</label>
 												<input type="text" class="form-control" id="post-source" value="">
 											</div>
 										</div>
-										<div class="col-sm-4">
+										<div class="col-sm-3">
 											<div class="form-group">
 												<label><i class="fas fa-cubes"></i> category</label>
 												<input type="text" class="form-control" id="post-category" value="">
 											</div>
 										</div>
-										<div class="col-sm-4">
+										<div class="col-sm-3">
 											<div class="form-group">
 												<label><i class="fas fa-tags"></i> tags</label>
 												<input type="text" class="form-control" id="post-tags" value="">
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label><i class="fas">#</i> index</label>
+												<input type="number" class="form-control" id="post-index" value="" min="0">
 											</div>
 										</div>
 									</div>
@@ -256,7 +262,7 @@
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label><i class="far fa-eye"></i> number read</label>
-												<input type="text" class="form-control" id="post-number-read" value="">
+												<input type="text" class="form-control" id="post-number-read" value="" min="0">
 											</div>
 										</div>
 									</div>
@@ -323,6 +329,7 @@
 				$('#post-slug').val(docdata.slug);
 				$('#post-link').val(docdata.link);
 				$('#post-number-read').val(docdata.number_reads);
+				$('#post-index').val(docdata.index);
 				$('#post-avatar').attr('src', docdata.image);
 
 				let created = moment.unix(docdata.created).format("YYYY-MM-DD");
@@ -351,6 +358,7 @@
 			let image = $('#post-image').val().trim();
 			let link = $('#post-link').val().trim();
 			let slug = $('#post-slug').val().trim();
+			let index = $('#post-index').val().trim();
 			let number_reads = $('#post-number-read').val().trim();
 
 			vote = Number(vote);
@@ -367,7 +375,8 @@
 				image: image,
 				link: link,
 				slug: slug,
-				number_reads: number_reads
+				number_reads: number_reads,
+				index: index
 			})
 			.then(() => {
 				$('#post-update').prop('disabled', false);
