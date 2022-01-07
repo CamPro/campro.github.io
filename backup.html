@@ -257,20 +257,33 @@
 				console.log(error);
 			});
 		});
-
-		var postIndex = 0;
+		// đánh lại index các bài post theo thứ tự tăng dần không trùng nhau
 		$('#post-reindex').click(function ()
 		{
 			fsdb.collection("posts").get()
 			.then((querySnapshot) => {
+				// get post id document
+				var array = [];
 				querySnapshot.forEach((doc) =>
 				{
 					let docid = doc.id;
+					array.push(docid);
 
-					fsdb.collection("posts").doc(docid).update({
-						index: ++postIndex
-					}).catch((error) => console.log(error));
 				});
+				// update index
+				var number = 1;
+				var interval = setInterval(function ()
+				{
+					let docid = array[number];
+					fsdb.collection("posts").doc(docid).update({
+						index: number
+					}).catch((error) => console.log(error));
+					++number;
+					if (number >= array.length)
+					{
+						clearInterval(interval);
+					}
+				}, 50);
 			})
 			.catch((error) => {
 				console.log(error);
