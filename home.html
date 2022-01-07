@@ -258,53 +258,63 @@
 		{
 			clearTimeout(timer);
 			timer = setTimeout(function () { NoteSave(1) }, 5000);
+			AutoSize(this);
 		});
 		$('#note-data-2').keyup(function ()
 		{
 			clearTimeout(timer);
 			timer = setTimeout(function () { NoteSave(2) }, 5000);
+			AutoSize(this);
 		});
 		$('#note-data-3').keyup(function ()
 		{
 			clearTimeout(timer);
 			timer = setTimeout(function () { NoteSave(3) }, 5000);
+			AutoSize(this);
 		});
 		$('#note-data-4').keyup(function ()
 		{
 			clearTimeout(timer);
 			timer = setTimeout(function () { NoteSave(4) }, 5000);
+			AutoSize(this);
 		});
 
 		$('#note-data-5').keyup(function ()
 		{
 			clearTimeout(timer);
 			timer = setTimeout(function () { NoteSave(5) }, 5000);
+			AutoSize(this);
 		});
 
 		$('#note-data-1').change(function ()
 		{
 			clearTimeout(timer);
 			NoteSave(1);
+			AutoSize(this);
 		});
 		$('#note-data-2').change(function ()
 		{
 			clearTimeout(timer);
 			NoteSave(2);
+			AutoSize(this);
 		});
 		$('#note-data-3').change(function ()
 		{
 			clearTimeout(timer);
 			NoteSave(3);
+			AutoSize(this);
 		});
 		$('#note-data-4').change(function ()
 		{
 			clearTimeout(timer);
 			NoteSave(4);
+			AutoSize(this);
 		});
 		$('#note-data-5').change(function ()
 		{
 			clearTimeout(timer);
 			NoteSave(5);
+			AutoSize(this);
 		});
 
 		function NoteSave(noteid)
@@ -383,7 +393,8 @@
 		fsdb.collection("notes").doc('1').get().then((doc) =>{
 			if (doc.exists) {
 				$('#note-data-1').val(doc.data().note);
-				$('#note-data-1').prop('rows', doc.data().note.split("\n").length + 1);
+				var element = document.querySelector('#note-data-1');
+				AutoSize(element);
 			}
 		})
 
@@ -391,7 +402,8 @@
 		fsdb.collection("notes").doc('2').get().then((doc) =>{
 			if (doc.exists) {
 				$('#note-data-2').val(doc.data().note);
-				$('#note-data-2').prop('rows', doc.data().note.split("\n").length + 1);
+				var element = document.querySelector('#note-data-2');
+				AutoSize(element);
 			}
 		})
 
@@ -399,7 +411,8 @@
 		fsdb.collection("notes").doc('3').get().then((doc) =>{
 			if (doc.exists) {
 				$('#note-data-3').val(doc.data().note);
-				$('#note-data-3').prop('rows', doc.data().note.split("\n").length + 1);
+				var element = document.querySelector('#note-data-3');
+				AutoSize(element);
 			}
 		})
 
@@ -407,7 +420,8 @@
 		fsdb.collection("notes").doc('4').get().then((doc) =>{
 			if (doc.exists) {
 				$('#note-data-4').val(doc.data().note);
-				$('#note-data-4').prop('rows', doc.data().note.split("\n").length + 1);
+				var element = document.querySelector('#note-data-4');
+				AutoSize(element);
 			}
 		})
 
@@ -415,10 +429,15 @@
 		fsdb.collection("notes").doc('5').get().then((doc) =>{
 			if (doc.exists) {
 				$('#note-data-5').val(doc.data().note);
-				$('#note-data-5').prop('rows', doc.data().note.split("\n").length + 1);
+				var element = document.querySelector('#note-data-5');
+				AutoSize(element);
 			}
 		})
-
+		function AutoSize(element)
+		{
+			element.style.height = "1px";
+			element.style.height = (25+element.scrollHeight)+"px";
+		}
 	</script>
 </body>
 </html>
