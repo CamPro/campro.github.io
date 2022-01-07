@@ -206,7 +206,7 @@
 					<button class="btn btn-default" id="post-backup">Sao Lưu Kho Tàng Kinh Điển (<span id="post-count"></span>)</button>
 					<button class="btn btn-default" id="know-backup">Sao Lưu Kho Kiến Thức</button>
 					<button class="btn btn-default" id="keyword-backup">Sao Lưu Từ Khóa</button>
-					<button class="btn btn-default" id="post-reindex">Đánh index Kho Tàng</button>
+					<button class="btn btn-default" id="post-reindex">Đánh index Kho Tàng (<span id="post-reindex-number"></span>)</button>
 					<textarea class="form-control" rows="25" id="content-data" placeholder="Từ khóa | catelog"></textarea>
 					<button class="btn btn-default" id="keyword-update">Cập Nhật Từ Khóa (<span id="keyword-count"></span>)</button>
 					<button class="btn btn-default" id="crush-update">Cập Nhật Thả Thính (<span id="crush-count"></span>)</button>
@@ -274,6 +274,8 @@
 				var number = 1;
 				var interval = setInterval(function ()
 				{
+					$('#post-reindex-number').text(number);
+
 					let docid = array[number];
 					fsdb.collection("posts").doc(docid).update({
 						index: number
