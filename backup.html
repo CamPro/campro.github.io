@@ -276,10 +276,10 @@
 				{
 					let docid = array[number];
 					fsdb.collection("posts").doc(docid).update({
-						index: ++number
+						index: (number+1)
 					}).catch((error) => console.log(error));
 
-					$('#post-reindex-number').text(number);
+					$('#post-reindex-number').text(number++);
 
 					if (number >= array.length)
 					{
