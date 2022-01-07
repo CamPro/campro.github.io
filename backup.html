@@ -271,16 +271,16 @@
 
 				});
 				// update index
-				var number = 1;
+				var number = 0;
 				var interval = setInterval(function ()
 				{
-					$('#post-reindex-number').text(number);
-
 					let docid = array[number];
 					fsdb.collection("posts").doc(docid).update({
-						index: number
+						index: ++number
 					}).catch((error) => console.log(error));
-					++number;
+
+					$('#post-reindex-number').text(number);
+
 					if (number >= array.length)
 					{
 						clearInterval(interval);
