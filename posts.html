@@ -205,7 +205,15 @@
 						<div class="col-sm-6">
 							<div class="card">
 								<div class="card-header">
-									<h3 class="card-title">Kho Tàng Mới Khai Quật</h3>
+									<h3 class="card-title">
+										<div class="">
+											<input list="sources" type="text" class="form-control" id="post-source" value="">
+											<datalist id="sources">
+												<option value="spiderum">Spiderum</option>
+												<option value="monsterbox">Monster Box</option>
+											</datalist>
+										</div>
+									</h3>
 								</div>
 								<div class="card-body p-0">
 									<ul class="products-list product-list-in-card pl-2 pr-2" id="list-new-post">
@@ -287,7 +295,6 @@
 			console.log(error);
 		});
 
-
 		var firstTop = fsdb.collection("posts").orderBy("vote", "desc").limit(3).get()
 		.then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
@@ -298,7 +305,6 @@
 		.catch((error) => {
 			console.log(error);
 		});
-
 
 		var firstRead = fsdb.collection("posts").orderBy("number_reads", "asc").limit(3).get()
 		.then((querySnapshot) => {
@@ -311,19 +317,35 @@
 			console.log(error);
 		});
 
-
 		$('#list-new-more').click(function ()
 		{
-			fsdb.collection("posts").orderBy("created", "desc").startAfter(lastNew).limit(limit_post).get()
-			.then((querySnapshot) => {
-				querySnapshot.forEach((doc) => {
-					RenderList(doc, '#list-new-post');
-					lastNew = doc;
+			var select_source = $('#post-source').val();
+			if (select_source)
+			{
+				fsdb.collection("posts").where('source', '==', select_source).orderBy("created", "desc").startAfter(lastNew).limit(limit_post).get()
+				.then((querySnapshot) => {
+					querySnapshot.forEach((doc) => {
+						RenderList(doc, '#list-new-post');
+						lastNew = doc;
+					});
+				})
+				.catch((error) => {
+					console.log(error);
 				});
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+			}
+			else
+			{
+				fsdb.collection("posts").orderBy("created", "desc").startAfter(lastNew).limit(limit_post).get()
+				.then((querySnapshot) => {
+					querySnapshot.forEach((doc) => {
+						RenderList(doc, '#list-new-post');
+						lastNew = doc;
+					});
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+			}
 		})
 
 		$('#list-top-more').click(function ()
@@ -364,7 +386,7 @@
 
 			var item = '<li class="item">';
 			item += '<div class="product-img">';
-			item += '<a href="' + linkurl + '" target="_blank"><img src="' + docdata.image + '" class="img-size-50"></a>'
+			item += '<a href="' + linkurl + '" target="_blank"><img src="' + docdata.image + '" class="img-size-50" style="width: 50px !important;"></a>';
 			item += '</div>';
 			item += '<div class="product-info">';
 			item += '<a href="' + linkurl + '" class="product-title">' + docdata.title;
