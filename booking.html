@@ -209,6 +209,8 @@
 								<input type="text" class="form-control" id="page-link" value="" placeholder="https://www.facebook.com/ID/posts/ID/">
 								<span class="input-group-append">
 									<button type="button" class="btn btn-info btn-flat" id="page-go">Tìm Hiểu Ngay</button>
+									<button type="button" class="btn btn-warning btn-flat" id="page-height-plus"><i class="fas fa-plus"></i></button>
+									<button type="button" class="btn btn-default btn-flat" id="page-height-minus"><i class="fas fa-minus"></i></button>
 								</span>
 							</div>
 						</div>
@@ -221,11 +223,12 @@
 							<button class="btn btn-sm btn-default" data-link="https://khoahoc.tv">khoahoc.tv</button>
 							<button class="btn btn-sm btn-default" data-link="https://tamlyhoctoipham.com">Tâm Lý Học</button>
 							<button class="btn btn-sm btn-default" data-link="https://phamngocanh.com">Phạm Ngọc Anh</button>
+							<button class="btn btn-sm btn-default" data-link="https://toidicodedao.com">Tôi đi code dạo</button>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
-							<a class="btn btn-sm btn-default" href="https://www.facebook.com/teammonsterbox" target="_blank">Monster Box</a>
+							<a class="btn btn-sm btn-default" href="https://www.facebook.com/1938993986381358" target="_blank">Monster Box</a>
 							<a class="btn btn-sm btn-default" href="https://www.ted.com/talks?sort=newest&language=vi" target="_blank">TED Talks</a>
 							<a class="btn btn-sm btn-default" href="https://ed.ted.com/lessons?direction=desc&sort=featured-position&user_by_click=student" target="_blank">TED Ed</a>
 							<a class="btn btn-sm btn-default" href="https://www.youtube.com/c/TED/videos" target="_blank">TED YouTube</a>
@@ -278,6 +281,17 @@
 			$('#page-link').val(link);
 			$('#page-frame').attr('src', link);
 		});
+
+		$('#page-height-plus').click(function ()
+		{
+			var height = $('#page-frame').attr('height').replace('px', '');
+			$('#page-frame').attr('height', Number(height) + 250 + 'px');
+		})
+		$('#page-height-minus').click(function ()
+		{
+			var height = $('#page-frame').attr('height').replace('px', '');
+			$('#page-frame').attr('height', Number(height) - 200 + 'px');
+		})
 	</script>
 </body>
 </html>
