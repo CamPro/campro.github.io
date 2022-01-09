@@ -88,6 +88,11 @@
 							</a>
 						</li>
 						<li class="nav-item">
+							<a href="./classroom.html" class="nav-link ">
+								<i class="nav-icon fas fa-chalkboard-teacher"></i><p>Vào Lớp Học</p>
+							</a>
+						</li>
+						<li class="nav-item">
 							<a href="./posts.html" class="nav-link ">
 								<i class="nav-icon fas fa-cloud-sun"></i><p>Kho Tàng Tri Thức</p>
 							</a>
@@ -284,12 +289,12 @@
 
 		$('#page-height-plus').click(function ()
 		{
-			var height = $('#page-frame').attr('height').replace('px', '');
+			var height = $('#page-frame').attr('height').replace('px', '').replace('%', '');
 			$('#page-frame').attr('height', Number(height) + 250 + 'px');
 		})
 		$('#page-height-minus').click(function ()
 		{
-			var height = $('#page-frame').attr('height').replace('px', '');
+			var height = $('#page-frame').attr('height').replace('px', '').replace('%', '');
 			$('#page-frame').attr('height', Number(height) - 200 + 'px');
 		})
 	</script>
