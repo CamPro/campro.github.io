@@ -215,15 +215,15 @@
 								<div class="card-header">
 									<div class="row">
 										<div class="col-sm-10">
-											<textarea class="form-control" rows="1" id="post-content" placeholder="<html>"></textarea>
+											<textarea class="form-control" rows="1" id="room-content" placeholder="<html>"></textarea>
 										</div>
 										<div class="col-sm-2">
-											<button class="btn btn-default form-control" id="post-view">Bắt Đầu Giảng</button>
+											<button class="btn btn-default form-control" id="room-view">Bắt Đầu Giảng</button>
 										</div>
 									</div>
 								</div>
 								<div class="card-body">
-									<iframe width="100%" height="500px" id="post-frame" style="border:none;overflow:hidden" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+									<iframe width="100%" height="500px" id="room-frame" style="border:none;overflow:hidden" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
 								</div>
 								<div class="card-footer">
 									<button class="btn btn-xs btn-default" id="page-height-plus"><i class="fas fa-plus"></i></button>
@@ -235,25 +235,20 @@
 							<div class="card card-default">
 								<div class="card-header">
 									<div class="form-group">
-										<select class="form-control" id="class_courses">
+										<select class="form-control" id="room-courses">
 										</select>
 									</div>
-									<input type="text" class="form-control" id="post-title" value="" placeholder="Tiêu đề bài giảng">
+									<input type="text" class="form-control" id="room-session" value="" placeholder="Tiêu đề bài giảng">
 								</div>
 								<div class="card-body">
-									<div class="form-group">
-										<textarea class="form-control" id="post-brain" rows="1" placeholder="Ghi nhớ 1"></textarea>
+									<div class="" id="room-list">
 									</div>
-									<div class="form-group">
-										<textarea class="form-control" id="post-brain" rows="1" placeholder="Ghi nhớ 2"></textarea>
-									</div>
-
 								</div>
 								<div class="card-footer">
 									<div class="input-group">
-										<textarea class="form-control" id="post-brain" rows="2" placeholder="Ghi nhớ mới"></textarea>
+										<textarea class="form-control" id="room-brain" rows="2" placeholder="Ghi nhớ mới"></textarea>
 										<div class="input-group-append">
-											<span class="btn btn-primary input-group-text"><i class="fas fa-check-double"></i></span>
+											<span class="btn btn-primary input-group-text" id="room-save"><i class="fas fa-check-double"></i></span>
 										</div>
 									</div>
 								</div>
@@ -284,10 +279,12 @@
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
 
+		var studyIndex = null;
+
 		// load courses
 		GetCourses();
 		
-		$('#class_courses').change(function ()
+		$('#room-courses').change(function ()
 		{
 			var course = $(this).val();
 			if (course == '+')
@@ -311,106 +308,104 @@
 			}
 		})
 
-		$('#post-title').on('change keyup', function ()
+		$('#room-session, #room-courses').on('change keyup', function ()
 		{
-			var course = $('#class_courses').val();
+			var course = $('#room-courses').val();
 			if (!course)
 			{
-				$('#class_courses').addClass('is-invalid');
+				$('#room-courses').addClass('is-invalid');
 			}
 			else
 			{
-				$('#class_courses').removeClass('is-invalid');
+				$('#room-courses').removeClass('is-invalid');
 			}
 		});
 
-
-
-
-
-
-
-
-
-		$('#post-approval').click(function ()
+		$('#room-save').click(function ()
 		{
-			$('#post-approval').prop('disabled', true);
-			$('#post-skip').prop('disabled', true);
+			$('#room-save').prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i>');
 
-			let source = $('#post-source').val().trim();
-			let category = $('#post-category').val().trim();
-			let tags = $('#post-tags').val().trim();
-			let title = $('#post-title').val().trim();
-			let vote = $('#post-vote').val().trim();
-			let creator = $('#post-creator').val().trim();
-			let created = $('#post-created').val().trim();
-			let image = $('#post-image').val().trim();
-			let link = $('#post-link').val().trim();
-			let slug = $('#post-slug').val().trim();
-			/*let content = $('#post-content').val().trim(); */
+			let note = $("#room-brain").val().trim();
 
-			if (title == '' || slug == '')
+			if (note)
 			{
-				alert('Không có tiêu đề, slug');
+				var html = '<textarea class="form-control room-brains" rows="1">' + note + '</textarea>';
+				$('#room-list').append(html);
+				$("#room-brain").val('');
+			}
+
+			let content = $('#room-content').val().trim();
+			let course_id = $('#room-courses').val().trim();
+			let session = $('#room-session').val().trim();
+			let brains = $("textarea.room-brains").map(function(){ return $(this).val(); }).get();
+
+			if (content == '' || course_id == '' || session == '')
+			{
 				return;
 			}
 
-			vote = Number(vote);
-			created = moment(created).unix();
-			++postIndex;
-
-			fsdb.collection("posts").add({
-				index: postIndex,
-				source: source,
-				category: category,
-				tags: tags,
-				title: title,
-				vote: vote,
-				creator: creator,
-				created: created,
-				image: image,
-				link: link,
-				slug: slug,
-				number_reads: 0
-			})
-			.then((docRef) => {
-				console.log("OK Document ID: ", docRef.id);
-				/* remove temp post */
-				rtdb.ref('temps/' + tempIndex).remove().catch((error) => console.log(error));
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+			if (!studyIndex)
+			{
+				fsdb.collection("studies").add({
+					content: content,
+					course_id: course_id,
+					session: session,
+					brains: brains
+				})
+				.then((docRef) => {
+					console.log("OK Document ID: ", docRef.id);
+					studyIndex = docRef.id;
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+			}
+			else
+			{
+				fsdb.collection("studies").doc(studyIndex).update({
+					content: content,
+					course_id: course_id,
+					session: session,
+					brains: brains
+				})
+				.then(() => {
+					
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+			}
+			$('#room-save').prop('disabled', false).html('<i class="fas fa-check-double"></i>');
 		})
 
-		$('#post-content').on('change keyup', function ()
+		$('#room-content').on('change keyup', function ()
 		{
 			var content = $(this).val().replace(/width="(\w+.)"/, 'width="100%"').replace(/height="(\w+.)"/, 'height="100%"');
 			$(this).val(content);
 		})
 
-		$('#post-view').click(function ()
+		$('#room-view').click(function ()
 		{
-			var myContent = $('#post-content').val();
+			var myContent = $('#room-content').val();
 			myContent = '<body contentEditable="true">' + myContent + '</body>';
 
-			var iframeView = document.getElementById('post-frame').contentWindow || document.getElementById('post-frame').contentDocument;
+			var iframeView = document.getElementById('room-frame').contentWindow || document.getElementById('room-frame').contentDocument;
 			iframeView.document.write(myContent);
 			iframeView.document.close();
 
 			/*change the height of the iframe */
-			document.getElementById('post-frame').height = (iframeView.document.body.offsetHeight + 25) + 'px';
+			document.getElementById('room-frame').height = (iframeView.document.body.offsetHeight + 25) + 'px';
 		});
 
 		$('#page-height-plus').click(function ()
 		{
-			var height = $('#post-frame').attr('height').replace('px', '').replace('%', '');
-			$('#post-frame').attr('height', Number(height) + 100 + 'px');
+			var height = $('#room-frame').attr('height').replace('px', '').replace('%', '');
+			$('#room-frame').attr('height', Number(height) + 100 + 'px');
 		})
 		$('#page-height-minus').click(function ()
 		{
-			var height = $('#post-frame').attr('height').replace('px', '').replace('%', '');
-			$('#post-frame').attr('height', Number(height) - 100 + 'px');
+			var height = $('#room-frame').attr('height').replace('px', '').replace('%', '');
+			$('#room-frame').attr('height', Number(height) - 100 + 'px');
 		})
 
 		function GetCourses()
@@ -423,7 +418,7 @@
 					let docdata = doc.data();
 					options += '<option value="' + docid + '">' + docdata.course + '</option>';
 				});
-				$('#class_courses').html(options);
+				$('#room-courses').html(options);
 			})
 			.catch((error) => {
 				console.log(error);
