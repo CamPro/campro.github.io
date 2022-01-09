@@ -234,6 +234,10 @@
 						<div class="col-sm-4">
 							<div class="card card-default">
 								<div class="card-header">
+									<div class="form-group">
+										<select class="form-control" id="class_courses">
+										</select>
+									</div>
 									<input type="text" class="form-control" id="post-title" value="" placeholder="Tiêu đề bài giảng">
 								</div>
 								<div class="card-body">
@@ -279,6 +283,52 @@
 	<script src="./public/js/myfirebase.js"></script>
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
+
+		// load courses
+		GetCourses();
+		
+		$('#class_courses').change(function ()
+		{
+			var course = $(this).val();
+			if (course == '+')
+			{
+				$(this).val('');
+				var course = prompt("Nhập tên khóa học:", "");
+				if (!course) { return; }
+
+				let created_at = moment().unix();
+
+				fsdb.collection("courses").add({
+					course: course,
+					created_at: created_at
+				})
+				.then((docRef) => {
+					GetCourses();
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+			}
+		})
+
+		$('#post-title').on('change keyup', function ()
+		{
+			var course = $('#class_courses').val();
+			if (!course)
+			{
+				$('#class_courses').addClass('is-invalid');
+			}
+			else
+			{
+				$('#class_courses').removeClass('is-invalid');
+			}
+		});
+
+
+
+
+
+
 
 
 
@@ -362,6 +412,23 @@
 			var height = $('#post-frame').attr('height').replace('px', '').replace('%', '');
 			$('#post-frame').attr('height', Number(height) - 100 + 'px');
 		})
+
+		function GetCourses()
+		{
+			fsdb.collection("courses").orderBy("created_at", "desc").limit(18).get()
+			.then((querySnapshot) => {
+				var options = '<option value=""> -- Khóa Học -- </option><option value="+">+ Thêm khóa học</option>';
+				querySnapshot.forEach((doc) => {
+					let docid = doc.id;
+					let docdata = doc.data();
+					options += '<option value="' + docid + '">' + docdata.course + '</option>';
+				});
+				$('#class_courses').html(options);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		}
 	</script>
 </body>
 </html>
