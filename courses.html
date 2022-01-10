@@ -236,7 +236,7 @@
 											<th>Danh sách</th>
 										</tr>
 									</thead>
-									<tbody id="room-sessions">
+									<tbody id="room-lessons">
 									</tbody>
 								</table>
 							</div>
@@ -298,7 +298,7 @@
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
-					var code = '<tr><td data-course-id="' + docid + '" onclick="GetSession(this)"><i class="fas fa-cube"></i> <span>' + docdata.course + '</span></td></tr>';
+					var code = '<tr><td data-course-id="' + docid + '" onclick="GetLessons(this)"><i class="fas fa-cube"></i> <span>' + docdata.course + '</span></td></tr>';
 					$('#room-courses').append(code);
 				});
 			})
@@ -307,18 +307,18 @@
 			});
 		}
 
-		function GetSession(element)
+		function GetLessons(element)
 		{
-			$('#room-sessions').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
+			$('#room-lessons').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
 			var course_id = $(element).data('course-id');
-			fsdb.collection("sessions").where('course_id', '==', course_id).orderBy("created_at", "desc").get()
+			fsdb.collection("lessons").where('course_id', '==', course_id).orderBy("created_at", "desc").get()
 			.then((querySnapshot) => {
-				$('#room-sessions').html('');
+				$('#room-lessons').html('');
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
 					var code = '<tr><td><a href="/classroom.html?session=' + docid + '"><i class="fas fa-graduation-cap"></i> <span>' + docdata.session + '</span></a></td></tr>';
-					$('#room-sessions').append(code);
+					$('#room-lessons').append(code);
 				});
 			})
 			.catch((error) => {

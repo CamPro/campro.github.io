@@ -244,9 +244,9 @@
 										</select>
 									</div>
 									<div class="input-group">
-										<input type="text" class="form-control" id="room-session" value="" placeholder="Tiêu đề bài giảng">
+										<input type="text" class="form-control" id="room-lesson" value="" placeholder="Tiêu đề bài giảng">
 										<div class="input-group-append">
-											<span class="btn input-group-text" id="room-session-save"><i class="fas fa-save"></i></span>
+											<span class="btn input-group-text" id="room-lesson-save"><i class="fas fa-save"></i></span>
 										</div>
 									</div>
 								</div>
@@ -289,7 +289,7 @@
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
 
-		var session_index = null;
+		var lesson_index = null;
 
 		// load courses
 		GetCourses();
@@ -318,7 +318,7 @@
 			}
 		})
 
-		$('#room-session, #room-courses').on('change keyup', function ()
+		$('#room-lesson, #room-courses').on('change keyup', function ()
 		{
 			var course = $('#room-courses').val();
 			if (!course)
@@ -331,14 +331,14 @@
 			}
 		});
 
-		$('#room-session-save').click(function ()
+		$('#room-lesson-save').click(function ()
 		{
-			// save session
-			$('#room-session-save').removeClass('text-success').removeClass('text-danger').html('<i class="fas fa-save"></i>');
+			// save lesson
+			$('#room-lesson-save').removeClass('text-success').removeClass('text-danger').html('<i class="fas fa-save"></i>');
 
 			let content = $('#room-content').removeClass('is-invalid').val().trim();
 			let course_id = $('#room-courses').removeClass('is-invalid').val().trim();
-			let session = $('#room-session').removeClass('is-invalid').val().trim();
+			let lesson = $('#room-lesson').removeClass('is-invalid').val().trim();
 			if (!content)
 			{
 				$('#room-content').addClass('is-invalid').focus();
@@ -349,46 +349,46 @@
 				$('#room-courses').addClass('is-invalid').focus();
 				return;
 			}
-			if (!session)
+			if (!lesson)
 			{
-				$('#room-session').addClass('is-invalid').focus();
+				$('#room-lesson').addClass('is-invalid').focus();
 				return;
 			}
-			$('#room-session-save').html('<i class="fas fa-spinner fa-spin"></i>');
+			$('#room-lesson-save').html('<i class="fas fa-spinner fa-spin"></i>');
 
 			let created_at = moment().unix();
 
-			if (!session_index)
+			if (!lesson_index)
 			{
-				fsdb.collection("sessions").add({
+				fsdb.collection("lessons").add({
 					content: content,
 					course_id: course_id,
-					session: session,
+					lesson: lesson,
 					created_at: created_at
 				})
 				.then((docRef) => {
-					console.log("Session ID: ", docRef.id);
-					session_index = docRef.id;
-					$('#room-session-save').addClass('text-success').html('<i class="fas fa-check"></i>');
+					console.log("lesson ID: ", docRef.id);
+					lesson_index = docRef.id;
+					$('#room-lesson-save').addClass('text-success').html('<i class="fas fa-check"></i>');
 				})
 				.catch((error) => {
 					console.log(error);
-					$('#room-session-save').removeClass('text-success').addClass('text-danger').html('<i class="fas fa-times"></i>');
+					$('#room-lesson-save').removeClass('text-success').addClass('text-danger').html('<i class="fas fa-times"></i>');
 				});
 			}
 			else
 			{
-				fsdb.collection("sessions").doc(session_index).update({
+				fsdb.collection("lessons").doc(lesson_index).update({
 					content: content,
 					course_id: course_id,
-					session: session
+					lesson: lesson
 				})
 				.then(() => {
-					$('#room-session-save').addClass('text-success').html('<i class="fas fa-check"></i>');
+					$('#room-lesson-save').addClass('text-success').html('<i class="fas fa-check"></i>');
 				})
 				.catch((error) => {
 					console.log(error);
-					$('#room-session-save').removeClass('text-success').addClass('text-danger').html('<i class="fas fa-times"></i>');
+					$('#room-lesson-save').removeClass('text-success').addClass('text-danger').html('<i class="fas fa-times"></i>');
 				});
 			}
 		})
@@ -405,9 +405,9 @@
 				$('#room-courses').addClass('is-invalid').focus();
 				return;
 			}
-			if (!session_index)
+			if (!lesson_index)
 			{
-				$('#room-session-save').addClass('text-danger').html('<i class="far fa-hand-point-up fa-spin"></i>');
+				$('#room-lesson-save').addClass('text-danger').html('<i class="far fa-hand-point-up fa-spin"></i>');
 				return;
 			}
 
@@ -417,7 +417,7 @@
 
 			fsdb.collection("studies").add({
 				course_id: course_id,
-				session_id: session_index,
+				lesson_id: lesson_index,
 				created_at: created_at,
 				study: new_study
 			})
