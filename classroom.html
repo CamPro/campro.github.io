@@ -309,7 +309,6 @@
 					// lấy danh sách study của bài học
 					fsdb.collection("studies").where('course_id', '==', docdata.course_id).where('lesson_id', '==', lesson_index).orderBy("created_at", "asc").get()
 					.then((querySnapshot) => {
-
 						querySnapshot.forEach((doc) => {
 							let docid = doc.id;
 							let docdata = doc.data();
@@ -335,7 +334,8 @@
 		{
 			GetCourses();
 		}
-		
+
+		// thêm 1 khóa học mới
 		$('#room-courses').change(function ()
 		{
 			var course = $(this).val();
@@ -360,6 +360,7 @@
 			}
 		})
 
+		// kiểm nhắc nhở chọn khóa học
 		$('#room-lesson, #room-courses').on('change keyup', function ()
 		{
 			var course = $('#room-courses').val();
@@ -373,6 +374,7 @@
 			}
 		});
 
+		// lưu bài học mới hoặc cập nhật
 		$('#room-lesson-save').click(function ()
 		{
 			// save lesson
@@ -400,6 +402,7 @@
 
 			let created_at = moment().unix();
 
+			// lưu bài học mới
 			if (!lesson_index)
 			{
 				fsdb.collection("lessons").add({
@@ -418,6 +421,7 @@
 					$('#room-lesson-save').removeClass('text-success').addClass('text-danger').html('<i class="fas fa-times"></i>');
 				});
 			}
+			// cập nhật bài học hiện có
 			else
 			{
 				fsdb.collection("lessons").doc(lesson_index).update({
@@ -435,6 +439,7 @@
 			}
 		})
 
+		// lưu kiến thức mới của bài học
 		$('#room-study-save').click(function ()
 		{
 			let new_study = $("#room-brain").val().trim();
@@ -478,12 +483,14 @@
 			$('#room-study-save').html('<i class="fas fa-check-double"></i>');
 		});
 
+		// sửa kích thước iframe full width height
 		$('#room-content').on('change keyup', function ()
 		{
 			var content = $(this).val().replace(/width="(\w+.)"/, 'width="100%"').replace(/height="(\w+.)"/, 'height="100%"');
 			$(this).val(content);
 		})
 
+		// xem html sang iframe
 		$('#room-view').click(function ()
 		{
 			var myContent = $('#room-content').val();
@@ -508,6 +515,7 @@
 			$('#room-frame').attr('height', Number(height) - 100 + 'px');
 		})
 
+		// cập nhật nội dung kiến thức đã có
 		function StudyChange(element)
 		{
 			$(element).removeClass('is-valid').removeClass('is-invalid');
@@ -526,6 +534,7 @@
 			});
 		}
 
+		// lấy danh sách khóa học
 		function GetCourses(course_id)
 		{
 			fsdb.collection("courses").orderBy("created_at", "desc").limit(18).get()
