@@ -576,7 +576,7 @@
 			var study_id = $(element).data('study-id');
 
 			fsdb.collection("studies").doc(study_id).delete().then(() => {
-				$(element).parent().remove();
+				$(element).parent('div.input-group').remove();
 			}).catch((error) => {
 				console.log(error);
 			});
