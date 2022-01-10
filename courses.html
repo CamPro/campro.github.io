@@ -317,12 +317,13 @@
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
-					var code = '<tr><td><a href="/classroom.html?session=' + docid + '"><i class="fas fa-graduation-cap"></i> <span>' + docdata.session + '</span></a></td></tr>';
+					var code = '<tr><td><a href="/classroom.html?lesson=' + docid + '"><i class="fas fa-graduation-cap"></i> <span>' + docdata.lesson + '</span></a></td></tr>';
 					$('#room-lessons').append(code);
 				});
 			})
 			.catch((error) => {
 				console.log(error);
+				$('#room-lessons').html('');
 			});
 		}
 
