@@ -314,7 +314,7 @@
 							let docdata = doc.data();
 
 							var html = '<div class="input-group">';
-							html += '<textarea class="form-control room-brains is-valid" rows="1" data-study-id="' + docid + '" onchange="StudyChange(this)">' + docdata.study + '</textarea>';
+							html += '<textarea class="form-control room-brains" rows="1" data-study-id="' + docid + '" onchange="StudyChange(this)">' + docdata.study + '</textarea>';
 							html += '<div class="input-group-append">';
 							html += '<span class="btn btn-danger input-group-text" data-study-id="' + docid + '" onclick="DeleteStudy(this)"><i class="fas fa-trash"></i></span>';
 							html += '</div></div>';
