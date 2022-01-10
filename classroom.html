@@ -238,18 +238,23 @@
 										<select class="form-control" id="room-courses">
 										</select>
 									</div>
-									<input type="text" class="form-control" id="room-session" value="" placeholder="Tiêu đề bài giảng">
-								</div>
-								<div class="card-body">
-									<div class="" id="room-list">
+									<div class="input-group">
+										<input type="text" class="form-control" id="room-session" value="" placeholder="Tiêu đề bài giảng">
+										<div class="input-group-append">
+											<span class="btn input-group-text" id="room-session-save"><i class="fas fa-save"></i></span>
+										</div>
 									</div>
 								</div>
-								<div class="card-footer">
-									<div class="input-group">
-										<textarea class="form-control" id="room-brain" rows="2" placeholder="Ghi nhớ mới"></textarea>
-										<div class="input-group-append">
-											<span class="btn btn-primary input-group-text" id="room-save"><i class="fas fa-check-double"></i></span>
+								<div class="card-body">
+									<div class="form-group">
+										<div class="input-group">
+											<textarea class="form-control" id="room-brain" rows="2" placeholder="Ghi nhớ mới"></textarea>
+											<div class="input-group-append">
+												<span class="btn btn-primary input-group-text" id="room-study-save"><i class="fas fa-check-double"></i></span>
+											</div>
 										</div>
+									</div>
+									<div class="form-group" id="room-list">
 									</div>
 								</div>
 							</div>
@@ -279,7 +284,7 @@
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
 
-		var studyIndex = null;
+		var session_index = null;
 
 		// load courses
 		GetCourses();
@@ -321,51 +326,119 @@
 			}
 		});
 
-		$('#room-save').click(function ()
+		$('#room-session-save').click(function ()
 		{
-			$('#room-save').prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i>');
+			// save session
+			$('#room-session-save').removeClass('text-success').removeClass('text-danger').html('<i class="fas fa-save"></i>');
 
-			let note = $("#room-brain").val().trim();
-
-			if (note)
+			let content = $('#room-content').removeClass('is-invalid').val().trim();
+			let course_id = $('#room-courses').removeClass('is-invalid').val().trim();
+			let session = $('#room-session').removeClass('is-invalid').val().trim();
+			if (!content)
 			{
-				var html = '<textarea class="form-control room-brains" rows="1">' + note + '</textarea>';
-				$('#room-list').append(html);
-				$("#room-brain").val('');
-			}
-
-			let content = $('#room-content').val().trim();
-			let course_id = $('#room-courses').val().trim();
-			let session = $('#room-session').val().trim();
-			let brains = $("textarea.room-brains").map(function(){ return $(this).val(); }).get();
-
-			if (content == '' || course_id == '' || session == '')
-			{
+				$('#room-content').addClass('is-invalid').focus();
 				return;
 			}
-
-			if (!studyIndex)
+			if (!course_id)
 			{
-				fsdb.collection("studies").add({
+				$('#room-courses').addClass('is-invalid').focus();
+				return;
+			}
+			if (!session)
+			{
+				$('#room-session').addClass('is-invalid').focus();
+				return;
+			}
+			$('#room-session-save').html('<i class="fas fa-spinner fa-spin"></i>');
+
+			let created_at = moment().unix();
+
+			if (!session_index)
+			{
+				fsdb.collection("sessions").add({
 					content: content,
 					course_id: course_id,
 					session: session,
-					brains: brains
+					created_at: created_at
 				})
 				.then((docRef) => {
-					console.log("OK Document ID: ", docRef.id);
-					studyIndex = docRef.id;
+					console.log("Session ID: ", docRef.id);
+					session_index = docRef.id;
+					$('#room-session-save').addClass('text-success').html('<i class="fas fa-check"></i>');
 				})
 				.catch((error) => {
 					console.log(error);
+					$('#room-session-save').removeClass('text-success').addClass('text-danger').html('<i class="fas fa-times"></i>');
 				});
 			}
 			else
 			{
-				fsdb.collection("studies").doc(studyIndex).update({
+				fsdb.collection("sessions").doc(session_index).update({
 					content: content,
 					course_id: course_id,
-					session: session,
+					session: session
+				})
+				.then(() => {
+					$('#room-session-save').addClass('text-success').html('<i class="fas fa-check"></i>');
+				})
+				.catch((error) => {
+					console.log(error);
+					$('#room-session-save').removeClass('text-success').addClass('text-danger').html('<i class="fas fa-times"></i>');
+				});
+			}
+		})
+
+		$('#room-study-save').click(function ()
+		{
+			let new_study = $("#room-brain").val().trim();
+			if (!new_study) return;
+
+			let course_id = $('#room-courses').val().trim();
+			
+			if (!course_id)
+			{
+				$('#room-courses').addClass('is-invalid').focus();
+				return;
+			}
+			if (!session_index)
+			{
+				$('#room-session-save').addClass('text-danger').html('<i class="far fa-hand-point-up fa-spin"></i>');
+				return;
+			}
+
+			$('#room-study-save').html('<i class="fas fa-spinner fa-spin"></i>');
+
+			let created_at = moment().unix();
+
+			fsdb.collection("studies").add({
+				course_id: course_id,
+				session_id: session_index,
+				created_at: created_at,
+				study: new_study
+			})
+			.then((docRef) => {
+				console.log("Study ID: ", docRef.id);
+
+				var html = '<textarea class="form-control room-brains is-valid" rows="1" data-study-id="' + docRef.id + '">' + new_study + '</textarea>';
+				$('#room-list').append(html);
+				$("#room-brain").val('');
+			})
+			.catch((error) => {
+				console.log(error);
+				$('#room-study-save').html('<i class="fas fa-times"></i>');
+			});
+
+			$('#room-study-save').html('<i class="fas fa-check-double"></i>');
+		});
+
+		$("textarea.room-brains").change(function ()
+		{
+			$("textarea.room-brains").forEach(function ()
+			{
+				
+				fsdb.collection("studies").doc(studyIndex).update({
+					course_id: course_id,
+					session_id: session_id,
 					brains: brains
 				})
 				.then(() => {
@@ -373,9 +446,10 @@
 				})
 				.catch((error) => {
 					console.log(error);
+					$('#room-study-save').removeClass('text-success').addClass('text-danger').html('<i class="fas fa-times"></i>');
 				});
-			}
-			$('#room-save').prop('disabled', false).html('<i class="fas fa-check-double"></i>');
+			})
+			
 		})
 
 		$('#room-content').on('change keyup', function ()
