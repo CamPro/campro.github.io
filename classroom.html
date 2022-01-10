@@ -294,8 +294,7 @@
 		var url = new URL(window.location.href);
 		lesson_index = url.searchParams.get("lesson");
 
-		// load courses
-		
+		// nếu có id bài học thì lấy toàn bộ thông tin bài học
 		if (lesson_index)
 		{
 			fsdb.collection("lessons").doc(lesson_index).get().then((doc) => {
@@ -306,6 +305,22 @@
 					$('#room-content').val(docdata.content);
 					$('#room-lesson').val(docdata.lesson);
 					GetCourses(docdata.course_id);
+
+					// lấy danh sách study của bài học
+					fsdb.collection("studies").where('course_id', '==', docdata.course_id).where('lesson_id', '==', lesson_index).orderBy("created_at", "asc").get()
+					.then((querySnapshot) => {
+
+						querySnapshot.forEach((doc) => {
+							let docid = doc.id;
+							let docdata = doc.data();
+
+							var html = '<textarea class="form-control room-brains is-valid" rows="1" data-study-id="' + docid + '" onchange="StudyChange(this)">' + docdata.study + '</textarea>';
+							$('#room-list').append(html);
+						});
+					})
+					.catch((error) => {
+						console.log(error);
+					});
 				}
 				else
 				{
@@ -315,6 +330,7 @@
 				console.log(error);
 			});
 		}
+		// load courses
 		else
 		{
 			GetCourses();
