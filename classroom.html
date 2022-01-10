@@ -313,7 +313,12 @@
 							let docid = doc.id;
 							let docdata = doc.data();
 
-							var html = '<textarea class="form-control room-brains is-valid" rows="1" data-study-id="' + docid + '" onchange="StudyChange(this)">' + docdata.study + '</textarea>';
+							var html = '<div class="input-group">';
+							html += '<textarea class="form-control room-brains is-valid" rows="1" data-study-id="' + docid + '" onchange="StudyChange(this)">' + docdata.study + '</textarea>';
+							html += '<div class="input-group-append">';
+							html += '<span class="btn btn-danger input-group-text" data-study-id="' + docid + '" onclick="DeleteStudy(this)"><i class="fas fa-trash"></i></span>';
+							html += '</div></div>';
+
 							$('#room-list').append(html);
 						});
 					})
@@ -471,7 +476,12 @@
 			.then((docRef) => {
 				console.log("Study ID: ", docRef.id);
 
-				var html = '<textarea class="form-control room-brains is-valid" rows="1" data-study-id="' + docRef.id + '" onchange="StudyChange(this)">' + new_study + '</textarea>';
+				var html = '<div class="input-group">';
+				html += '<textarea class="form-control room-brains is-valid" rows="1" data-study-id="' + docRef.id + '" onchange="StudyChange(this)">' + new_study + '</textarea>';
+				html += '<div class="input-group-append">';
+				html += '<span class="btn btn-danger input-group-text" data-study-id="' + docRef.id + '" onclick="DeleteStudy(this)"><i class="fas fa-trash"></i></span>';
+				html += '</div></div>';
+
 				$('#room-list').append(html);
 				$("#room-brain").val('');
 			})
@@ -552,6 +562,22 @@
 				$('#room-courses').html(options);
 			})
 			.catch((error) => {
+				console.log(error);
+			});
+		}
+
+		// xóa 1 kiến thức
+		function DeleteStudy(element)
+		{
+			if (!confirm('Xóa ghi chép?'))
+			{
+				return;
+			}
+			var study_id = $(element).data('study-id');
+
+			fsdb.collection("studies").doc(study_id).delete().then(() => {
+				
+			}).catch((error) => {
 				console.log(error);
 			});
 		}
