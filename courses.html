@@ -298,7 +298,7 @@
 		{
 			var code = '<tr><td><div class="row">';
 			code += '<div class="col-sm-6"><input type="text" class="form-control" placeholder="Tiêu đề"></div>';
-			code += '<div class="col-sm-6"><textarea class="form-control" rows="1" placeholder="<html>"></textarea></div>';
+			code += '<div class="col-sm-6"><textarea class="form-control" rows="1" onkeyup="HtmlChange(this)" placeholder="<html>"></textarea></div>';
 			'</div></td></tr>';
 			$('#room-lessons').append(code);
 			$('#lesson-save').removeClass('d-none');
@@ -352,7 +352,13 @@
 				}
 			}, 1000);
 
-		})
+		});
+
+		function HtmlChange(element)
+		{
+			var content = $(element).val().replace(/width="(\w+.)"/, 'width="100%"').replace(/height="(\w+.)"/, 'height="100%"');
+			$(element).val(content);
+		}
 
 		// lấy danh dách toàn bộ khóa học
 		function GetCourses()
