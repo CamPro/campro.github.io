@@ -201,9 +201,55 @@
 			</div>
 		</aside>
 
-		<!-- content -->
+		<div class="content-wrapper">
+			<div class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1 class="m-0"></h1>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="content">
+				<div class="container-fluid" id="page-box">
 
-		<!-- footer -->
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="table-responsive">
+								<table class="table table-hover table-bordered text-nowrap">
+									<thead>
+										<tr>
+											<th>Khóa học <button class="btn btn-success btn-xs" style="float: right;" id="course-add"><i class="fas fa-plus"></i></button></th>
+										</tr>
+									</thead>
+									<tbody id="room-courses">
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="col-sm-8">
+							<div class="table-responsive">
+								<table class="table table-hover table-bordered text-nowrap">
+									<thead>
+										<tr>
+											<th>Danh sách</th>
+										</tr>
+									</thead>
+									<tbody id="room-sessions">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<footer class="main-footer">
+			<div class="text-center">** Cắp sách đi học Trường Đời **</div>
+		</footer>
 
 	</div>
 	<div id="back-to-top" onclick="backToTop()"><i class="fa fa-chevron-up"></i></div>
@@ -219,6 +265,66 @@
 	<script src="./public/js/myfirebase.js"></script>
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
+
+		// get list course
+		GetCourses();
+
+		$('#course-add').click(function ()
+		{
+			var course = prompt("Nhập tên khóa học:", "");
+			if (!course) { return; }
+
+			let created_at = moment().unix();
+
+			fsdb.collection("courses").add({
+				course: course,
+				created_at: created_at
+			})
+			.then((docRef) => {
+				GetCourses();
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		})
+
+
+		function GetCourses()
+		{
+			$('#room-courses').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
+			fsdb.collection("courses").orderBy("created_at", "desc").get()
+			.then((querySnapshot) => {
+				$('#room-courses').html('');
+				querySnapshot.forEach((doc) => {
+					let docid = doc.id;
+					let docdata = doc.data();
+					var code = '<tr><td data-course-id="' + docid + '" onclick="GetSession(this)"><i class="fas fa-cube"></i> <span>' + docdata.course + '</span></td></tr>';
+					$('#room-courses').append(code);
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		}
+
+		function GetSession(element)
+		{
+			$('#room-sessions').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
+			var course_id = $(element).data('course-id');
+			fsdb.collection("sessions").where('course_id', '==', course_id).orderBy("created_at", "desc").get()
+			.then((querySnapshot) => {
+				$('#room-sessions').html('');
+				querySnapshot.forEach((doc) => {
+					let docid = doc.id;
+					let docdata = doc.data();
+					var code = '<tr><td><a href="/classroom.html?session=' + docid + '"><i class="fas fa-graduation-cap"></i> <span>' + docdata.session + '</span></a></td></tr>';
+					$('#room-sessions').append(code);
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		}
 
 	</script>
 </body>
