@@ -291,8 +291,34 @@
 
 		var lesson_index = null;
 
+		var url = new URL(window.location.href);
+		lesson_index = url.searchParams.get("lesson");
+
 		// load courses
-		GetCourses();
+		
+		if (lesson_index)
+		{
+			fsdb.collection("lessons").doc(lesson_index).get().then((doc) => {
+				if (doc.exists)
+				{
+					let docdata = doc.data();
+
+					$('#room-content').val(docdata.content);
+					$('#room-lesson').val(docdata.lesson);
+					GetCourses(docdata.course_id);
+				}
+				else
+				{
+					console.log("No such document!");
+				}
+			}).catch((error) => {
+				console.log(error);
+			});
+		}
+		else
+		{
+			GetCourses();
+		}
 		
 		$('#room-courses').change(function ()
 		{
@@ -484,7 +510,7 @@
 			});
 		}
 
-		function GetCourses()
+		function GetCourses(course_id)
 		{
 			fsdb.collection("courses").orderBy("created_at", "desc").limit(18).get()
 			.then((querySnapshot) => {
@@ -492,7 +518,11 @@
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
-					options += '<option value="' + docid + '">' + docdata.course + '</option>';
+					let choose = '';
+					if (docid == course_id) {
+						choose = 'selected';
+					}
+					options += '<option value="' + docid + '" ' + choose + '>' + docdata.course + '</option>';
 				});
 				$('#room-courses').html(options);
 			})
