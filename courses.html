@@ -233,7 +233,10 @@
 								<table class="table table-hover table-bordered text-nowrap">
 									<thead>
 										<tr>
-											<th>Danh sách</th>
+											<th>Danh sách 
+												<button class="btn btn-success btn-xs d-none" id="lesson-save">Save</button>
+												<button class="btn btn-primary btn-xs d-none" style="float: right;" id="lesson-add"><i class="fas fa-plus"></i></button>
+											</th>
 										</tr>
 									</thead>
 									<tbody id="room-lessons">
@@ -266,6 +269,7 @@
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
 
+		var course_id = null;
 		// get list course
 		GetCourses();
 
@@ -288,6 +292,53 @@
 			});
 		})
 
+		$('#lesson-add').click(function ()
+		{
+			var code = '<tr><td><div class="row">';
+			code += '<div class="col-sm-6"><input type="text" class="form-control" placeholder="Tiêu đề"></div>';
+			code += '<div class="col-sm-6"><textarea class="form-control" rows="1" placeholder="<html>"></textarea></div>';
+			'</div></td></tr>';
+			$('#room-lessons').append(code);
+			$('#lesson-save').removeClass('d-none');
+		})
+
+		$('#lesson-save').click(function ()
+		{
+			if (!course_id) return;
+
+			var elements = document.querySelectorAll('#room-lessons div.row');
+
+			var index = 0;
+			var interval = setInterval(function ()
+			{
+				var element = elements[index];
+				var lesson = $(element).find('input').val().trim();
+				var content = $(element).find('textarea').val().trim();
+				let created_at = moment().unix();
+				
+				fsdb.collection("lessons").add({
+					content: content,
+					course_id: course_id,
+					lesson: lesson,
+					created_at: created_at
+				})
+				.then((docRef) => {
+					$(element).find('input').addClass('is-valid');
+					$(element).find('textarea').addClass('is-valid');
+				})
+				.catch((error) => {
+					console.log(error);
+					$(element).find('input').addClass('is-invalid');
+					$(element).find('textarea').addClass('is-invalid');
+				});
+
+				if (++index >= elements.length)
+				{
+					clearInterval(interval);
+				}
+			}, 1000);
+
+		})
 
 		function GetCourses()
 		{
@@ -298,7 +349,7 @@
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
-					var code = '<tr><td data-course-id="' + docid + '" onclick="GetLessons(this)"><i class="fas fa-cube"></i> <span>' + docdata.course + '</span></td></tr>';
+					var code = '<tr><td onclick="GetLessons(\'' + docid + '\')"><i class="fas fa-cube"></i> <span>' + docdata.course + '</span></td></tr>';
 					$('#room-courses').append(code);
 				});
 			})
@@ -307,23 +358,38 @@
 			});
 		}
 
-		function GetLessons(element)
+		function GetLessons(docid)
 		{
 			$('#room-lessons').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
-			var course_id = $(element).data('course-id');
-			fsdb.collection("lessons").where('course_id', '==', course_id).orderBy("created_at", "desc").get()
+			course_id = docid;
+			fsdb.collection("lessons").where('course_id', '==', course_id).orderBy("created_at", "asc").get()
 			.then((querySnapshot) => {
 				$('#room-lessons').html('');
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
-					var code = '<tr><td><a href="/classroom.html?lesson=' + docid + '"><i class="fas fa-graduation-cap"></i> <span>' + docdata.lesson + '</span></a></td></tr>';
+					var code = '<tr><td><a class="" href="/classroom.html?lesson=' + docid + '"><i class="fas fa-graduation-cap"></i> <span>' + docdata.lesson + '</span></a><span class="text-danger" style="float: right;" data-lesson-id="' + docid + '" onclick="DeleteLesson(this)"><i class="fas fa-trash"></i></span></td></tr>';
 					$('#room-lessons').append(code);
 				});
 			})
 			.catch((error) => {
 				console.log(error);
 				$('#room-lessons').html('');
+			});
+			$('#lesson-add').removeClass('d-none');
+		}
+
+		function DeleteLesson(element)
+		{
+			if (!confirm('Xóa bài học?'))
+			{
+				return;
+			}
+			var lesson_id = $(element).data('lesson-id');
+			fsdb.collection("lessons").doc(lesson_id).delete().then(() => {
+				GetLessons(course_id);
+			}).catch((error) => {
+				console.log(error);
 			});
 		}
 
