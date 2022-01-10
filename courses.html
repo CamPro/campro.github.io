@@ -315,6 +315,17 @@
 				var lesson = $(element).find('input').val().trim();
 				var content = $(element).find('textarea').val().trim();
 				let created_at = moment().unix();
+
+				if (!lesson)
+				{
+					$(element).find('input').addClass('is-invalid');
+					return;
+				}
+				if (!content)
+				{
+					$(element).find('textarea').addClass('is-invalid');
+					return;
+				}
 				
 				fsdb.collection("lessons").add({
 					content: content,
