@@ -349,13 +349,15 @@
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
-					var code = '<tr><td onclick="GetLessons(\'' + docid + '\')"><i class="fas fa-cube"></i> <span>' + docdata.course + '</span></td></tr>';
+					var code = '<tr><td onclick="GetLessons(\'' + docid + '\')"><i class="fas fa-cube"></i> <span>' + docdata.course + '</span><span class="text-danger" style="float: right;" data-course-id="' + docid + '" onclick="DeleteCourse(this)"><i class="fas fa-trash"></i></span></td></tr>';
 					$('#room-courses').append(code);
 				});
 			})
 			.catch((error) => {
 				console.log(error);
 			});
+			$('#lesson-add').addClass('d-none');
+			$('#lesson-save').addClass('d-none');
 		}
 
 		function GetLessons(docid)
@@ -388,6 +390,21 @@
 			var lesson_id = $(element).data('lesson-id');
 			fsdb.collection("lessons").doc(lesson_id).delete().then(() => {
 				GetLessons(course_id);
+			}).catch((error) => {
+				console.log(error);
+			});
+		}
+
+		function DeleteCourse(element)
+		{
+			if (!confirm('Xóa khóa học?'))
+			{
+				return;
+			}
+			var course_id = $(element).data('course-id');
+
+			fsdb.collection("courses").doc(course_id).delete().then(() => {
+				GetCourses();
 			}).catch((error) => {
 				console.log(error);
 			});
