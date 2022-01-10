@@ -419,7 +419,7 @@
 			.then((docRef) => {
 				console.log("Study ID: ", docRef.id);
 
-				var html = '<textarea class="form-control room-brains is-valid" rows="1" data-study-id="' + docRef.id + '">' + new_study + '</textarea>';
+				var html = '<textarea class="form-control room-brains is-valid" rows="1" data-study-id="' + docRef.id + '" onchange="StudyChange(this)">' + new_study + '</textarea>';
 				$('#room-list').append(html);
 				$("#room-brain").val('');
 			})
@@ -430,27 +430,6 @@
 
 			$('#room-study-save').html('<i class="fas fa-check-double"></i>');
 		});
-
-		$("textarea.room-brains").change(function ()
-		{
-			$("textarea.room-brains").forEach(function ()
-			{
-				
-				fsdb.collection("studies").doc(studyIndex).update({
-					course_id: course_id,
-					session_id: session_id,
-					brains: brains
-				})
-				.then(() => {
-					
-				})
-				.catch((error) => {
-					console.log(error);
-					$('#room-study-save').removeClass('text-success').addClass('text-danger').html('<i class="fas fa-times"></i>');
-				});
-			})
-			
-		})
 
 		$('#room-content').on('change keyup', function ()
 		{
@@ -481,6 +460,24 @@
 			var height = $('#room-frame').attr('height').replace('px', '').replace('%', '');
 			$('#room-frame').attr('height', Number(height) - 100 + 'px');
 		})
+
+		function StudyChange(element)
+		{
+			$(element).removeClass('is-valid').removeClass('is-invalid');
+			let study_index = $(element).data('study-id');
+			let new_study = $(element).val().trim();
+
+			fsdb.collection("studies").doc(study_index).update({
+				study: new_study
+			})
+			.then(() => {
+				$(element).addClass('is-valid');
+			})
+			.catch((error) => {
+				console.log(error);
+				$(element).addClass('is-invalid');
+			});
+		}
 
 		function GetCourses()
 		{
