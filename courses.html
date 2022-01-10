@@ -273,6 +273,7 @@
 		// get list course
 		GetCourses();
 
+		// thêm 1 khóa học
 		$('#course-add').click(function ()
 		{
 			var course = prompt("Nhập tên khóa học:", "");
@@ -292,6 +293,7 @@
 			});
 		})
 
+		// tạo ô thêm thông tin 1 bài học
 		$('#lesson-add').click(function ()
 		{
 			var code = '<tr><td><div class="row">';
@@ -302,6 +304,7 @@
 			$('#lesson-save').removeClass('d-none');
 		})
 
+		// lưu danh sách bài học theo khóa học
 		$('#lesson-save').click(function ()
 		{
 			if (!course_id) return;
@@ -351,6 +354,7 @@
 
 		})
 
+		// lấy danh dách toàn bộ khóa học
 		function GetCourses()
 		{
 			$('#room-courses').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
@@ -371,6 +375,7 @@
 			$('#lesson-save').addClass('d-none');
 		}
 
+		// lấy danh sách bài học theo khóa học
 		function GetLessons(docid)
 		{
 			$('#room-lessons').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
@@ -392,6 +397,7 @@
 			$('#lesson-add').removeClass('d-none');
 		}
 
+		// xóa 1 bài học
 		function DeleteLesson(element)
 		{
 			if (!confirm('Xóa bài học?'))
@@ -406,6 +412,7 @@
 			});
 		}
 
+		// xóa 1 khóa học
 		function DeleteCourse(element)
 		{
 			if (!confirm('Xóa khóa học?'))
