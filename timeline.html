@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Trèo Tường Vào Trường</title>
+	<title>My Learn</title>
 	<link rel="stylesheet" href="./public/plugins/fontawesome/css/all.min.css">
 	<link rel="stylesheet" href="./public/plugins/sweetalert2/sweetalert2.min.css">
 	<link rel="stylesheet" href="./public/css/adminlte.min.css">
@@ -93,7 +93,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="./courses.html" class="nav-link active">
+							<a href="./courses.html" class="nav-link ">
 								<i class="nav-icon fas fa-cubes"></i><p>Trèo Tường Vào Trường</p>
 							</a>
 						</li>
@@ -118,8 +118,8 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="./timeline.html" class="nav-link ">
-								<i class="nav-icon fas fa-dove"></i><p>Nhật Ký Ý Tưởng</p>
+							<a href="./timeline.html" class="nav-link active">
+								<i class="nav-icon fas fa-pencil-alt"></i><p>Nhật Ký Ý Tưởng</p>
 							</a>
 						</li>
 						<li class="nav-item">
@@ -207,53 +207,105 @@
 		</aside>
 
 		<div class="content-wrapper">
-			<div class="content-header">
+
+			<section class="content-header">
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="m-0"></h1>
+							<h1>Timeline</h1>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="content">
-				<div class="container-fluid" id="page-box">
+			</section>
+
+			<section class="content">
+				<div class="container-fluid">
 
 					<div class="row">
-						<div class="col-sm-4">
-							<div class="table-responsive">
-								<table class="table table-hover table-bordered text-nowrap">
-									<thead>
-										<tr>
-											<th>Khóa học <button class="btn btn-success btn-xs float-right" id="course-add"><i class="fas fa-plus"></i></button></th>
-										</tr>
-									</thead>
-									<tbody id="room-courses">
-									</tbody>
-								</table>
-							</div>
-						</div>
-						<div class="col-sm-8">
-							<div class="table-responsive">
-								<table class="table table-hover table-bordered text-nowrap">
-									<thead>
-										<tr>
-											<th>Danh sách 
-												<button class="btn btn-success btn-xs d-none" id="lesson-save">Save</button>
-												<button class="btn btn-primary btn-xs d-none float-right" id="lesson-add"><i class="fas fa-plus"></i></button>
-											</th>
-										</tr>
-									</thead>
-									<tbody id="room-lessons">
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
+						<div class="col-md-12">
 
+							<div class="timeline">
+
+								<div class="time-label">
+									<span class="bg-red">Thứ 3, 11/01/2022</span>
+								</div>
+
+								<div>
+									<i class="fas fa-envelope bg-blue"></i>
+									<div class="timeline-item">
+										<span class="time"><i class="far fa-trash-alt"></i></span>
+										<h3 class="timeline-header">Support Team sent you an email</h3>
+										<div class="timeline-body">
+											Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+											weebly ning heekya handango imeem plugg dopplr jibjab, movity
+											jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+											quora plaxo ideeli hulu weebly balihoo...
+										</div>
+									</div>
+								</div>
+
+								<div>
+									<i class="fas fa-user bg-green"></i>
+									<div class="timeline-item">
+										<span class="time"><i class="far fa-trash-alt"></i></span>
+										<h3 class="timeline-header no-border">Sarah Young accepted your friend request</h3>
+									</div>
+								</div>
+
+								<div>
+									<i class="fas fa-comments bg-yellow"></i>
+									<div class="timeline-item">
+										<span class="time"><i class="far fa-trash-alt"></i></span>
+										<h3 class="timeline-header">Jay White commented on your post</h3>
+										<div class="timeline-body">
+											Take me to your leader!
+											Switzerland is small and neutral!
+											We are more like Germany, ambitious and misunderstood!
+										</div>
+									</div>
+								</div>
+
+								<div class="time-label">
+									<span class="bg-green">Thứ 7, 15/01/2022</span>
+								</div>
+
+								<div>
+									<i class="fa fa-camera bg-purple"></i>
+									<div class="timeline-item">
+										<span class="time"><i class="far fa-trash-alt"></i></span>
+										<h3 class="timeline-header">Mina Lee uploaded new photos</h3>
+										<div class="timeline-body">
+											<img src="https://placehold.it/150x100" alt="...">
+											<img src="https://placehold.it/150x100" alt="...">
+											<img src="https://placehold.it/150x100" alt="...">
+											<img src="https://placehold.it/150x100" alt="...">
+											<img src="https://placehold.it/150x100" alt="...">
+										</div>
+									</div>
+								</div>
+
+								<div>
+									<i class="fas fa-video bg-maroon"></i>
+									<div class="timeline-item">
+										<span class="time"><i class="far fa-trash-alt"></i></span>
+
+										<h3 class="timeline-header">Mr. Doe shared a video</h3>
+									</div>
+								</div>
+
+								<div>
+									<i class="fas fa-clock bg-gray"></i>
+								</div>
+							</div>
+						</div>
+
+					</div>
 				</div>
-			</div>
+
+			</section>
+
 		</div>
+
 
 		<footer class="main-footer">
 			<div class="text-center">** Cắp sách đi học Trường Đời **</div>
@@ -273,171 +325,6 @@
 	<script src="./public/js/myfirebase.js"></script>
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
-
-		var course_id = null;
-		// get list course
-		GetCourses();
-
-		// thêm 1 khóa học
-		$('#course-add').click(function ()
-		{
-			var course = prompt("Nhập tên khóa học:", "");
-			if (!course) { return; }
-
-			let created_at = moment().unix();
-
-			fsdb.collection("courses").add({
-				course: course,
-				created_at: created_at
-			})
-			.then((docRef) => {
-				GetCourses();
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-		})
-
-		// tạo ô thêm thông tin 1 bài học
-		$('#lesson-add').click(function ()
-		{
-			var code = '<tr><td><div class="row">';
-			code += '<div class="col-sm-6"><input type="text" class="form-control" placeholder="Tiêu đề"></div>';
-			code += '<div class="col-sm-6"><textarea class="form-control" rows="1" onkeyup="HtmlChange(this)" placeholder="<html>"></textarea></div>';
-			'</div></td></tr>';
-			$('#room-lessons').append(code);
-			$('#lesson-save').removeClass('d-none');
-		})
-
-		// lưu danh sách bài học theo khóa học
-		$('#lesson-save').click(function ()
-		{
-			if (!course_id) return;
-
-			var elements = document.querySelectorAll('#room-lessons div.row');
-
-			var index = 0;
-			var interval = setInterval(function ()
-			{
-				var element = elements[index];
-				var lesson = $(element).find('input').val().trim();
-				var content = $(element).find('textarea').val().trim();
-				let created_at = moment().unix();
-
-				if (!lesson)
-				{
-					$(element).find('input').addClass('is-invalid');
-					return;
-				}
-				if (!content)
-				{
-					$(element).find('textarea').addClass('is-invalid');
-					return;
-				}
-				
-				fsdb.collection("lessons").add({
-					content: content,
-					course_id: course_id,
-					lesson: lesson,
-					created_at: created_at
-				})
-				.then((docRef) => {
-					$(element).find('input').addClass('is-valid');
-					$(element).find('textarea').addClass('is-valid');
-				})
-				.catch((error) => {
-					console.log(error);
-					$(element).find('input').addClass('is-invalid');
-					$(element).find('textarea').addClass('is-invalid');
-				});
-
-				if (++index >= elements.length)
-				{
-					clearInterval(interval);
-				}
-			}, 1000);
-
-		});
-
-		function HtmlChange(element)
-		{
-			var content = $(element).val().replace(/width="(\w+.)"/, 'width="100%"').replace(/height="(\w+.)"/, 'height="100%"');
-			$(element).val(content);
-		}
-
-		// lấy danh dách toàn bộ khóa học
-		function GetCourses()
-		{
-			$('#room-courses').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
-			fsdb.collection("courses").orderBy("created_at", "desc").get()
-			.then((querySnapshot) => {
-				$('#room-courses').html('');
-				querySnapshot.forEach((doc) => {
-					let docid = doc.id;
-					let docdata = doc.data();
-					var code = '<tr><td onclick="GetLessons(\'' + docid + '\')"><i class="fas fa-cube"></i> <span>' + docdata.course + '</span><span class="text-danger float-right" data-course-id="' + docid + '" onclick="DeleteCourse(this)"><i class="fas fa-trash"></i></span></td></tr>';
-					$('#room-courses').append(code);
-				});
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-			$('#lesson-add').addClass('d-none');
-			$('#lesson-save').addClass('d-none');
-		}
-
-		// lấy danh sách bài học theo khóa học
-		function GetLessons(docid)
-		{
-			$('#room-lessons').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
-			course_id = docid;
-			fsdb.collection("lessons").where('course_id', '==', course_id).orderBy("created_at", "asc").get()
-			.then((querySnapshot) => {
-				$('#room-lessons').html('');
-				querySnapshot.forEach((doc) => {
-					let docid = doc.id;
-					let docdata = doc.data();
-					var code = '<tr><td><a class="" href="/classroom.html?lesson=' + docid + '"><i class="fas fa-graduation-cap"></i> <span>' + docdata.lesson + '</span></a><span class="text-danger float-right" data-lesson-id="' + docid + '" onclick="DeleteLesson(this)"><i class="fas fa-trash"></i></span></td></tr>';
-					$('#room-lessons').append(code);
-				});
-			})
-			.catch((error) => {
-				console.log(error);
-				$('#room-lessons').html('');
-			});
-			$('#lesson-add').removeClass('d-none');
-		}
-
-		// xóa 1 bài học
-		function DeleteLesson(element)
-		{
-			if (!confirm('Xóa bài học?'))
-			{
-				return;
-			}
-			var lesson_id = $(element).data('lesson-id');
-			fsdb.collection("lessons").doc(lesson_id).delete().then(() => {
-				GetLessons(course_id);
-			}).catch((error) => {
-				console.log(error);
-			});
-		}
-
-		// xóa 1 khóa học
-		function DeleteCourse(element)
-		{
-			if (!confirm('Xóa khóa học?'))
-			{
-				return;
-			}
-			var course_id = $(element).data('course-id');
-
-			fsdb.collection("courses").doc(course_id).delete().then(() => {
-				GetCourses();
-			}).catch((error) => {
-				console.log(error);
-			});
-		}
 
 	</script>
 </body>
