@@ -237,8 +237,13 @@
 							<div class="card card-default">
 								<div class="card-header">
 									<div class="form-group">
-										<select class="form-control" id="room-courses">
-										</select>
+										<div class="input-group">
+											<select class="form-control" id="room-courses">
+											</select>
+											<div class="input-group-append">
+												<span class="btn btn-success input-group-text" id="room-lesson-complated"><i class="fas fa-check"></i></span>
+											</div>
+										</div>
 									</div>
 									<div class="input-group">
 										<input type="text" class="form-control" id="room-lesson" value="" placeholder="Tiêu đề bài giảng">
@@ -302,6 +307,13 @@
 					$('#room-content').val(docdata.content);
 					$('#room-lesson').val(docdata.lesson);
 					GetCourses(docdata.course_id);
+
+					console.log(docdata);
+
+					if (docdata.complated && docdata.complated == true)
+					{
+						$('#room-lesson-complated').addClass('text-success').html('<i class="fas fa-check-double"></i>');
+					}
 
 					// lấy danh sách study của bài học
 					fsdb.collection("studies").where('course_id', '==', docdata.course_id).where('lesson_id', '==', lesson_index).orderBy("created_at", "asc").get()
@@ -414,6 +426,20 @@
 					$('#room-lesson-save').removeClass('text-success').addClass('text-danger').html('<i class="fas fa-times"></i>');
 				});
 			}
+		})
+
+		// đánh dấu bài học đã hoàn thành
+		$('#room-lesson-complated').click(function ()
+		{
+			fsdb.collection("lessons").doc(lesson_index).update({
+				complated: true
+			})
+			.then(() => {
+				$('#room-lesson-complated').addClass('text-success').html('<i class="fas fa-check-double"></i>');
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 		})
 
 		// lưu kiến thức mới của bài học
