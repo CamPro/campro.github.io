@@ -340,31 +340,6 @@
 			GetCourses();
 		}
 
-		// thêm 1 khóa học mới
-		$('#room-courses').change(function ()
-		{
-			var course = $(this).val();
-			if (course == '+')
-			{
-				$(this).val('');
-				var course = prompt("Nhập tên khóa học:", "");
-				if (!course) { return; }
-
-				let created_at = moment().unix();
-
-				fsdb.collection("courses").add({
-					course: course,
-					created_at: created_at
-				})
-				.then((docRef) => {
-					GetCourses();
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-			}
-		})
-
 		// kiểm nhắc nhở chọn khóa học
 		$('#room-lesson, #room-courses').on('change keyup', function ()
 		{
@@ -549,7 +524,7 @@
 		{
 			fsdb.collection("courses").orderBy("created_at", "desc").limit(18).get()
 			.then((querySnapshot) => {
-				var options = '<option value=""> -- Khóa Học -- </option><option value="+">+ Thêm khóa học</option>';
+				var options = '<option value=""> -- Khóa Học -- </option>';
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();

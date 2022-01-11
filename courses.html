@@ -234,7 +234,7 @@
 									<thead>
 										<tr>
 											<th>Danh sách 
-												<button class="btn btn-success btn-xs d-none" id="lesson-save">Save</button>
+												<button class="btn btn-success btn-xs d-none" id="lesson-save">Lưu danh sách</button>
 												<button class="btn btn-primary btn-xs d-none float-right" id="lesson-add"><i class="fas fa-plus"></i></button>
 											</th>
 										</tr>
@@ -276,13 +276,24 @@
 		// thêm 1 khóa học
 		$('#course-add').click(function ()
 		{
-			var course = prompt("Nhập tên khóa học:", "");
-			if (!course) { return; }
+			var code = '<tr><td><div class="row">';
+			code += '<div class="col-sm-5"><input type="text" class="form-control" placeholder="Tên khóa học"></div>';
+			code += '<div class="col-sm-5"><select class="form-control"><option value="Sức Khỏe">Sức Khỏe</option><option value="Gia Đình">Gia Đình</option><option value="Sự Nghiệp">Sự Nghiệp</option><option value="Bạn Bè">Bạn Bè</option></select></div>';
+			code += '<div class="col-sm-2"><button class="btn btn-success" onclick="SaveCourse(this)">Lưu</button></div>';
+			'</div></td></tr>';
+			$('#room-courses').append(code);
+		})
+
+		function SaveCourse(element)
+		{
+			var course = $(element).parents('div.row').find('input').val().trim();
+			var purpose = $(element).parents('div.row').find('select').val();
 
 			let created_at = moment().unix();
 
 			fsdb.collection("courses").add({
 				course: course,
+				purpose: purpose,
 				created_at: created_at
 			})
 			.then((docRef) => {
@@ -291,7 +302,7 @@
 			.catch((error) => {
 				console.log(error);
 			});
-		})
+		}
 
 		// tạo ô thêm thông tin 1 bài học
 		$('#lesson-add').click(function ()
@@ -370,7 +381,7 @@
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
-					var code = '<tr><td onclick="GetLessons(\'' + docid + '\')"><i class="fas fa-cube"></i> <span>' + docdata.course + '</span><span class="text-danger float-right" data-course-id="' + docid + '" onclick="DeleteCourse(this)"><i class="fas fa-trash"></i></span></td></tr>';
+					var code = '<tr><td onclick="GetLessons(\'' + docid + '\')"><i class="fas fa-cube"></i> <span>' + docdata.course + '</span><span class="text-gray"> --> </span><span class="badge badge-default">' + docdata.purpose + '</span><span class="text-danger float-right" data-course-id="' + docid + '" onclick="DeleteCourse(this)"><i class="fas fa-trash"></i></span></td></tr>';
 					$('#room-courses').append(code);
 				});
 			})
