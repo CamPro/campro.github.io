@@ -217,7 +217,12 @@
 								<div class="card-header">
 									<div class="row">
 										<div class="col-sm-9">
-											<textarea class="form-control" rows="1" id="room-content" placeholder="<html>"></textarea>
+											<div class="input-group">
+												<textarea class="form-control" rows="1" id="room-content" placeholder="<html>"></textarea>
+												<div class="input-group-append">
+													<span class="btn input-group-text" id="room-content-frame"><i class="fas fa-crop"></i></span>
+												</div>
+											</div>
 										</div>
 										<div class="col-sm-3">
 											<div class="btn-group float-right">
@@ -519,10 +524,18 @@
 			$(this).val(content);
 		})
 
+		// gắn url vào iframe nếu content là 1 url
+		$('#room-content-frame').click(function ()
+		{
+			//var link = $('#room-content').val();
+			//$('#room-frame').attr('src', link);
+			$('#room-content').parents('div.input-group').hide();
+		})
+
 		// xem html sang iframe
 		$('#room-view').click(function ()
 		{
-			var myContent = $('#room-content').hide().val();
+			var myContent = $('#room-content').val();
 			myContent = '<body contentEditable="true">' + myContent + '</body>';
 
 			var iframeView = document.getElementById('room-frame').contentWindow || document.getElementById('room-frame').contentDocument;
