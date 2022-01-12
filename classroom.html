@@ -216,11 +216,14 @@
 							<div class="card card-default">
 								<div class="card-header">
 									<div class="row">
-										<div class="col-sm-10">
+										<div class="col-sm-9">
 											<textarea class="form-control" rows="1" id="room-content" placeholder="<html>"></textarea>
 										</div>
-										<div class="col-sm-2">
-											<button class="btn btn-default form-control" id="room-view">Bắt Đầu Giảng</button>
+										<div class="col-sm-3">
+											<div class="btn-group">
+											<button type="button" class="btn btn-default btn-block" id="room-view">Bắt Đầu Giảng</button>
+											<a href="#" class="btn btn-default" id="lesson-next"><i class="fas fa-step-forward"></i></a>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -292,6 +295,8 @@
 	<script type="text/javascript">
 
 		var lesson_index = null;
+		var lesson_doc = null;
+		var course_id = null;
 
 		var url = new URL(window.location.href);
 		lesson_index = url.searchParams.get("lesson");
@@ -304,11 +309,12 @@
 				{
 					let docdata = doc.data();
 
+					lesson_doc = doc;
+					course_id = docdata.course_id;
+
 					$('#room-content').val(docdata.content);
 					$('#room-lesson').val(docdata.lesson);
 					GetCourses(docdata.course_id);
-
-					console.log(docdata);
 
 					if (docdata.complated && docdata.complated == true)
 					{
@@ -329,6 +335,18 @@
 							html += '</div></div>';
 
 							$('#room-list').append(html);
+						});
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+
+					// lấy bài học tiếp theo
+					fsdb.collection("lessons").where('course_id', '==', course_id).orderBy("created_at", "asc").startAfter(lesson_doc).limit(1).get()
+					.then((querySnapshot) => {
+						querySnapshot.forEach((doc) => {
+							let docid = doc.id;
+							$('#lesson-next').attr('href', '/classroom.html?lesson=' + docid);
 						});
 					})
 					.catch((error) => {
