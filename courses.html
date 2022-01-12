@@ -439,7 +439,7 @@
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
-					var code = '<tr><td onclick="GetCourses(\'' + docid + '\')"><i class="fas fa-cube"></i> <span>' + docdata.category + '</span><span class="text-gray"> --> </span><span class="badge badge-default text-gray">' + docdata.purpose + '</span><span class="float-right" data-category-id="' + docid + '" onclick="DeleteCategory(this)"><i class="fas fa-trash"></i></span></td></tr>';
+					var code = '<tr><td onclick="GetCourses(\'' + docid + '\')"><i class="fas fa-cube"></i> <span>' + docdata.category + '</span><span class="text-gray"> --> </span><span class="badge badge-default text-gray">' + docdata.purpose + '</span><span class="float-right" data-category-id="' + docid + '" onclick="DeleteCategory(this)"><i class="fas fa-trash-alt"></i></span></td></tr>';
 					$('#room-categories').append(code);
 					categories.push(doc);
 				});
@@ -461,7 +461,7 @@
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
-					var code = '<tr><td onclick="GetLessons(\'' + docid + '\')"><i class="fas fa-book"></i> <span>' + docdata.course + '</span><span class="float-right" data-course-id="' + docid + '" onclick="DeleteCourse(this)"><i class="fas fa-trash"></i></span></td></tr>';
+					var code = '<tr><td onclick="GetLessons(\'' + docid + '\')"><i class="fas fa-book"></i> <span>' + docdata.course + '</span><span class="float-right" data-course-id="' + docid + '" onclick="DeleteCourse(this)"><i class="fas fa-trash-alt"></i></span></td></tr>';
 					$('#room-courses').append(code);
 				});
 			})
@@ -486,7 +486,7 @@
 					let docdata = doc.data();
 					let complated = docdata.complated && docdata.complated == true;
 
-					var code = '<tr><td><a class="' + (complated ? 'text-gray' : '') + '" href="/classroom.html?lesson=' + docid + '">' + (complated ? '<i class="fas fa-check text-success"></i>' : '<i class="far fa-newspaper"></i>') + ' <span>' + docdata.lesson + '</span></a><span class="float-right" data-lesson-id="' + docid + '" onclick="DeleteLesson(this)"><i class="fas fa-trash"></i></span></td></tr>';
+					var code = '<tr><td><a class="' + (complated ? 'text-gray' : '') + '" href="/classroom.html?lesson=' + docid + '">' + (complated ? '<i class="fas fa-check text-success"></i>' : '<i class="far fa-newspaper"></i>') + ' <span>' + docdata.lesson + '</span></a><span class="float-right" data-lesson-id="' + docid + '" onclick="DeleteLesson(this)"><i class="fas fa-trash-alt"></i></span></td></tr>';
 					$('#room-lessons').append(code);
 				});
 			})
