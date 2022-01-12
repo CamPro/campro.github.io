@@ -519,7 +519,7 @@
 		// xem html sang iframe
 		$('#room-view').click(function ()
 		{
-			var myContent = $('#room-content').val();
+			var myContent = $('#room-content').hide().val();
 			myContent = '<body contentEditable="true">' + myContent + '</body>';
 
 			var iframeView = document.getElementById('room-frame').contentWindow || document.getElementById('room-frame').contentDocument;
