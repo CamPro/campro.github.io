@@ -450,6 +450,8 @@
 		// đánh dấu bài học đã hoàn thành
 		$('#room-lesson-complated').click(function ()
 		{
+			if (!lesson_index) return;
+
 			fsdb.collection("lessons").doc(lesson_index).update({
 				complated: true
 			})
