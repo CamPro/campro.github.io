@@ -221,8 +221,9 @@
 										</div>
 										<div class="col-sm-3">
 											<div class="btn-group float-right">
-											<button type="button" class="btn btn-default btn-block" id="room-view">Bắt Đầu Giảng</button>
-											<a href="#" class="btn btn-default" id="lesson-next"></a>
+												<button type="button" class="btn btn-default" id="room-lesson-complated"></button>
+												<button type="button" class="btn btn-default btn-block" id="room-view">Bắt Đầu Giảng</button>
+												<a href="#" class="btn btn-default" id="lesson-next"></a>
 											</div>
 										</div>
 									</div>
@@ -240,13 +241,8 @@
 							<div class="card card-default">
 								<div class="card-header">
 									<div class="form-group">
-										<div class="input-group">
-											<select class="form-control" id="room-courses">
-											</select>
-											<div class="input-group-append">
-												<span class="btn btn-success input-group-text" id="room-lesson-complated"><i class="fas fa-check"></i></span>
-											</div>
-										</div>
+										<select class="form-control" id="room-courses">
+										</select>
 									</div>
 									<div class="input-group">
 										<input type="text" class="form-control" id="room-lesson" value="" placeholder="Tiêu đề bài giảng">
@@ -319,6 +315,11 @@
 					if (docdata.complated && docdata.complated == true)
 					{
 						$('#room-lesson-complated').addClass('text-success').html('<i class="fas fa-check-double"></i>');
+						$('#room-view').text('Đã Học Bài');
+					}
+					else
+					{
+						$('#room-lesson-complated').html('<i class="fas fa-check"></i>');
 					}
 
 					// lấy danh sách study của bài học
