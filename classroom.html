@@ -228,6 +228,7 @@
 											<div class="btn-group float-right">
 												<button type="button" class="btn btn-default" id="room-lesson-complated"></button>
 												<button type="button" class="btn btn-default btn-block" id="room-view">Bắt Đầu Giảng</button>
+												<button type="button" class="btn btn-default btn-xs" id="room-view-hide"><i class="fas fa-eye-slash"></i></button>
 												<a href="#" class="btn btn-default" id="lesson-next"></a>
 											</div>
 										</div>
@@ -530,6 +531,11 @@
 			//var link = $('#room-content').val();
 			//$('#room-frame').attr('src', link);
 			$('#room-content').parents('div.input-group').hide();
+		})
+		// aanr 
+		$('#room-view-hide').click(function ()
+		{
+			$('#room-content').parents('div.card-header').hide();
 		})
 
 		// xem html sang iframe
