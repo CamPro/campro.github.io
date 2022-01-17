@@ -292,7 +292,7 @@
 
 					if (docdata.complated && docdata.complated == true)
 					{
-						$('#room-lesson-complated').addClass('text-success').html('<i class="fas fa-check-double"></i>');
+						$('#room-lesson-complated').addClass('text-success').html('<i class="fas fa-graduation-cap"></i>');
 						$('#room-view').text('Đã Học Bài');
 					}
 					else
@@ -434,7 +434,7 @@
 				complated: true
 			})
 			.then(() => {
-				$('#room-lesson-complated').addClass('text-success').html('<i class="fas fa-check-double"></i>');
+				$('#room-lesson-complated').addClass('text-success').html('<i class="fas fa-graduation-cap"></i>');
 			})
 			.catch((error) => {
 				console.log(error);
