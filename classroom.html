@@ -321,7 +321,7 @@
 					});
 
 					// lấy bài học tiếp theo
-					fsdb.collection("lessons").where('course_id', '==', course_id).orderBy("created_at", "asc").startAfter(lesson_doc).limit(1).get()
+					fsdb.collection("lessons").where('course_id', '==', course_id).orderBy('index', 'asc').startAfter(lesson_doc).limit(1).get()
 					.then((querySnapshot) => {
 						querySnapshot.forEach((doc) => {
 							let docid = doc.id;
