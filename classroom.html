@@ -325,7 +325,8 @@
 					.then((querySnapshot) => {
 						querySnapshot.forEach((doc) => {
 							let docid = doc.id;
-							$('#lesson-next').html('<i class="fas fa-step-forward"></i>').attr('href', '/classroom.html?lesson=' + docid);
+							let link = '/classroom.html?lesson=' + docid + '&title=' + encodeURIComponent(doc.data().lesson);
+							$('#lesson-next').html('<i class="fas fa-step-forward"></i>').attr('href', link);
 						});
 					})
 					.catch((error) => {
