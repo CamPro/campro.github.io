@@ -189,7 +189,11 @@
 								<table class="table table-hover table-bordered text-nowrap">
 									<thead>
 										<tr>
-											<th>Lĩnh Vực/Chủ Đề <button class="btn btn-success btn-xs float-right" id="category-create"><i class="fas fa-plus"></i></button></th>
+											<th>
+												Lĩnh Vực/Chủ Đề
+												<button class="btn btn-default btn-xs" id="category-sort"><i class="fas fa-sort-amount-up-alt"></i></button>
+												<button class="btn btn-success btn-xs float-right" id="category-create"><i class="fas fa-plus"></i></button>
+											</th>
 										</tr>
 									</thead>
 									<tbody id="room-categories">
@@ -202,7 +206,11 @@
 								<table class="table table-hover table-bordered text-nowrap">
 									<thead>
 										<tr>
-											<th>Khóa học <button class="btn btn-success btn-xs float-right" id="course-create"><i class="fas fa-plus"></i></button></th>
+											<th>
+												Khóa học
+												<button class="btn btn-default btn-xs" id="course-sort"><i class="fas fa-sort-amount-up-alt"></i></button>
+												<button class="btn btn-success btn-xs float-right" id="course-create"><i class="fas fa-plus"></i></button>
+											</th>
 										</tr>
 									</thead>
 									<tbody id="room-courses">
@@ -217,6 +225,7 @@
 										<tr>
 											<th>Danh sách 
 												<button class="btn btn-success btn-xs d-none" id="lesson-save">Lưu danh sách</button>
+												<button class="btn btn-default btn-xs" id="lesson-sort"><i class="fas fa-sort-amount-up-alt"></i></button>
 												<button class="btn btn-primary btn-xs d-none float-right" id="lesson-create"><i class="fas fa-plus"></i></button>
 											</th>
 										</tr>
@@ -268,6 +277,28 @@
 			code += '<div class="col-sm-2"><button class="btn btn-success" onclick="SaveCategory(this)">Lưu</button></div>';
 			'</div></td></tr>';
 			$('#room-categories').append(code);
+		});
+		// xap sep
+		$('#category-sort').click(function ()
+		{
+			$(this).html('<i class="fas fa-stream"></i>').prop('disabled', true);
+			$("#room-categories").sortable({
+				// cập nhật số thứ tự
+				update: function(event, ui)
+				{
+					var lists = $("#room-categories" ).sortable("toArray");
+					for (var i = 0; i < lists.length; i++)
+					{
+						var category_id = lists[i];
+						fsdb.collection("categories").doc(category_id).update({
+							index: (i + 1)
+						})
+						.then(() => {}).catch((error) => {
+							console.log(error);
+						});
+					}
+				}
+			}).disableSelection();
 		})
 		// lưu 1 lĩnh vực mới
 		function SaveCategory(element)
@@ -311,6 +342,29 @@
 			'</div></td></tr>';
 			$('#room-courses').append(code);
 		})
+		// xap sep
+		$('#course-sort').click(function ()
+		{
+			$(this).html('<i class="fas fa-stream"></i>').prop('disabled', true);
+			// drag drop
+			$("#room-courses").sortable({
+				// cập nhật số thứ tự
+				update: function(event, ui)
+				{
+					var lists = $("#room-courses" ).sortable("toArray");
+					for (var i = 0; i < lists.length; i++)
+					{
+						var course_id = lists[i];
+						fsdb.collection("courses").doc(course_id).update({
+							index: (i + 1)
+						})
+						.then(() => {}).catch((error) => {
+							console.log(error);
+						});
+					}
+				}
+			}).disableSelection();
+		})
 		// lưu 1 khóa học mới
 		function SaveCourse(element)
 		{
@@ -347,7 +401,29 @@
 			$('#room-lessons').append(code);
 			$('#lesson-save').removeClass('d-none');
 		})
-
+		// xap sep
+		$('#lesson-sort').click(function ()
+		{
+			$(this).html('<i class="fas fa-stream"></i>').prop('disabled', true);
+			// drag drop
+			$("#room-lessons").sortable({
+				// cập nhật số thứ tự
+				update: function(event, ui)
+				{
+					var lists = $("#room-lessons" ).sortable("toArray");
+					for (var i = 0; i < lists.length; i++)
+					{
+						var lesson_id = lists[i];
+						fsdb.collection("lessons").doc(lesson_id).update({
+							index: (i + 1)
+						})
+						.then(() => {}).catch((error) => {
+							console.log(error);
+						});
+					}
+				}
+			}).disableSelection();
+		})
 		// lưu danh sách bài học theo khóa học
 		$('#lesson-save').click(function ()
 		{
@@ -419,24 +495,6 @@
 					$('#room-categories').append(code);
 					categories.push(doc);
 				});
-
-				$("#room-categories").sortable({
-					// cập nhật số thứ tự
-					update: function(event, ui)
-					{
-						var lists = $("#room-categories" ).sortable("toArray");
-						for (var i = 0; i < lists.length; i++)
-						{
-							var category_id = lists[i];
-							fsdb.collection("categories").doc(category_id).update({
-								index: (i + 1)
-							})
-							.then(() => {}).catch((error) => {
-								console.log(error);
-							});
-						}
-					}
-				}).disableSelection();
 			})
 			.catch((error) => {
 				console.log(error);
@@ -466,24 +524,6 @@
 
 					$('#room-courses').append(code);
 				});
-				// drag drop
-				$("#room-courses").sortable({
-					// cập nhật số thứ tự
-					update: function(event, ui)
-					{
-						var lists = $("#room-courses" ).sortable("toArray");
-						for (var i = 0; i < lists.length; i++)
-						{
-							var course_id = lists[i];
-							fsdb.collection("courses").doc(course_id).update({
-								index: (i + 1)
-							})
-							.then(() => {}).catch((error) => {
-								console.log(error);
-							});
-						}
-					}
-				}).disableSelection();
 			})
 			.catch((error) => {
 				console.log(error);
@@ -517,25 +557,6 @@
 					var code = '<tr id="' + docid + '"><td><a class="' + (complated ? 'text-gray' : '') + '" href="' + link + '">' + (complated ? '<i class="fas fa-graduation-cap text-success"></i>' : '<i class="far fa-list-alt"></i>') + ' <span>' + docdata.lesson + '</span></a><span class="float-right" data-lesson-id="' + docid + '" onclick="DeleteLesson(this)"><i class="fas fa-trash-alt text-gray"></i></span></td></tr>';
 					$('#room-lessons').append(code);
 				});
-
-				// drag drop
-				$("#room-lessons").sortable({
-					// cập nhật số thứ tự
-					update: function(event, ui)
-					{
-						var lists = $("#room-lessons" ).sortable("toArray");
-						for (var i = 0; i < lists.length; i++)
-						{
-							var lesson_id = lists[i];
-							fsdb.collection("lessons").doc(lesson_id).update({
-								index: (i + 1)
-							})
-							.then(() => {}).catch((error) => {
-								console.log(error);
-							});
-						}
-					}
-				}).disableSelection();
 
 				// cập nhật chỉ số
 				$('tr#' + course_id).find('.progress-number').html(done + '/' + total);
