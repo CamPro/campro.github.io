@@ -204,115 +204,17 @@
 					</div>
 					<div class="card-body">
 						<div class="row">
-							<div class="col-3">
-								<select class="form-control" name="progress">
-									<option value=""></option>
-									<option value=""></option>
-									<option value="Completed"></option>									
-								</select>
-							</div>
-							<div class="col-4">
-								<input type="text" class="form-control" placeholder=".col-4">
-							</div>
-							<div class="col-5">
-								<input type="text" class="form-control" placeholder=".col-5">
+							<div class="col-sm-4">
+								<div class="input-group">
+									<input type="text" class="form-control" id="todo-text" placeholder="Phát hiện mới ...">
+									<div class="input-group-append">
+										<span class="input-group-text btn btn-primary" id="todo-create"><i class="fas fa-plus"></i></span>
+									</div>
+								</div>
 							</div>
 						</div>
 						<ul class="todo-list" data-widget="todo-list">
-							<li>
-								<span class="handle">
-									<i class="fas fa-ellipsis-v"></i>
-								</span>
-								<div  class="icheck-primary d-inline ml-2">
-									<input type="checkbox" value="" name="todo1" id="todoCheck1">
-									<label for="todoCheck1"></label>
-								</div>
-								<span class="text">Design a nice theme</span>
-								<small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
-								<div class="tools">
-									<i class="fas fa-edit"></i>
-									<i class="fas fa-trash-o"></i>
-								</div>
-							</li>
-							<li>
-								<span class="handle">
-									<i class="fas fa-ellipsis-v"></i>
-								</span>
-								<div  class="icheck-primary d-inline ml-2">
-									<input type="checkbox" value="" name="todo2" id="todoCheck2" checked>
-									<label for="todoCheck2"></label>
-								</div>
-								<span class="text">Make the theme responsive</span>
-								<small class="badge badge-info"><i class="far fa-clock"></i> 4 hours</small>
-								<div class="tools">
-									<i class="fas fa-edit"></i>
-									<i class="fas fa-trash-o"></i>
-								</div>
-							</li>
-							<li>
-								<span class="handle">
-									<i class="fas fa-ellipsis-v"></i>
-								</span>
-								<div  class="icheck-primary d-inline ml-2">
-									<input type="checkbox" value="" name="todo3" id="todoCheck3">
-									<label for="todoCheck3"></label>
-								</div>
-								<span class="text">Let theme shine like a star</span>
-								<small class="badge badge-warning"><i class="far fa-clock"></i> 1 day</small>
-								<div class="tools">
-									<i class="fas fa-edit"></i>
-									<i class="fas fa-trash-o"></i>
-								</div>
-							</li>
-							<li>
-								<span class="handle">
-									<i class="fas fa-ellipsis-v"></i>
-								</span>
-								<div  class="icheck-primary d-inline ml-2">
-									<input type="checkbox" value="" name="todo4" id="todoCheck4">
-									<label for="todoCheck4"></label>
-								</div>
-								<span class="text">Let theme shine like a star</span>
-								<small class="badge badge-success"><i class="far fa-clock"></i> 3 days</small>
-								<div class="tools">
-									<i class="fas fa-edit"></i>
-									<i class="fas fa-trash-o"></i>
-								</div>
-							</li>
-							<li>
-								<span class="handle">
-									<i class="fas fa-ellipsis-v"></i>
-								</span>
-								<div  class="icheck-primary d-inline ml-2">
-									<input type="checkbox" value="" name="todo5" id="todoCheck5">
-									<label for="todoCheck5"></label>
-								</div>
-								<span class="text">Check your messages and notifications</span>
-								<small class="badge badge-primary"><i class="far fa-clock"></i> 1 week</small>
-								<div class="tools">
-									<i class="fas fa-edit"></i>
-									<i class="fas fa-trash-o"></i>
-								</div>
-							</li>
-							<li>
-								<span class="handle">
-									<i class="fas fa-ellipsis-v"></i>
-								</span>
-								<div  class="icheck-primary d-inline ml-2">
-									<input type="checkbox" value="" name="todo6" id="todoCheck6">
-									<label for="todoCheck6"></label>
-								</div>
-								<span class="text">Let theme shine like a star</span>
-								<small class="badge badge-secondary"><i class="far fa-clock"></i> 1 month</small>
-								<div class="tools">
-									<i class="fas fa-edit"></i>
-									<i class="fas fa-trash-o"></i>
-								</div>
-							</li>
 						</ul>
-					</div>
-					<div class="card-footer clearfix">
-						<button type="button" class="btn btn-default btn-sm" id="todo-add"><i class="fas fa-plus"></i></button>
 					</div>
 				</div>
 			</div>
@@ -338,8 +240,64 @@
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
 		
+		// lấy danh sách todo
+		GetTodolist();
+
 		$('[data-toggle="tooltip"]').tooltip();
 
+		$('#todo-create').click(function ()
+		{
+			let new_todo = $('#todo-text').removeClass('is-invalid').val().trim();
+
+			if (!new_todo)
+			{
+				$('#todo-text').addClass('is-invalid');
+				return;
+			}
+			let created_at = moment().unix();
+
+			fsdb.collection("todolist").add({
+				index: 0,
+				todo: new_todo,
+				created_at: created_at,
+				completed: false
+			})
+			.then((docRef) => {
+				$('#todo-text').val('');
+				GetTodolist();
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		})
+
+		// lấy danh sách todo
+		function GetTodolist()
+		{
+			$('[data-widget="todo-list"]').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
+			fsdb.collection("todolist").orderBy("index", "asc").get()
+			.then((querySnapshot) => {
+				$('[data-widget="todo-list"]').html('');
+				querySnapshot.forEach((doc) => {
+					let docid = doc.id;
+					let docdata = doc.data();
+
+					var code = '';
+						code += '<li>';
+						code += '<span class="text">' + docdata.todo + '</span>';
+						code += '<div class="tools">';
+						code += '<i class="fas fa-edit"></i>';
+						code += '<i class="fas fa-trash"></i>';
+						code += '</div>';
+						code += '</li>';
+					$('[data-widget="todo-list"]').append(code);
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+				$('[data-widget="todo-list"]').html('<i class="fas fa-exclamation-circle fa-2x"></i>');
+			});
+		}
 /*
 $('[data-widget="todo-list"]').TodoList({
 	onCheck: function(checkbox)
