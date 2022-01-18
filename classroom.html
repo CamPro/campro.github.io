@@ -198,7 +198,7 @@
 										</div>
 										<div class="col-sm-3">
 											<div class="btn-group float-right">
-												<button type="button" class="btn btn-default" id="room-lesson-complated"></button>
+												<button type="button" class="btn btn-default" id="room-lesson-completed"></button>
 												<button type="button" class="btn btn-default btn-block" id="room-view">Bắt Đầu Giảng</button>
 												<button type="button" class="btn btn-default btn-xs" id="room-view-hide"><i class="fas fa-eye-slash"></i></button>
 												<a href="#" class="btn btn-default" id="lesson-next"></a>
@@ -290,14 +290,14 @@
 					$('#room-lesson').val(docdata.lesson);
 					GetCourses(docdata.course_id);
 
-					if (docdata.complated && docdata.complated == true)
+					if (docdata.completed && docdata.completed == true)
 					{
-						$('#room-lesson-complated').addClass('text-success').html('<i class="fas fa-graduation-cap"></i>');
+						$('#room-lesson-completed').addClass('text-success').html('<i class="fas fa-graduation-cap"></i>');
 						$('#room-view').text('Đã Học Bài');
 					}
 					else
 					{
-						$('#room-lesson-complated').html('<i class="fas fa-check"></i>');
+						$('#room-lesson-completed').html('<i class="fas fa-check"></i>');
 					}
 
 					// lấy danh sách study của bài học
@@ -429,15 +429,15 @@
 		})
 
 		// đánh dấu bài học đã hoàn thành
-		$('#room-lesson-complated').click(function ()
+		$('#room-lesson-completed').click(function ()
 		{
 			if (!lesson_index) return;
 
 			fsdb.collection("lessons").doc(lesson_index).update({
-				complated: true
+				completed: true
 			})
 			.then(() => {
-				$('#room-lesson-complated').addClass('text-success').html('<i class="fas fa-graduation-cap"></i>');
+				$('#room-lesson-completed').addClass('text-success').html('<i class="fas fa-graduation-cap"></i>');
 			})
 			.catch((error) => {
 				console.log(error);

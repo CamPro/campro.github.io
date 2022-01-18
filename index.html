@@ -203,11 +203,24 @@
 						</div>
 					</div>
 					<div class="card-body">
+						<div class="row">
+							<div class="col-3">
+								<select class="form-control" name="progress">
+									<option value=""></option>
+									<option value=""></option>
+									<option value="Completed"></option>									
+								</select>
+							</div>
+							<div class="col-4">
+								<input type="text" class="form-control" placeholder=".col-4">
+							</div>
+							<div class="col-5">
+								<input type="text" class="form-control" placeholder=".col-5">
+							</div>
+						</div>
 						<ul class="todo-list" data-widget="todo-list">
-
 							<li>
 								<span class="handle">
-									<i class="fas fa-ellipsis-v"></i>
 									<i class="fas fa-ellipsis-v"></i>
 								</span>
 								<div  class="icheck-primary d-inline ml-2">
@@ -221,10 +234,8 @@
 									<i class="fas fa-trash-o"></i>
 								</div>
 							</li>
-
 							<li>
 								<span class="handle">
-									<i class="fas fa-ellipsis-v"></i>
 									<i class="fas fa-ellipsis-v"></i>
 								</span>
 								<div  class="icheck-primary d-inline ml-2">
@@ -238,10 +249,8 @@
 									<i class="fas fa-trash-o"></i>
 								</div>
 							</li>
-
 							<li>
 								<span class="handle">
-									<i class="fas fa-ellipsis-v"></i>
 									<i class="fas fa-ellipsis-v"></i>
 								</span>
 								<div  class="icheck-primary d-inline ml-2">
@@ -255,10 +264,8 @@
 									<i class="fas fa-trash-o"></i>
 								</div>
 							</li>
-
 							<li>
 								<span class="handle">
-									<i class="fas fa-ellipsis-v"></i>
 									<i class="fas fa-ellipsis-v"></i>
 								</span>
 								<div  class="icheck-primary d-inline ml-2">
@@ -272,10 +279,8 @@
 									<i class="fas fa-trash-o"></i>
 								</div>
 							</li>
-
 							<li>
 								<span class="handle">
-									<i class="fas fa-ellipsis-v"></i>
 									<i class="fas fa-ellipsis-v"></i>
 								</span>
 								<div  class="icheck-primary d-inline ml-2">
@@ -289,10 +294,8 @@
 									<i class="fas fa-trash-o"></i>
 								</div>
 							</li>
-
 							<li>
 								<span class="handle">
-									<i class="fas fa-ellipsis-v"></i>
 									<i class="fas fa-ellipsis-v"></i>
 								</span>
 								<div  class="icheck-primary d-inline ml-2">
@@ -306,11 +309,10 @@
 									<i class="fas fa-trash-o"></i>
 								</div>
 							</li>
-
 						</ul>
 					</div>
 					<div class="card-footer clearfix">
-						<button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add item</button>
+						<button type="button" class="btn btn-default btn-sm" id="todo-add"><i class="fas fa-plus"></i></button>
 					</div>
 				</div>
 			</div>
@@ -340,16 +342,16 @@
 
 /*
 $('[data-widget="todo-list"]').TodoList({
-onCheck: function(checkbox)
-{
-console.log(checkbox);
-// Do something when the checkbox is checked
-},
-onUnCheck: function(checkbox)
-{
-console.log(checkbox);
-// Do something after the checkbox has been unchecked
-}
+	onCheck: function(checkbox)
+	{
+		console.log(checkbox);
+	// Do something when the checkbox is checked
+	},
+	onUnCheck: function(checkbox)
+	{
+		console.log(checkbox);
+	// Do something after the checkbox has been unchecked
+	}
 })
 */
 
