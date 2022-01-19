@@ -245,10 +245,12 @@
 	<script type="text/javascript">
 		
 		var timer = null;
+		
+		$('[data-toggle="tooltip"]').tooltip();
+
 		// lấy danh sách todo
 		GetTodolist();
 
-		//$('[data-toggle="tooltip"]').tooltip();
 		$('#todo-text').keyup(function(e){
 			if(e.keyCode == 13)
 			{
