@@ -213,8 +213,12 @@
 								</div>
 							</div>
 						</div>
-						<ul class="todo-list" data-widget="todo-list">
-						</ul>
+						<div class="table-responsive">
+							<table class="table table-hover table-sm">
+								<tbody class="todo-list">
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -243,7 +247,7 @@
 		// lấy danh sách todo
 		GetTodolist();
 
-		$('[data-toggle="tooltip"]').tooltip();
+		//$('[data-toggle="tooltip"]').tooltip();
 
 		$('#todo-create').click(function ()
 		{
@@ -274,23 +278,20 @@
 		// lấy danh sách todo
 		function GetTodolist()
 		{
-			$('[data-widget="todo-list"]').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
+			$('tbody.todo-list').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
 			fsdb.collection("todolists").orderBy("index", "asc").get()
 			.then((querySnapshot) => {
-				$('[data-widget="todo-list"]').html('');
+				$('tbody.todo-list').html('');
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
 
-					var code = '';
-						code += '<li>';
-						code += '<span class="text">' + docdata.todo + '</span>';
-						code += '<div class="tools">';
-						code += '<i class="fas fa-edit"></i>';
-						code += '<i class="fas fa-trash" data-todo-id="' + docid + '" onclick="DeleteTodo(this)"></i>';
-						code += '</div>';
-						code += '</li>';
-					$('[data-widget="todo-list"]').append(code);
+					var code = '<tr><td><span class="text-primary">' + docdata.todo + '</span></td><td>';
+					code += '<div class="float-right">';
+					code += '<i class="fas fa-trash-alt text-gray" data-todo-id="' + docid + '" onclick="DeleteTodo(this)"></i>';
+					code += '</div>';
+					code += '</td></tr>';
+					$('tbody.todo-list').append(code);
 				});
 			})
 			.catch((error) => {
