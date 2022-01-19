@@ -74,7 +74,7 @@
 								<i class="nav-icon fas fa-tachometer-alt"></i><p>Ngôi Nhà Vĩ Nhân</p>
 							</a>
 						</li>
-						<li class="nav-header text-warning">6. Áp dụng kiến thức ra quyết định</li>
+						<li class="nav-header text-warning">6. Áp dụng kiến thức</li>
 						<li class="nav-header text-warning">5. Tổng hợp kiến thức</li>
 						<li class="nav-header text-warning">4. Phân tích thông tin</li>
 						<li class="nav-item">
@@ -172,14 +172,181 @@
 
 		<div class="content-wrapper">
 			<div class="content">
-				<div class="card card-success">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title">Kiến Thức Chọn Lọc</h3>
+							</div>
+							<div class="card-body">
+								<table class="table table-sm">
+									<thead>
+										<tr>
+											<th style="width: 10px">#</th>
+											<th>Task</th>
+											<th>Progress</th>
+											<th style="width: 40px">Label</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>1.</td>
+											<td>Update software</td>
+											<td>
+												<div class="progress progress-xs">
+													<div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+												</div>
+											</td>
+											<td><span class="badge bg-danger">55%</span></td>
+										</tr>
+										<tr>
+											<td>2.</td>
+											<td>Clean database</td>
+											<td>
+												<div class="progress progress-xs">
+													<div class="progress-bar bg-warning" style="width: 70%"></div>
+												</div>
+											</td>
+											<td><span class="badge bg-warning">70%</span></td>
+										</tr>
+										<tr>
+											<td>3.</td>
+											<td>Cron job running</td>
+											<td>
+												<div class="progress progress-xs progress-striped active">
+													<div class="progress-bar bg-primary" style="width: 30%"></div>
+												</div>
+											</td>
+											<td><span class="badge bg-primary">30%</span></td>
+										</tr>
+										<tr>
+											<td>4.</td>
+											<td>Fix and squish bugs</td>
+											<td>
+												<div class="progress progress-xs progress-striped active">
+													<div class="progress-bar bg-success" style="width: 90%"></div>
+												</div>
+											</td>
+											<td><span class="badge bg-success">90%</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="card card-default">
+							<div class="card-header">
+								<h3 class="card-title">I Learning ... thông tin (bên ngoài) -> tư duy -> kiến thức (trí não)</h3>
+								<div class="card-tools">
+									<button type="button" class="btn btn-tool" data-card-widget="maximize">
+										<i class="fas fa-expand"></i>
+									</button>
+									<button type="button" class="btn btn-tool" data-card-widget="collapse">
+										<i class="fas fa-minus"></i>
+									</button>
+									<button type="button" class="btn btn-tool" data-card-widget="remove">
+										<i class="fas fa-times"></i>
+									</button>
+								</div>
+							</div>
+							<div class="card-body">
+								<h5 class="text-info">Tiếp thu/Cảm nhận:</h5>
+								<div class="form-group">
+									<label for="exampleInputBorder">1. <code>Tôi biết gì? cảm nhận riêng của tôi?</code></label>
+									<textarea class="form-control form-control-border" rows="1" placeholder="nghe, nhìn, tiếp xúc, ngửi, nếm, ..."></textarea>
+								</div>
+
+								<h5 class="text-info">Thinking/Suy nghĩ:</h5>
+								<div class="form-group">
+									<label for="exampleInputBorder">1. What <code>Nó là gì, cái gì, con gì, cái nào, điều gì? Cái gì xảy ra? Có thành phần gì? Cái gì quan trọng? Cái gì còn thiếu? khó khăn gì? thuận lợi gì? cần làm gì? ý nghĩa là gì? Cái gì ... nếu ..., động cơ gì? kết luận gì? mục đích gì?</code></label>
+									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder="..."></textarea>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputBorder">2. When <code>Khi nào? khoảnh khắc? khi nào biết...? khi nào là tốt nhất?</code></label>
+									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder="..."></textarea>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputBorder">3. Where <code>Ở đâu? từ đâu đến? bắt đầu từ đâu? đi đâu?</code></label>
+									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder="..."></textarea>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputBorder">4. Who <code>Ai đã nói/viết? nói về ai? những người tham gia? ai gây ra? ai bị hại? ai quan trọng nhất? ai chịu trách nhiệm? Ai nên...? Ai được lợi? ai bị ảnh hưởng? ai quyết định?</code></label>
+									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder="..."></textarea>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputBorder">5. Why <code>Tại sao? Tại sao nó quan trọng? Tại sao tôi phải tin? tại sao cần thiết?</code></label>
+									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder="..."></textarea>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputBorder">6. How <code>Như thế nào? hình thành như thế nào? định nghĩa như thế nào? làm thế nào nhận ra? bao nhiêu? giải quyết ntn? ra sao?</code></label>
+									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder="..."></textarea>
+								</div>
+
+								<h5 class="text-info">Điều tra (thành phần, nguồn gốc, quá trình, kết quả, lịch sử, dự đoán, giả thuyết):</h5>
+								<div class="form-group">
+									<label for="exampleInputBorder">1.  <code>nó ở trong quá trình nào, ai sinh ra nó, nó tạo ra gì, đầu ra vào của nó, tính chất của nó, hệ quả của nó? những thứ tương tự? lịch sử của nó?</code></label>
+									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder="..."></textarea>
+								</div>
+
+								<h5 class="text-info">Testing:</h5>
+								<div class="form-group">
+									<label for="exampleInputBorder">1. idea, issus <code>ý tưởng khác, vấn đề khác, khả năng khác, điều gì xảy ra nếu, có lên...</code></label>
+									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder="..."></textarea>
+								</div>
+
+								<h5 class="text-info">Mở rộng:</h5>
+								<div class="form-group">
+									<label for="exampleInputBorder">1.  <code>nó có phải duy nhất? có cách nào khác? theo 1 cách khác? có thể áp dụng cái này sang ...? tiếp theo là gì? hôm nay? ngày mai? mặt khác là gì? giải pháp thay thế?</code></label>
+									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder="..."></textarea>
+								</div>
+
+								<h5 class="text-info">Phản biện/Tranh luận:</h5>
+								<div class="form-group">
+									<label for="exampleInputBorder">1.  <code>khi nào nó sai, cái gì làm nó sai, sai lầm phổ biến, mặt trái, cái gì chống lại nó, không có nó thì sao ...</code></label>
+									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder="..."></textarea>
+								</div>
+
+								<h5 class="text-info">So sánh/Liên hệ:</h5>
+								<div class="form-group">
+									<label for="exampleInputBorder">1.  <code>nó vs ..? nó vs ...? nó vs ...? ... giống và khác nhau</code></label>
+									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder="..."></textarea>
+								</div>
+
+								<h5 class="text-info">Thể hiện, diễn đạt:</h5>
+								<div class="form-group">
+									<label for="exampleInputBorder">1.  <code>hình ảnh, vẽ, mô hình, biểu đồ, sơ đồ tư duy, đơn giản hóa, ... chuyển hóa thành dạng nghe, nhìn</code></label>
+									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder="..."></textarea>
+								</div>
+
+								<h5 class="text-info">Bắt chước/mô phỏng:</h5>
+								<div class="form-group">
+									<label for="exampleInputBorder">1.  <code>viết, nói, vẽ, hát, tưởng tượng, lẩm nhẩm, ...</code></label>
+									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder="..."></textarea>
+								</div>
+
+								<h5 class="text-info">Tương tác:</h5>
+								<div class="form-group">
+									<label for="exampleInputBorder">1.  <code>dạy lại, trao đổi vs bạn bè, hỏi ý kiến, đặt câu hỏi, tham gia nhóm, câu lạc bộ...</code></label>
+									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder="..."></textarea>
+								</div>
+
+								<h5 class="text-info">Trải nghiệm:</h5>
+								<div class="form-group">
+									<label for="exampleInputBorder">1.  <code>tìm cách để được tham gia thật</code></label>
+									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder="..."></textarea>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="card card-default">
 					<div class="card-header">
-						<h3 class="card-title">LOADING ...</h3>
+						<h3 class="card-title">Learning ...</h3>
 
 						<div class="card-tools">
-							<button type="button" class="btn btn-tool">
-								<a href="/knowledge//edit" target="_blank" id="learn-link"><i class="fas fa-edit"></i></a>
-							</button>
 							<button type="button" class="btn btn-tool" data-card-widget="maximize">
 								<i class="fas fa-expand"></i>
 							</button>
@@ -192,20 +359,7 @@
 						</div>
 					</div>
 
-					<div class="card-body text-center">
-						<div class="row">
-							<div class="col-sm-4">
-								<div class="table-responsive">
-									<table class="table table-hover table-sm">
-										<tbody>
-										</tbody>
-									</table>
-								</div>
-							</div>
-							<div class="col-sm-8">
-								
-							</div>
-						</div>
+					<div class="card-body">
 					</div>
 
 					<div class="card-footer">
@@ -236,103 +390,103 @@
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
 
-		/*
-		var load = document.createElement('div');
-		load.className = 'overlay';
-		load.innerHTML = '<i class="fas fa-2x fa-sync-alt fa-spin"></i>';
-		$('div.card').append(load);
-		var learning = {};
-		var keys = [];
-		var index = 0;
-		rtdb.ref('knowledge').orderByChild('practice_at').limitToFirst(7).get().then((snapshot) => {
-			load.remove();
-			if (snapshot.exists())
-			{
-				learning = snapshot.val();
-				keys = Object.keys(learning);
-				RenderLeaning();
+/*
+var load = document.createElement('div');
+load.className = 'overlay';
+load.innerHTML = '<i class="fas fa-2x fa-sync-alt fa-spin"></i>';
+$('div.card').append(load);
+var learning = {};
+var keys = [];
+var index = 0;
+rtdb.ref('knowledge').orderByChild('practice_at').limitToFirst(7).get().then((snapshot) => {
+load.remove();
+if (snapshot.exists())
+{
+learning = snapshot.val();
+keys = Object.keys(learning);
+RenderLeaning();
 
-				let list = '';
-				for (var i = 0; i < keys.length; i++)
-				{
-					list += '<div class="p-3">'+learning[keys[i]].course+': '+learning[keys[i]].learn+'</div>';
-				}
-				$('aside.control-sidebar').append(list);
-			}
-			else
-			{
-				$('div.card-body').text("No data available");
-			}
-		}).catch((error) => {
-			Toast.fire({ icon: 'error', title: error });
-		});
-		$('button#learn-prev').hide();
-		$('button#learn-prev').click(function ()
-		{
-			--index;
-			RenderLeaning();
-		})
-		$('button#learn-next').click(function ()
-		{
-			UpdateLearned(index);
-			++index;
-			RenderLeaning();
-		})
-		function RenderLeaning()
-		{
-			if (index <= 0)
-			{
-				$('button#learn-prev').hide();
-				index = 0;
-			}
-			else
-			{
-				$('button#learn-prev').show();
-			}
-			if (index >= keys.length)
-			{
-				index = keys.length-1;
-				Toast.fire({ icon: 'success', title: 'Đã No Đòn.' });
-				return;
-			}
+let list = '';
+for (var i = 0; i < keys.length; i++)
+{
+list += '<div class="p-3">'+learning[keys[i]].course+': '+learning[keys[i]].learn+'</div>';
+}
+$('aside.control-sidebar').append(list);
+}
+else
+{
+$('div.card-body').text("No data available");
+}
+}).catch((error) => {
+Toast.fire({ icon: 'error', title: error });
+});
+$('button#learn-prev').hide();
+$('button#learn-prev').click(function ()
+{
+--index;
+RenderLeaning();
+})
+$('button#learn-next').click(function ()
+{
+UpdateLearned(index);
+++index;
+RenderLeaning();
+})
+function RenderLeaning()
+{
+if (index <= 0)
+{
+$('button#learn-prev').hide();
+index = 0;
+}
+else
+{
+$('button#learn-prev').show();
+}
+if (index >= keys.length)
+{
+index = keys.length-1;
+Toast.fire({ icon: 'success', title: 'Đã No Đòn.' });
+return;
+}
 
-			let key = keys[index];
-			let doc = learning[key];
+let key = keys[index];
+let doc = learning[key];
 
-			$('h3.card-title').html((index + 1) + '. ' + doc.course);
-			$('div.card-body').html('<h1 class="text-primary">' + doc.learn + '</h1>');
-			if (doc.image)
-			{
-				$('div.card-body').append('<img src="'+doc.image+'">');
-			}
-			$('a#learn-link').attr('href', '/knowledge/'+key+'/edit');
+$('h3.card-title').html((index + 1) + '. ' + doc.course);
+$('div.card-body').html('<h1 class="text-primary">' + doc.learn + '</h1>');
+if (doc.image)
+{
+$('div.card-body').append('<img src="'+doc.image+'">');
+}
+$('a#learn-link').attr('href', '/knowledge/'+key+'/edit');
 
-			$('button#learn-next').hide();
-			setTimeout(function(){ $('button#learn-next').show(); }, 5000);
-			window.scrollTo(0, 0);
-		}
-		function UpdateLearned(keyid)
-		{
-			if (keyid < 0 || keyid >= keys.length) {
-				return;
-			}
-			let key = keys[keyid];
+$('button#learn-next').hide();
+setTimeout(function(){ $('button#learn-next').show(); }, 5000);
+window.scrollTo(0, 0);
+}
+function UpdateLearned(keyid)
+{
+if (keyid < 0 || keyid >= keys.length) {
+return;
+}
+let key = keys[keyid];
 
-			let doc = learning[key];
+let doc = learning[key];
 
-			let today = moment().unix();
+let today = moment().unix();
 
-			var practice_next = today + 24*60*60 * Math.pow(1.5, doc.repeat);
-			var repeat_next = doc.repeat + 1;
+var practice_next = today + 24*60*60 * Math.pow(1.5, doc.repeat);
+var repeat_next = doc.repeat + 1;
 
-			rtdb.ref('knowledge/' + key).update({
-				practice_at: practice_next,
-				repeat: repeat_next
-			}, (error) => {
-				console.log(error);
-			});
-		}
-		*/
-	</script>
+rtdb.ref('knowledge/' + key).update({
+practice_at: practice_next,
+repeat: repeat_next
+}, (error) => {
+console.log(error);
+});
+}
+*/
+</script>
 </body>
 </html>
