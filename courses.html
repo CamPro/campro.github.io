@@ -566,6 +566,20 @@
 			$('#lesson-create').removeClass('d-none');
 		}
 
+		// xóa 1 chủ đề
+		function DeleteCategory(element)
+		{
+			if (!confirm('Xóa chủ đề?'))
+			{
+				return;
+			}
+			var category_id = $(element).data('category-id');
+			fsdb.collection("categories").doc(category_id).delete().then(() => {
+				GetCategories();
+			}).catch((error) => {
+				console.log(error);
+			});
+		}
 		// xóa 1 bài học
 		function DeleteLesson(element)
 		{
@@ -580,7 +594,6 @@
 				console.log(error);
 			});
 		}
-
 		// xóa 1 khóa học
 		function DeleteCourse(element)
 		{
