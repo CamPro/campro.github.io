@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Học Lại Từ Đầu</title>
+	<title>Xào Nấu Thông Tin</title>
 	<link rel="stylesheet" href="./public/plugins/fontawesome/css/all.min.css">
 	<link rel="stylesheet" href="./public/plugins/sweetalert2/sweetalert2.min.css">
 	<link rel="stylesheet" href="./public/css/adminlte.min.css">
@@ -79,7 +79,7 @@
 						<li class="nav-header text-warning">4. Phân tích thông tin</li>
 						<li class="nav-item">
 							<a href="/learning.html" class="nav-link ">
-								<i class="nav-icon fas fa-rocket"></i><p>Học Lại Từ Đầu</p>
+								<i class="nav-icon fas fa-rocket"></i><p>Xào Nấu Thông Tin</p>
 							</a>
 						</li>
 						<li class="nav-header text-warning">3. Tóm tắt thông tin</li>
@@ -193,7 +193,19 @@
 					</div>
 
 					<div class="card-body text-center">
-						Loading ...
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="table-responsive">
+									<table class="table table-hover table-sm">
+										<tbody>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="col-sm-8">
+								
+							</div>
+						</div>
 					</div>
 
 					<div class="card-footer">
@@ -224,16 +236,14 @@
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
 
+		/*
 		var load = document.createElement('div');
 		load.className = 'overlay';
 		load.innerHTML = '<i class="fas fa-2x fa-sync-alt fa-spin"></i>';
-
 		$('div.card').append(load);
-
 		var learning = {};
 		var keys = [];
 		var index = 0;
-
 		rtdb.ref('knowledge').orderByChild('practice_at').limitToFirst(7).get().then((snapshot) => {
 			load.remove();
 			if (snapshot.exists())
@@ -256,21 +266,18 @@
 		}).catch((error) => {
 			Toast.fire({ icon: 'error', title: error });
 		});
-
 		$('button#learn-prev').hide();
 		$('button#learn-prev').click(function ()
 		{
 			--index;
 			RenderLeaning();
 		})
-
 		$('button#learn-next').click(function ()
 		{
 			UpdateLearned(index);
 			++index;
 			RenderLeaning();
 		})
-
 		function RenderLeaning()
 		{
 			if (index <= 0)
@@ -304,7 +311,6 @@
 			setTimeout(function(){ $('button#learn-next').show(); }, 5000);
 			window.scrollTo(0, 0);
 		}
-
 		function UpdateLearned(keyid)
 		{
 			if (keyid < 0 || keyid >= keys.length) {
@@ -325,8 +331,8 @@
 			}, (error) => {
 				console.log(error);
 			});
-
 		}
+		*/
 	</script>
 </body>
 </html>
