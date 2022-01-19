@@ -287,7 +287,7 @@
 						code += '<span class="text">' + docdata.todo + '</span>';
 						code += '<div class="tools">';
 						code += '<i class="fas fa-edit"></i>';
-						code += '<i class="fas fa-trash"></i>';
+						code += '<i class="fas fa-trash" data-todo-id="' + docid + '" onclick="DeleteTodo(this)"></i>';
 						code += '</div>';
 						code += '</li>';
 					$('[data-widget="todo-list"]').append(code);
@@ -296,6 +296,21 @@
 			.catch((error) => {
 				console.log(error);
 				$('[data-widget="todo-list"]').html('<i class="fas fa-exclamation-circle fa-2x"></i>');
+			});
+		}
+
+		// xóa 1 to do
+		function DeleteTodo(element)
+		{
+			if (!confirm('Xóa to do?'))
+			{
+				return;
+			}
+			var todo_id = $(element).data('todo-id');
+			fsdb.collection("todolist").doc(todo_id).delete().then(() => {
+				GetTodolist();
+			}).catch((error) => {
+				console.log(error);
 			});
 		}
 /*
