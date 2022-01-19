@@ -286,10 +286,7 @@
 			fsdb.collection("posts").doc(docid).update({
 				number_reads: ++number_reads
 			})
-			.then(() => {
-
-			})
-			.catch((error) => {
+			.then(() => {}).catch((error) => {
 				console.log(error);
 			});
 		});

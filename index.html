@@ -244,6 +244,7 @@
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
 		
+		var timer = null;
 		// lấy danh sách todo
 		GetTodolist();
 
@@ -291,11 +292,12 @@
 					let docid = doc.id;
 					let docdata = doc.data();
 
-					var code = '<tr><td><span class="">' + docdata.todo + '</span></td><td>';
+					var code = '<tr id="' + docid + '"><td><span class="text" data-todo-id="' + docid + '" onkeyup="UpdateTodo(this)">' + docdata.todo + '</span></td>';
+					code += '<td><i class="fas fa-edit" data-todo-id="' + docid + '" onclick="EditTodo(this)"></i>';
 					code += '<div class="float-right">';
 					code += '<i class="fas fa-trash-alt text-gray" data-todo-id="' + docid + '" onclick="DeleteTodo(this)"></i>';
-					code += '</div>';
-					code += '</td></tr>';
+					code += '</div></td>';
+					code += '</tr>';
 					$('tbody.todo-list').append(code);
 				});
 			})
@@ -304,7 +306,35 @@
 				$('[data-widget="todo-list"]').html('<i class="fas fa-exclamation-circle fa-2x"></i>');
 			});
 		}
+		// sua to do
+		function EditTodo(element)
+		{
+			var todo_id = $(element).hide().data('todo-id');
+			$('tr#' + todo_id + ' span.text').prop('contenteditable', true);
+		}
+		// cập nhật to do
+		function UpdateTodo(element)
+		{
+			var todo_id = $(element).data('todo-id');
+			var new_todo = $(element).text().trim();
 
+			if (timer) clearTimeout(timer);
+
+			$('tr#' + todo_id + ' div.float-right').html('<i class="fas fa-spinner fa-spin"></i>');
+
+			timer = setTimeout(function ()
+			{
+				fsdb.collection("todolists").doc(todo_id).update({
+					todo: new_todo
+				})
+				.then(() => {
+					$('tr#' + todo_id + ' div.float-right').html('<i class="fas fa-check text-success"></i>');
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+			}, 2000);
+		}
 		// xóa 1 to do
 		function DeleteTodo(element)
 		{
