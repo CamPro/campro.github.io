@@ -256,7 +256,7 @@
 			}
 			let created_at = moment().unix();
 
-			fsdb.collection("todolist").add({
+			fsdb.collection("todolists").add({
 				index: 0,
 				todo: new_todo,
 				created_at: created_at,
@@ -275,7 +275,7 @@
 		function GetTodolist()
 		{
 			$('[data-widget="todo-list"]').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
-			fsdb.collection("todolist").orderBy("index", "asc").get()
+			fsdb.collection("todolists").orderBy("index", "asc").get()
 			.then((querySnapshot) => {
 				$('[data-widget="todo-list"]').html('');
 				querySnapshot.forEach((doc) => {
@@ -307,7 +307,7 @@
 				return;
 			}
 			var todo_id = $(element).data('todo-id');
-			fsdb.collection("todolist").doc(todo_id).delete().then(() => {
+			fsdb.collection("todolists").doc(todo_id).delete().then(() => {
 				GetTodolist();
 			}).catch((error) => {
 				console.log(error);
