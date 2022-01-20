@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Xây Thành Đắp Lũy</title>
+	<link rel="stylesheet" href="./public/plugins/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="./public/plugins/sweetalert2/sweetalert2.min.css">
+	<!-- Select2 -->
+	<link rel="stylesheet" href="./public/plugins/select2/css/select2.min.css">
+	<link rel="stylesheet" href="./public/css/adminlte.min.css">
+	<link rel="stylesheet" href="./public/css/mystyle.css">
+</head>
+
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+
+	<div class="wrapper">
+
+		<nav class="main-header navbar navbar-expand border-bottom-0 text-sm navbar-light" id="header">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+				</li>
+				<li class="nav-item d-none d-sm-inline-block">
+					<a href="./" class="nav-link"><i class="fas fa-home"></i></a>
+				</li>
+			</ul>
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<span class="nav-link" id="my-clock" onclick="myClock()"><i class="far fa-clock"></i></span>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link" data-toggle="dropdown" href="#">
+						<i class="far fa-comments"></i>
+						<span class="badge badge-danger navbar-badge">0</span>
+					</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link" data-toggle="dropdown" href="#">
+						<i class="far fa-bell"></i>
+						<span class="badge badge-warning navbar-badge">0</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+						<i class="fas fa-th-large"></i>
+					</a>
+				</li>
+			</ul>
+		</nav>
+
+		<aside class="main-sidebar sidebar-dark-primary elevation-4">
+			<a href="./" class="brand-link text-md">
+				<img src="https://graph.facebook.com/100007543845219/picture?height=100&width=100&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light" id="hello-user">MY LEARN</span>
+			</a>
+			<div class="sidebar">
+				<div class="form-inline">
+					<div class="input-group" data-widget="sidebar-search">
+						<input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+						<div class="input-group-append">
+							<button class="btn btn-sidebar">
+								<i class="fas fa-search fa-fw"></i>
+							</button>
+						</div>
+					</div>
+					<div class="sidebar-search-results">
+						<div class="list-group">
+						</div>
+					</div>
+				</div>
+				<nav class="mt-2 text-sm">
+					<ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+						<li class="nav-item">
+							<a href="/home.html" class="nav-link ">
+								<i class="nav-icon fas fa-tachometer-alt"></i><p>Ngôi Nhà Vĩ Nhân</p>
+							</a>
+						</li>
+						<li class="nav-header text-warning">6. Áp dụng kiến thức</li>
+						<li class="nav-header text-warning">5. Tổng hợp kiến thức</li>
+						<li class="nav-item">
+							<a href="/knowledge.html" class="nav-link ">
+								<i class="nav-icon fas fa-sitemap"></i><p>Xây Thành Đắp Lũy</p>
+							</a>
+						</li>
+						<li class="nav-header text-warning">4. Phân tích thông tin</li>
+						<li class="nav-item">
+							<a href="/learning.html" class="nav-link ">
+								<i class="nav-icon fas fa-rocket"></i><p>Tiêu Hóa Thông Tin</p>
+							</a>
+						</li>
+						<li class="nav-header text-warning">3. Tóm tắt thông tin</li>
+						<li class="nav-item">
+							<a href="/classroom.html" class="nav-link ">
+								<i class="nav-icon fas fa-chalkboard-teacher"></i><p>Lớp Học Quái Vật</p>
+							</a>
+						</li>
+						<li class="nav-header text-warning">2. Tổ chức dữ liệu</li>
+						<li class="nav-item">
+							<a href="/courses.html" class="nav-link ">
+								<i class="nav-icon fas fa-cubes"></i><p>Trèo Tường Vào Trường</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="/posts.html" class="nav-link ">
+								<i class="nav-icon fas fa-cloud-sun"></i><p>Kho Tàng Tri Thức</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="/booking.html" class="nav-link ">
+								<i class="nav-icon fas fa-book"></i><p>Từ Sách Đến Đời</p>
+							</a>
+						</li>
+						<li class="nav-header text-warning">1. Thu thập dữ liệu</li>
+						<li class="nav-item">
+							<a href="/timeline.html" class="nav-link ">
+								<i class="nav-icon fas fa-pencil-alt"></i><p>Nhật Ký Ý Tưởng</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="/crawler.html" class="nav-link ">
+								<i class="nav-icon fas fa-leaf"></i><p>Duyệt Kinh Điển</p>
+							</a>
+						</li>
+						<li class="nav-header">------------------</li>
+						<li class="nav-item">
+							<a href="/backup.html" class="nav-link ">
+								<i class="nav-icon fas fa-dove"></i><p>Trường Sinh Bất Lão</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="/signin.html" class="nav-link">
+								<i class="nav-icon fas fa-sign-in-alt"></i><p>Đăng Nhập</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link" id="sign-out">
+								<i class="nav-icon fas fa-sign-out-alt"></i><p>Đăng Xuất</p>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</aside>
+
+		<aside class="control-sidebar control-sidebar-dark">
+			<div class="p-3">
+				<h5>Thanh Công Cụ</h5>
+				<div class="mb-4"><input type="checkbox" id="dark-mode" class="mr-1"><span>Dark Mode</span></div>
+
+				<button class="btn btn-sm btn-default" id="highlight-text"><span class="badge bg-success" id="number-knowledge"></span> <i class="fas fa-spell-check"></i> highlight text</button>
+				<textarea class="form-control" id="text-to-knowledge" rows="8"></textarea>
+				<input type="text" list="courses" class="form-control" name="create-course" id="create-course" placeholder="chọn khóa học">
+				<datalist id="courses">
+					<option value="Sức Khỏe"/>
+					<option value="Sự Nghiệp"/>
+					<option value="Gia Đình"/>
+					<option value="Bạn Bè"/>
+					<option value="Giao Tiếp"/>
+					<option value="Con Gái">*</option>
+					<option value="Tán Gái">*</option>
+					<option value="Tìm Hiểu Nhàn">*</option>
+					<option value="Cuộc Sống"/>
+					<option value="Công Việc"/>
+					<option value="Xã Hội"/>
+					<option value="Tình Yêu"/>
+					<option value="Phụ Nữ"/>
+					<option value="Tiền Bạc/Tài Chính"/>
+					<option value="Tư Duy"/>
+					<option value="Khoa Học"/>
+					<option value="Thời Gian"/>
+					<option value="Con Người"/>
+					<option value="Sách"/>
+				</datalist>
+				<input type="text" class="form-control" name="create-image" id="create-image" placeholder="url hình ảnh">
+				<button class="btn btn-sm btn-primary" id="create-knowledge"><i class="fas fa-edit"></i> Kiến Tạo</button>
+			</div>
+		</aside>
+
+		<div class="content-wrapper">
+			<div class="content">
+				<div class="row">
+					<div class="col-sm-9">
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title">Kiến Thức</h3>
+							</div>
+							<div class="card-body">
+								<table class="table table-sm table-hover">
+									<thead>
+									</thead>
+									<tbody id="office-knowledge">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title">Tags</h3>
+							</div>
+							<div class="card-body">
+								<table class="table table-sm table-hover">
+									<thead>
+										<tr>
+											<td><input type="text" class="form-control" id="tag-life" placeholder="Tên nhãn"></td>
+										</tr>
+										<tr>
+											<td><button type="button" class="btn btn-default" id="tag-create">Tạo Nhãn</button></td>
+										</tr>
+									</thead>
+									<tbody id="list-tags">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+
+		<footer class="main-footer">
+			<div class="text-center">** Cắp sách đi học Trường Đời **</div>
+		</footer>
+
+	</div>
+	<div id="back-to-top" onclick="backToTop()"><i class="fa fa-chevron-up"></i></div>
+	<script src="./public/plugins/jquery/jquery.min.js"></script>
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-database.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+	<script src="./public/plugins/moment/moment.min.js"></script>
+	<script src="./public/plugins/sweetalert2/sweetalert2.min.js"></script>
+	<!-- Select2 -->
+	<script src="./public/plugins/select2/js/select2.full.min.js"></script>
+	<script src="./public/js/adminlte.min.js"></script>
+	<script src="./public/js/myfirebase.js"></script>
+	<script src="./public/js/myscript.js"></script>
+	<script type="text/javascript">
+		
+		var tags = [];
+
+		// tải danh sách kiến thức chưa phân loại
+		fsdb.collection("knowledges").where('tags', '==', null).orderBy("created_at", "asc").get()
+		.then((querySnapshot) => {
+			querySnapshot.forEach((doc) => {
+				let docid = doc.id;
+				let docdata = doc.data();
+
+				let code = '<tr id="' + docid + '"><td class="" onclick="OfficeKnowledge(this)"><span>' + docdata.content + '</span></td><td class="tags"></td></tr>';
+				$('#office-knowledge').append(code);
+			});
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+
+		// tải danh sách tags
+		GetTags();
+
+		$('#tag-create').click(function ()
+		{
+			var life = $('#tag-life').val().trim();
+
+			if (!life) return;
+
+			fsdb.collection("tags").add({
+				index: 0,
+				life: life
+			})
+			.then((docRef) => {
+				$('#tag-life').val('');
+				GetTags();
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		})
+		// tải danh sách tags
+		function GetTags()
+		{
+			tags = [];
+			$('#list-tags').html('');
+
+			fsdb.collection("tags").orderBy("index", "asc").get()
+			.then((querySnapshot) =>
+			{
+				querySnapshot.forEach((doc) => {
+					let docid = doc.id;
+					let docdata = doc.data();
+
+					tags.push(docdata);
+
+					code = '<tr><td data-tag-id="' + docid + '">' + docdata.life + '<span class="float-right" onclick="DeleteTag(this)"><i class="fas fa-trash-alt text-gray"></i></span></td></tr>';
+					$('#list-tags').append(code);
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		}
+		// phân tích kiến thức gợi ý tags phù hợp
+		function OfficeKnowledge(element)
+		{
+			var knowledge_id = $(element).parent().attr('id');
+			let code = '<select class="select2" multiple="multiple" data-placeholder="Chọn liên kết" style="width: 100%;">';
+			let text = $(element).parent().find('span').text();
+
+			for (var i = 0; i < tags.length; i++)
+			{
+				// kiểm tra có từ liên quan
+				let selected = '';
+				if (text.includes(tags[i].life))
+				{
+					selected = 'selected';
+				}
+				code += '<option value="' + tags[i].life + '" ' + selected + '>' + tags[i].life + '</option>';
+			}
+			code += '</select>';
+			$(element).parent().find('td.tags').html(code);
+
+			$('.select2').select2();
+		}
+
+		function DeleteTag(element)
+		{
+			if (!confirm('Xóa nhãn?'))
+			{
+				return;
+			}
+			var tag_id = $(element).parent().data('tag-id');
+			fsdb.collection("tags").doc(tag_id).delete().then(() => {
+				GetTags();
+			}).catch((error) => {
+				console.log(error);
+			});
+		}
+	</script>
+</body>
+</html>
