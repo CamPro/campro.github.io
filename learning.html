@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Xào Nấu Thông Tin</title>
+	<title>Tiêu Hóa Thông Tin</title>
 	<link rel="stylesheet" href="./public/plugins/fontawesome/css/all.min.css">
 	<link rel="stylesheet" href="./public/plugins/sweetalert2/sweetalert2.min.css">
 	<link rel="stylesheet" href="./public/css/adminlte.min.css">
@@ -79,7 +79,7 @@
 						<li class="nav-header text-warning">4. Phân tích thông tin</li>
 						<li class="nav-item">
 							<a href="/learning.html" class="nav-link ">
-								<i class="nav-icon fas fa-rocket"></i><p>Xào Nấu Thông Tin</p>
+								<i class="nav-icon fas fa-rocket"></i><p>Tiêu Hóa Thông Tin</p>
 							</a>
 						</li>
 						<li class="nav-header text-warning">3. Tóm tắt thông tin</li>
@@ -201,6 +201,7 @@
 							<div class="card-header">
 								<h3 class="card-title">Tư Duy Chuyển Hóa</h3>
 								<div class="card-tools">
+									<button type="button" class="btn btn-primary btn-xs" id="button-save-2">Lưu vào</button>
 									<button type="button" class="btn btn-tool" data-card-widget="maximize">
 										<i class="fas fa-expand"></i>
 									</button>
@@ -215,88 +216,91 @@
 							<div class="card-body">
 								<h5 class="text-info">Tiếp thu/Cảm nhận:</h5>
 								<div class="form-group">
-									<label for="exampleInputBorder">1. <code data-toggle="tooltip" title="Tôi biết gì? tôi thấy gì? cảm nhận riêng của tôi?"><i class="fas fa-info-circle"></i></code></label>
-									<textarea class="form-control form-control-border" rows="1" placeholder="nghe, nhìn, tiếp xúc, ngửi, nếm, cảm nhận ..."></textarea>
+									<label for="think_know">1. <code data-toggle="tooltip" title="Tôi biết gì? tôi thấy gì? cảm nhận riêng của tôi?"><i class="fas fa-info-circle"></i></code></label>
+									<textarea class="form-control form-control-border" id="think_know" rows="1" placeholder="nghe, nhìn, tiếp xúc, ngửi, nếm, cảm nhận ..."></textarea>
 								</div>
 
 								<h5 class="text-info">Suy nghĩ:</h5>
 								<div class="form-group">
-									<label for="exampleInputBorder">1. What <code data-toggle="tooltip" title="Nó là gì, cái gì, con gì, cái nào, điều gì? Cái gì xảy ra? Có thành phần gì? Cái gì quan trọng? Cái gì còn thiếu? khó khăn gì? thuận lợi gì? cần làm gì? ý nghĩa là gì? Cái gì ... nếu ..., động cơ gì? kết luận gì? mục đích gì?"><i class="fas fa-info-circle"></i></code></label>
-									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
+									<label for="think_what">1. What <code data-toggle="tooltip" title="Nó là gì, cái gì, con gì, cái nào, điều gì? Cái gì xảy ra? Có thành phần gì? Cái gì quan trọng? Cái gì còn thiếu? khó khăn gì? thuận lợi gì? cần làm gì? ý nghĩa là gì? Cái gì ... nếu ..., động cơ gì? kết luận gì? mục đích gì?"><i class="fas fa-info-circle"></i></code></label>
+									<textarea class="form-control form-control-border" id="think_what" rows="1" placeholder=". . ."></textarea>
 								</div>
 								<div class="form-group">
-									<label for="exampleInputBorder">2. When <code data-toggle="tooltip" title="Khi nào? khoảnh khắc? khi nào biết...? khi nào là tốt nhất?"><i class="fas fa-info-circle"></i></code></label>
-									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
+									<label for="think_when">2. When <code data-toggle="tooltip" title="Khi nào? khoảnh khắc? khi nào biết...? khi nào là tốt nhất?"><i class="fas fa-info-circle"></i></code></label>
+									<textarea class="form-control form-control-border" id="think_when" rows="1" placeholder=". . ."></textarea>
 								</div>
 								<div class="form-group">
-									<label for="exampleInputBorder">3. Where <code data-toggle="tooltip" title="Ở đâu? từ đâu đến? bắt đầu từ đâu? đi đâu?"><i class="fas fa-info-circle"></i></code></label>
-									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
+									<label for="think_where">3. Where <code data-toggle="tooltip" title="Ở đâu? từ đâu đến? bắt đầu từ đâu? đi đâu?"><i class="fas fa-info-circle"></i></code></label>
+									<textarea class="form-control form-control-border" id="think_where" rows="1" placeholder=". . ."></textarea>
 								</div>
 								<div class="form-group">
-									<label for="exampleInputBorder">4. Who <code data-toggle="tooltip" title="Ai đã nói/viết? nói về ai? những người tham gia? ai gây ra? ai bị hại? ai quan trọng nhất? ai chịu trách nhiệm? Ai nên...? Ai được lợi? ai bị ảnh hưởng? ai quyết định?"><i class="fas fa-info-circle"></i></code></label>
-									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
+									<label for="think_who">4. Who <code data-toggle="tooltip" title="Ai đã nói/viết? nói về ai? những người tham gia? ai gây ra? ai bị hại? ai quan trọng nhất? ai chịu trách nhiệm? Ai nên...? Ai được lợi? ai bị ảnh hưởng? ai quyết định?"><i class="fas fa-info-circle"></i></code></label>
+									<textarea class="form-control form-control-border" id="think_who" rows="1" placeholder=". . ."></textarea>
 								</div>
 								<div class="form-group">
-									<label for="exampleInputBorder">5. Why <code data-toggle="tooltip" title="Tại sao? Tại sao nó quan trọng? Tại sao tôi phải tin? tại sao cần thiết?"><i class="fas fa-info-circle"></i></code></label>
-									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
+									<label for="think_why">5. Why <code data-toggle="tooltip" title="Tại sao? Tại sao nó quan trọng? Tại sao tôi phải tin? tại sao cần thiết?"><i class="fas fa-info-circle"></i></code></label>
+									<textarea class="form-control form-control-border" id="think_why" rows="1" placeholder=". . ."></textarea>
 								</div>
 								<div class="form-group">
-									<label for="exampleInputBorder">6. How <code data-toggle="tooltip" title="Như thế nào? hình thành như thế nào? định nghĩa như thế nào? làm thế nào nhận ra? bao nhiêu? giải quyết ntn? ra sao?"><i class="fas fa-info-circle"></i></code></label>
-									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
+									<label for="think_how">6. How <code data-toggle="tooltip" title="Như thế nào? hình thành như thế nào? định nghĩa như thế nào? làm thế nào nhận ra? bao nhiêu? giải quyết ntn? ra sao?"><i class="fas fa-info-circle"></i></code></label>
+									<textarea class="form-control form-control-border" id="think_how" rows="1" placeholder=". . ."></textarea>
 								</div>
 
 								<h5 class="text-info">Điều tra:</h5>
 								<div class="form-group">
-									<label for="exampleInputBorder">1.  <code data-toggle="tooltip" title="(nguyên nhân, diễn biến, nguồn gốc, quá trình, kết quả, lịch sử, dự đoán, giả thuyết), nó ở trong quá trình nào, ai sinh ra nó, nó tạo ra gì, đầu ra vào của nó, tính chất của nó, hệ quả của nó? những thứ tương tự? lịch sử của nó?"><i class="fas fa-info-circle"></i></code></label>
-									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
+									<label for="think_investigative">1.  <code data-toggle="tooltip" title="(nguyên nhân, diễn biến, nguồn gốc, quá trình, kết quả, lịch sử, dự đoán, giả thuyết), nó ở trong quá trình nào, ai sinh ra nó, nó tạo ra gì, đầu ra vào của nó, tính chất của nó, hệ quả của nó? những thứ tương tự? lịch sử của nó?"><i class="fas fa-info-circle"></i></code></label>
+									<textarea class="form-control form-control-border" id="think_investigative" rows="1" placeholder=". . ."></textarea>
 								</div>
 
 								<h5 class="text-info">Mở rộng:</h5>
 								<div class="form-group">
-									<label for="exampleInputBorder">1.  <code data-toggle="tooltip" title="nó có phải duy nhất? có cách nào khác? theo 1 cách khác? có thể áp dụng cái này sang ...? tiếp theo là gì? hôm nay? ngày mai? mặt khác là gì? giải pháp thay thế?"><i class="fas fa-info-circle"></i></code></label>
-									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
+									<label for="think_expansive">1.  <code data-toggle="tooltip" title="nó có phải duy nhất? có cách nào khác? theo 1 cách khác? có thể áp dụng cái này sang ...? tiếp theo là gì? hôm nay? ngày mai? mặt khác là gì? giải pháp thay thế?"><i class="fas fa-info-circle"></i></code></label>
+									<textarea class="form-control form-control-border" id="think_expansive" rows="1" placeholder=". . ."></textarea>
 								</div>
 
 								<h5 class="text-info">Phản biện/Tranh luận:</h5>
 								<div class="form-group">
-									<label for="exampleInputBorder">1.  <code data-toggle="tooltip" title="khi nào nó sai? cái gì làm nó sai? sai lầm phổ biến? mặt trái? cái gì chống lại nó? không có nó thì sao? ..."><i class="fas fa-info-circle"></i></code></label>
-									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
+									<label for="think_critical">1.  <code data-toggle="tooltip" title="khi nào nó sai? cái gì làm nó sai? sai lầm phổ biến? mặt trái? cái gì chống lại nó? không có nó thì sao? ..."><i class="fas fa-info-circle"></i></code></label>
+									<textarea class="form-control form-control-border" id="think_critical" rows="1" placeholder=". . ."></textarea>
 								</div>
 
 								<h5 class="text-info">So sánh/Liên hệ:</h5>
 								<div class="form-group">
-									<label for="exampleInputBorder">1.  <code data-toggle="tooltip" title="nó vs ..? nó vs ...? nó vs ...? ... giống và khác nhau"><i class="fas fa-info-circle"></i></code></label>
-									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
+									<label for="think_comparative">1.  <code data-toggle="tooltip" title="nó vs ..? nó vs ...? nó vs ...? ... giống và khác nhau"><i class="fas fa-info-circle"></i></code></label>
+									<textarea class="form-control form-control-border" id="think_comparative" rows="1" placeholder=". . ."></textarea>
 								</div>
 
 								<h5 class="text-info">Thể hiện, diễn đạt:</h5>
 								<div class="form-group">
-									<label for="exampleInputBorder">1.  <code data-toggle="tooltip" title="hình ảnh, vẽ, mô hình, biểu đồ, sơ đồ tư duy, đơn giản hóa, ... chuyển hóa thành dạng nghe, nhìn"><i class="fas fa-info-circle"></i></code></label>
-									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
+									<label for="think_performance">1.  <code data-toggle="tooltip" title="hình ảnh, vẽ, mô hình, biểu đồ, sơ đồ tư duy, đơn giản hóa, ... chuyển hóa thành dạng nghe, nhìn"><i class="fas fa-info-circle"></i></code></label>
+									<textarea class="form-control form-control-border" id="think_performance" rows="1" placeholder=". . ."></textarea>
 								</div>
 
 								<h5 class="text-info">Thử nghiệm:</h5>
 								<div class="form-group">
-									<label for="exampleInputBorder">1. idea, issus <code data-toggle="tooltip" title="ý tưởng khác, vấn đề khác, khả năng khác, điều gì xảy ra nếu, có lên..."><i class="fas fa-info-circle"></i></code></label>
-									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
+									<label for="think_testing">1. idea, issus <code data-toggle="tooltip" title="ý tưởng khác, vấn đề khác, khả năng khác, điều gì xảy ra nếu, có lên..."><i class="fas fa-info-circle"></i></code></label>
+									<textarea class="form-control form-control-border" id="think_testing" rows="1" placeholder=". . ."></textarea>
 								</div>
 
 								<h5 class="text-info">Bắt chước/mô phỏng:</h5>
 								<div class="form-group">
-									<label for="exampleInputBorder">1.  <code data-toggle="tooltip" title="viết, nói, vẽ, hát, tưởng tượng, lẩm nhẩm, ..."><i class="fas fa-info-circle"></i></code></label>
-									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
+									<label for="think_simulation">1.  <code data-toggle="tooltip" title="viết, nói, vẽ, hát, tưởng tượng, lẩm nhẩm, ..."><i class="fas fa-info-circle"></i></code></label>
+									<textarea class="form-control form-control-border" id="think_simulation" rows="1" placeholder=". . ."></textarea>
 								</div>
 
 								<h5 class="text-info">Tương tác:</h5>
 								<div class="form-group">
-									<label for="exampleInputBorder">1.  <code data-toggle="tooltip" title="dạy lại, trao đổi vs bạn bè, hỏi ý kiến, đặt câu hỏi, tham gia nhóm, câu lạc bộ..."><i class="fas fa-info-circle"></i></code></label>
-									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
+									<label for="think_interactive">1.  <code data-toggle="tooltip" title="dạy lại, trao đổi vs bạn bè, hỏi ý kiến, đặt câu hỏi, tham gia nhóm, câu lạc bộ..."><i class="fas fa-info-circle"></i></code></label>
+									<textarea class="form-control form-control-border" id="think_interactive" rows="1" placeholder=". . ."></textarea>
 								</div>
 
 								<h5 class="text-info">Trải nghiệm:</h5>
 								<div class="form-group">
-									<label for="exampleInputBorder">1.  <code data-toggle="tooltip" title="tìm cách để được tham gia thật"><i class="fas fa-info-circle"></i></code></label>
-									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
+									<label for="think_experience">1.  <code data-toggle="tooltip" title="tìm cách để được tham gia thật"><i class="fas fa-info-circle"></i></code></label>
+									<textarea class="form-control form-control-border" id="think_experience" rows="1" placeholder=". . ."></textarea>
+								</div>
+								<div class="form-group">
+									<button type="button" class="btn btn-primary" id="button-save-1">Lưu lại</button>
 								</div>
 
 							</div>
@@ -327,6 +331,8 @@
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
 
+		var study_id = null;
+
 		$('[data-toggle="tooltip"]').tooltip();
 
 		GetCategories();
@@ -342,7 +348,6 @@
 		{
 			var course_id = $(this).val();
 
-			$('#card-learning').CardWidget('collapse');
 			$('#kitchen-studies').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
 
 			fsdb.collection("studies").where('course_id', '==', course_id).orderBy("created_at", "asc").get()
@@ -359,6 +364,70 @@
 			.catch((error) => {
 				console.log(error);
 				$('#kitchen-studies').html('<i class="fas fa-exclamation-circle fa-2x"></i>');
+			});
+
+			//$('#card-learning').CardWidget('collapse');
+		})
+		// lưu lại
+		$('#button-save-1, #button-save-2').click(function ()
+		{
+			var button = this;
+			var content = $('tr#' + study_id + ' td.text-primary').text();
+
+			var think_know = $('#think_know').val().trim();
+			var think_what = $('#think_what').val().trim();
+			var think_when = $('#think_when').val().trim();
+			var think_where = $('#think_where').val().trim();
+			var think_who = $('#think_who').val().trim();
+			var think_why = $('#think_why').val().trim();
+			var think_how = $('#think_how').val().trim();
+			var think_investigative = $('#think_investigative').val().trim();
+			var think_expansive = $('#think_expansive').val().trim();
+			var think_critical = $('#think_critical').val().trim();
+			var think_comparative = $('#think_comparative').val().trim();
+			var think_performance = $('#think_performance').val().trim();
+			var think_testing = $('#think_testing').val().trim();
+			var think_simulation = $('#think_simulation').val().trim();
+			var think_interactive = $('#think_interactive').val().trim();
+			var think_experience = $('#think_experience').val().trim();
+
+			if (!study_id)
+			{
+				return;
+			}
+			if (!think_know && !think_what && !think_when && !think_where && !think_who && !think_why && !think_how && !think_investigative && !think_expansive && !think_critical && !think_comparative && !think_performance && !think_testing && !think_simulation && !think_interactive && !think_experience)
+			{
+				return;
+			}
+			$(button).removeClass('btn-primary').removeClass('btn-warning').html('<i class="fas fa-spinner fa-spin"></i>');
+
+			// id study cũng là id knowledge
+			fsdb.collection("knowledges").doc(study_id).set({
+				content: content,
+				think_know: think_know,
+				think_what: think_what,
+				think_when: think_when,
+				think_where: think_where,
+				think_who: think_who,
+				think_why: think_why,
+				think_how: think_how,
+				think_investigative: think_investigative,
+				think_expansive: think_expansive,
+				think_critical: think_critical,
+				think_comparative: think_comparative,
+				think_performance: think_performance,
+				think_testing: think_testing,
+				think_simulation: think_simulation,
+				think_interactive: think_interactive,
+				think_experience: think_experience,
+				tags: null
+			})
+			.then((docRef) => {
+				$(button).addClass('btn-primary').html('Lưu vào');
+			})
+			.catch((error) => {
+				console.log(error);
+				$(button).addClass('btn-warning').html('Lưu lỗi');
 			});
 		})
 
@@ -401,17 +470,55 @@
 		// load learning cho study
 		function StudyLearning(element)
 		{
-			var study_id = $(element).parent().attr('id');
+			study_id = $(element).parent().attr('id');
 			
+			// reset form
+			$('#think_know').val('');
+			$('#think_what').val('');
+			$('#think_when').val('');
+			$('#think_where').val('');
+			$('#think_who').val('');
+			$('#think_why').val('');
+			$('#think_how').val('');
+			$('#think_investigative').val('');
+			$('#think_expansive').val('');
+			$('#think_critical').val('');
+			$('#think_comparative').val('');
+			$('#think_performance').val('');
+			$('#think_testing').val('');
+			$('#think_simulation').val('');
+			$('#think_interactive').val('');
+			$('#think_experience').val('');
+
 			$('#kitchen-studies tr td').removeClass('text-primary');
 			$(element).addClass('text-primary');
 			$('#card-learning').CardWidget('expand');
 
-			console.log(study_id);
-			// reset form
-
-
 			// get form data
+			fsdb.collection("knowledges").doc(study_id).get().then((doc) => {
+				if (doc.exists)
+				{
+					let docdata = doc.data();
+					$('#think_know').val(docdata.think_know);
+					$('#think_what').val(docdata.think_what);
+					$('#think_when').val(docdata.think_when);
+					$('#think_where').val(docdata.think_where);
+					$('#think_who').val(docdata.think_who);
+					$('#think_why').val(docdata.think_why);
+					$('#think_how').val(docdata.think_how);
+					$('#think_investigative').val(docdata.think_investigative);
+					$('#think_expansive').val(docdata.think_expansive);
+					$('#think_critical').val(docdata.think_critical);
+					$('#think_comparative').val(docdata.think_comparative);
+					$('#think_performance').val(docdata.think_performance);
+					$('#think_testing').val(docdata.think_testing);
+					$('#think_simulation').val(docdata.think_simulation);
+					$('#think_interactive').val(docdata.think_interactive);
+					$('#think_experience').val(docdata.think_experience);
+				}
+			}).catch((error) => {
+				console.log(error);
+			});
 		}
 
 /*
