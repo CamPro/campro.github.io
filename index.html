@@ -209,6 +209,7 @@
 									<input type="text" class="form-control" id="todo-text" placeholder="Phát hiện mới ...">
 									<div class="input-group-append">
 										<span class="input-group-text btn btn-primary" id="todo-create"><i class="fas fa-plus"></i></span>
+										<span class="input-group-text btn btn-default btn-xs" id="todo-sort"><i class="fas fa-stream"></i></span>
 									</div>
 								</div>
 							</div>
@@ -230,6 +231,7 @@
 	</div>
 	<div id="back-to-top" onclick="backToTop()"><i class="fa fa-chevron-up"></i></div>
 	<script src="./public/plugins/jquery/jquery.min.js"></script>
+	<script src="./public/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<!-- The core Firebase JS SDK is always required and must be listed first -->
 	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
@@ -281,6 +283,27 @@
 			.catch((error) => {
 				console.log(error);
 			});
+		})
+		// sap xep to do
+		$('#todo-sort').click(function ()
+		{
+			$("tbody.todo-list").sortable({
+				// cập nhật số thứ tự
+				update: function(event, ui)
+				{
+					var lists = $("tbody.todo-list" ).sortable("toArray");
+					for (var i = 0; i < lists.length; i++)
+					{
+						var todo_id = lists[i];
+						fsdb.collection("todolists").doc(todo_id).update({
+							index: (i + 1)
+						})
+						.then(() => {}).catch((error) => {
+							console.log(error);
+						});
+					}
+				}
+			}).disableSelection();
 		})
 
 		// lấy danh sách todo

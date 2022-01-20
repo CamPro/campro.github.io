@@ -179,63 +179,25 @@
 								<h3 class="card-title">I know... -> I learning -> I understand...</h3>
 							</div>
 							<div class="card-body">
-								<table class="table table-sm">
+								<table class="table table-sm table-hover">
 									<thead>
 										<tr>
-											<th style="width: 10px">#</th>
-											<th>Task</th>
-											<th>Progress</th>
-											<th style="width: 40px">Label</th>
+											<th>
+												<div class="row">
+													<div class="col-sm-6"><select class="form-control" id="kitchen-categories"></select></div>
+													<div class="col-sm-6"><select class="form-control" id="kitchen-courses"></select></div>
+												</div>
+											</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td>1.</td>
-											<td>Update software</td>
-											<td>
-												<div class="progress progress-xs">
-													<div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-												</div>
-											</td>
-											<td><span class="badge bg-danger">55%</span></td>
-										</tr>
-										<tr>
-											<td>2.</td>
-											<td>Clean database</td>
-											<td>
-												<div class="progress progress-xs">
-													<div class="progress-bar bg-warning" style="width: 70%"></div>
-												</div>
-											</td>
-											<td><span class="badge bg-warning">70%</span></td>
-										</tr>
-										<tr>
-											<td>3.</td>
-											<td>Cron job running</td>
-											<td>
-												<div class="progress progress-xs progress-striped active">
-													<div class="progress-bar bg-primary" style="width: 30%"></div>
-												</div>
-											</td>
-											<td><span class="badge bg-primary">30%</span></td>
-										</tr>
-										<tr>
-											<td>4.</td>
-											<td>Fix and squish bugs</td>
-											<td>
-												<div class="progress progress-xs progress-striped active">
-													<div class="progress-bar bg-success" style="width: 90%"></div>
-												</div>
-											</td>
-											<td><span class="badge bg-success">90%</span></td>
-										</tr>
+									<tbody id="kitchen-studies">
 									</tbody>
 								</table>
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-8">
-						<div class="card card-default">
+						<div class="card card-default" id="card-learning">
 							<div class="card-header">
 								<h3 class="card-title">Thông tin (bên ngoài) -> tư duy -> kiến thức (trí não)</h3>
 								<div class="card-tools">
@@ -254,10 +216,10 @@
 								<h5 class="text-info">Tiếp thu/Cảm nhận:</h5>
 								<div class="form-group">
 									<label for="exampleInputBorder">1. <code data-toggle="tooltip" title="Tôi biết gì? tôi thấy gì? cảm nhận riêng của tôi?"><i class="fas fa-info-circle"></i></code></label>
-									<textarea class="form-control form-control-border" rows="1" placeholder="nghe, nhìn, tiếp xúc, ngửi, nếm, ..."></textarea>
+									<textarea class="form-control form-control-border" rows="1" placeholder="nghe, nhìn, tiếp xúc, ngửi, nếm, cảm nhận ..."></textarea>
 								</div>
 
-								<h5 class="text-info">Thinking/Suy nghĩ:</h5>
+								<h5 class="text-info">Suy nghĩ:</h5>
 								<div class="form-group">
 									<label for="exampleInputBorder">1. What <code data-toggle="tooltip" title="Nó là gì, cái gì, con gì, cái nào, điều gì? Cái gì xảy ra? Có thành phần gì? Cái gì quan trọng? Cái gì còn thiếu? khó khăn gì? thuận lợi gì? cần làm gì? ý nghĩa là gì? Cái gì ... nếu ..., động cơ gì? kết luận gì? mục đích gì?"><i class="fas fa-info-circle"></i></code></label>
 									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
@@ -289,12 +251,6 @@
 									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
 								</div>
 
-								<h5 class="text-info">Testing:</h5>
-								<div class="form-group">
-									<label for="exampleInputBorder">1. idea, issus <code data-toggle="tooltip" title="ý tưởng khác, vấn đề khác, khả năng khác, điều gì xảy ra nếu, có lên..."><i class="fas fa-info-circle"></i></code></label>
-									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
-								</div>
-
 								<h5 class="text-info">Mở rộng:</h5>
 								<div class="form-group">
 									<label for="exampleInputBorder">1.  <code data-toggle="tooltip" title="nó có phải duy nhất? có cách nào khác? theo 1 cách khác? có thể áp dụng cái này sang ...? tiếp theo là gì? hôm nay? ngày mai? mặt khác là gì? giải pháp thay thế?"><i class="fas fa-info-circle"></i></code></label>
@@ -316,6 +272,12 @@
 								<h5 class="text-info">Thể hiện, diễn đạt:</h5>
 								<div class="form-group">
 									<label for="exampleInputBorder">1.  <code data-toggle="tooltip" title="hình ảnh, vẽ, mô hình, biểu đồ, sơ đồ tư duy, đơn giản hóa, ... chuyển hóa thành dạng nghe, nhìn"><i class="fas fa-info-circle"></i></code></label>
+									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
+								</div>
+
+								<h5 class="text-info">Thử nghiệm:</h5>
+								<div class="form-group">
+									<label for="exampleInputBorder">1. idea, issus <code data-toggle="tooltip" title="ý tưởng khác, vấn đề khác, khả năng khác, điều gì xảy ra nếu, có lên..."><i class="fas fa-info-circle"></i></code></label>
 									<textarea class="form-control form-control-border" id="exampleInputBorder" rows="1" placeholder=". . ."></textarea>
 								</div>
 
@@ -366,6 +328,87 @@
 	<script type="text/javascript">
 
 		$('[data-toggle="tooltip"]').tooltip();
+
+		GetCategories();
+
+		// chọn chủ để -> tải khóa học
+		$('#kitchen-categories').change(function ()
+		{
+			var category_id = $(this).val();
+			GetCourses(category_id)
+		})
+		// lấy danh sách study của khóa học
+		$('#kitchen-courses').change(function ()
+		{
+			var course_id = $(this).val();
+
+			$('#card-learning').CardWidget('collapse');
+			$('#kitchen-studies').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
+
+			fsdb.collection("studies").where('course_id', '==', course_id).orderBy("created_at", "asc").get()
+			.then((querySnapshot) => {
+				$('#kitchen-studies').html('');
+				querySnapshot.forEach((doc) => {
+					let docid = doc.id;
+					let docdata = doc.data();
+
+					let code = '<tr id="' + docid + '"><td class="" onclick="StudyLearning(this)">' + docdata.study + '</td></tr>';
+					$('#kitchen-studies').append(code);
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+				$('#kitchen-studies').html('<i class="fas fa-exclamation-circle fa-2x"></i>');
+			});
+		})
+
+		// lấy danh sách lĩnh vực
+		function GetCategories()
+		{
+			$('#kitchen-categories').html('<option value="">-- chọn chủ đề --</option>');
+			fsdb.collection("categories").orderBy("index", "asc").get()
+			.then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					let docid = doc.id;
+					let docdata = doc.data();
+
+					var code = '<option value="' + docid + '">' + docdata.category + '</option>';
+					$('#kitchen-categories').append(code);
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		}
+		// lấy danh dách toàn bộ khóa học
+		function GetCourses(docid)
+		{
+			category_id = docid;
+			$('#kitchen-courses').html('<option value="">-- chọn khóa học --</option>');
+			fsdb.collection("courses").where('category_id', '==', category_id).orderBy("index", "asc").get()
+			.then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					let docid = doc.id;
+					let docdata = doc.data();
+					var code = '<option value="' + docid + '">' + docdata.course + '</option>';
+					$('#kitchen-courses').append(code);
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		}
+		// load learning cho study
+		function StudyLearning(element)
+		{
+			var study_id = $(element).parent().attr('id');
+			
+			$('#kitchen-studies tr td').removeClass('text-primary');
+			$(element).addClass('text-primary');
+			$('#card-learning').CardWidget('expand');
+
+			console.log(study_id);
+		}
 
 /*
 var load = document.createElement('div');
