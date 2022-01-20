@@ -401,6 +401,8 @@
 			}
 			$(button).removeClass('btn-primary').removeClass('btn-warning').html('<i class="fas fa-spinner fa-spin"></i>');
 
+			let created_at = moment().unix();
+
 			// id study cũng là id knowledge
 			fsdb.collection("knowledges").doc(study_id).set({
 				content: content,
@@ -420,6 +422,7 @@
 				think_simulation: think_simulation,
 				think_interactive: think_interactive,
 				think_experience: think_experience,
+				created_at: created_at,
 				tags: null
 			})
 			.then((docRef) => {
@@ -490,8 +493,8 @@
 			$('#think_interactive').val('');
 			$('#think_experience').val('');
 
-			$('#kitchen-studies tr td').removeClass('text-primary');
-			$(element).addClass('text-primary');
+			$('#kitchen-studies tr td').removeClass('text-primary').removeClass('bg-yellow');
+			$(element).addClass('text-primary').addClass('bg-yellow');
 			$('#card-learning').CardWidget('expand');
 
 			// get form data
