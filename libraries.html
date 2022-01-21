@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>My Learn</title>
+	<title>Thư Viện Cuộc Sống</title>
 	<link rel="stylesheet" href="./public/plugins/fontawesome/css/all.min.css">
 	<link rel="stylesheet" href="./public/plugins/sweetalert2/sweetalert2.min.css">
 	<link rel="stylesheet" href="./public/css/adminlte.min.css">
@@ -180,13 +180,54 @@
 			</div>
 		</aside>
 
-		<!-- content -->
+		<div class="content-wrapper">
+			<div class="content">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title">Thư Viện</h3>
+								<div class="card-tools">
+									<button type="button" class="btn btn-default btn-xs" id="tags-sort"><i class="fas fa-stream"></i></button>
+								</div>
+							</div>
+							<div class="card-body">
+								<table class="table table-sm table-hover">
+									<tbody id="library-tags">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title">Từng Viên Gạch</h3>
+								<div class="card-tools">
+									<button type="button" class="btn btn-default btn-xs" id="knowledge-sort"><i class="fas fa-stream"></i></button>
+								</div>
+							</div>
+							<div class="card-body">
+								<table class="table table-sm table-hover">
+									<tbody id="library-knowledge">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
 
-		<!-- footer -->
+		<footer class="main-footer">
+			<div class="text-center">** Cắp sách đi học Trường Đời **</div>
+		</footer>
 
 	</div>
 	<div id="back-to-top" onclick="backToTop()"><i class="fa fa-chevron-up"></i></div>
 	<script src="./public/plugins/jquery/jquery.min.js"></script>
+	<script src="./public/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<!-- The core Firebase JS SDK is always required and must be listed first -->
 	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
@@ -199,6 +240,86 @@
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
 
+		GetTags();
+
+		// sap xep tags
+		$('#tags-sort').click(function ()
+		{
+			$("#library-tags").sortable({
+				// cập nhật số thứ tự
+				update: function(event, ui)
+				{
+					var lists = $("#library-tags" ).sortable("toArray");
+					for (var i = 0; i < lists.length; i++)
+					{
+						var todo_id = lists[i];
+						fsdb.collection("tags").doc(todo_id).update({
+							index: (i + 1)
+						})
+						.then(() => {}).catch((error) => {
+							console.log(error);
+						});
+					}
+				}
+			}).disableSelection();
+		})
+		// tải danh sách tags
+		function GetTags()
+		{
+			$('#library-tags').html('');
+
+			fsdb.collection("tags").orderBy("index", "asc").get()
+			.then((querySnapshot) =>
+			{
+				querySnapshot.forEach((doc) => {
+					let docid = doc.id;
+					let docdata = doc.data();
+
+					let code = '<tr id="' + docid + '"><td data-tag=\'' + JSON.stringify(docdata) + '\' onclick="LibraryLoad(this)">' + (docdata.skills.length > 0 ? docdata.skills.join('>') + ' > ' : '') + docdata.life + '<span class="float-right" onclick="DeleteTag(this)"><i class="fas fa-trash-alt text-gray"></i></span></td></tr>';
+					$('#library-tags').append(code);
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		}
+		// xóa tag
+		function DeleteTag(element)
+		{
+			if (!confirm('Xóa nhãn?'))
+			{
+				return;
+			}
+			let tag_id = $(element).parents('tr').attr('id');
+			fsdb.collection("tags").doc(tag_id).delete().then(() => {
+				GetTags();
+			}).catch((error) => {
+				console.log(error);
+			});
+		}
+		// tải kiến thức của tag
+		function LibraryLoad(element)
+		{
+			let tags = $(element).data('tag');
+			let values = tags.skills;
+			values.push(tags.life);
+
+			fsdb.collection("knowledges").where('tags', 'array-contains', values).orderBy("index", "asc").get()
+			.then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					let docid = doc.id;
+					let docdata = doc.data();
+
+					let code = '<tr id="' + docid + '"><td>' + docdata.content + '</td></tr>';
+					$('#library-knowledge').append(code);
+
+					//last_doc = doc;
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		}
 	</script>
 </body>
 </html>
