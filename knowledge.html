@@ -410,13 +410,15 @@
 		// lưu tag vào kiến thức
 		function KnowledgeLife(element)
 		{
-			var knowledge_id = $(element).parents('tr').attr('id');
+			var knowledge_id = $(element).parents('tr').removeClass('text-primary').attr('id');
 			let tags = $(element).val().split('>');
 
 			fsdb.collection("knowledges").doc(knowledge_id).update({
 				tags: tags
 			})
-			.then(() => {}).catch((error) => {
+			.then(() => {
+				$(element).parents('tr').addClass('text-primary');
+			}).catch((error) => {
 				console.log(error);
 			});
 		}
