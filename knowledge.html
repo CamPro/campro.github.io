@@ -272,18 +272,15 @@
 		// tải danh sách kiến thức chưa phân loại
 		fsdb.collection("knowledges").orderBy("created_at", "asc").limit(limit_doc).get()
 		.then((querySnapshot) => {
-			querySnapshot.forEach((doc) => {
-				let docid = doc.id;
-				let docdata = doc.data();
-
-				let code = '<tr id="' + docid + '"><td><div class="row"><span class="col-sm-8 text" onclick="OfficeKnowledge(this)">' + docdata.content + '</span><span class="col-sm-4 tags">' + docdata.tags.join('>') + '</span></div></td></tr>';
-				$('#office-knowledge').append(code);
-
+			querySnapshot.forEach((doc) =>
+			{
+				KnowledgeRender(doc);
 				last_doc = doc;
 			});
 		})
 		.catch((error) => {
 			console.log(error);
+			$('#office-knowledge').html('<i class="fas fa-exclamation-circle fa-2x"></i>');
 		});
 
 		// tải thêm kiến thức
@@ -291,18 +288,15 @@
 		{
 			fsdb.collection("knowledges").orderBy("created_at", "asc").startAfter(last_doc).limit(limit_doc).get()
 			.then((querySnapshot) => {
-				querySnapshot.forEach((doc) => {
-					let docid = doc.id;
-					let docdata = doc.data();
-
-					let code = '<tr id="' + docid + '"><td><div class="row"><span class="col-sm-8 text" onclick="OfficeKnowledge(this)">' + docdata.content + '</span><span class="col-sm-4 tags">' + docdata.tags.join('>') + '</span></div></td></tr>';
-					$('#office-knowledge').append(code);
-
+				querySnapshot.forEach((doc) =>
+				{
+					KnowledgeRender(doc);
 					last_doc = doc;
 				});
 			})
 			.catch((error) => {
 				console.log(error);
+				$('#office-knowledge').html('<i class="fas fa-exclamation-circle fa-2x"></i>');
 			});
 		})
 
@@ -403,6 +397,15 @@
 			code += '</select>';
 			$(element).parent().find('span.tags').html(code);
 			$('select.select2').select2();
+		}
+		// hiển thị danh sách kiến thức
+		function KnowledgeRender(doc)
+		{
+			let docid = doc.id;
+			let docdata = doc.data();
+
+			let code = '<tr id="' + docid + '"><td><div class="row"><span class="col-sm-8 text" onclick="OfficeKnowledge(this)">' + docdata.content + '</span><span class="col-sm-4 tags">' + (docdata.tags ? docdata.tags.join('>') : '') + '</span></div></td></tr>';
+			$('#office-knowledge').append(code);
 		}
 		// lưu tag vào kiến thức
 		function KnowledgeLife(element)
