@@ -296,7 +296,7 @@
 					let docid = doc.id;
 					let docdata = doc.data();
 
-					let code = '<tr id="' + docid + '"><td data-tag=\'' + JSON.stringify(docdata) + '\' onclick="LibraryLoad(this)">' + (docdata.skills.length > 0 ? docdata.skills.join('>') + ' > ' : '') + docdata.life + '<span class="float-right" onclick="DeleteTag(this)"><i class="fas fa-trash-alt text-gray"></i></span></td></tr>';
+					let code = '<tr id="' + docid + '"><td data-tag=\'' + JSON.stringify(docdata) + '\' onclick="LibraryLoad(this)">' + (docdata.skills.length > 0 ? docdata.skills.join(' > ') + ' > ' : '') + docdata.life + '<span class="float-right" onclick="DeleteTag(this)"><i class="fas fa-trash-alt text-gray"></i></span></td></tr>';
 					$('#library-tags').append(code);
 				});
 			})
