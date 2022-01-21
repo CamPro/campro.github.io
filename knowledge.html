@@ -77,6 +77,11 @@
 							</a>
 						</li>
 						<li class="nav-header text-warning">6. Áp dụng kiến thức</li>
+						<li class="nav-item">
+							<a href="/libraries.html" class="nav-link ">
+								<i class="nav-icon fas fa-skating"></i><p>Thư Viện Cuộc Sống</p>
+							</a>
+						</li>
 						<li class="nav-header text-warning">5. Tổng hợp kiến thức</li>
 						<li class="nav-item">
 							<a href="/knowledge.html" class="nav-link ">
@@ -261,7 +266,7 @@
 	<script type="text/javascript">
 		
 		var tags = [];
-		var limit_doc = 1;
+		var limit_doc = 5;
 		var last_doc = null;
 
 		// tải danh sách kiến thức chưa phân loại
@@ -281,7 +286,7 @@
 			console.log(error);
 		});
 
-		// load more
+		// tải thêm kiến thức
 		$('#office-more').click(function ()
 		{
 			fsdb.collection("knowledges").orderBy("created_at", "asc").startAfter(last_doc).limit(limit_doc).get()
