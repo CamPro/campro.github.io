@@ -448,6 +448,7 @@
 		// lấy danh sách thông tin
 		function GetStudy(course_id)
 		{
+			DisBox(true);
 			$('#kitchen-informations').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
 
 			fsdb.collection("informations").where('course_id', '==', course_id).orderBy("created_at", "asc").get()
@@ -470,7 +471,8 @@
 		function StudyLearning(element)
 		{
 			study_id = $(element).parent().attr('id');
-			
+			DisBox(false);
+
 			// reset form
 			$('#think_know').val('');
 			$('#think_what').val('');
@@ -530,10 +532,16 @@
 			}
 
 			fsdb.collection("informations").doc(study_id).delete().then(() => {
+				DisBox(true);
 				GetStudy(course_id);
 			}).catch((error) => {
 				console.log(error);
 			});
+		}
+		// vo hieu hóa nhập
+		function DisBox(bool)
+		{
+			$('div.form-group textarea').prop('disabled', bool);
 		}
 </script>
 </body>
