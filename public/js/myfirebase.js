@@ -26,7 +26,7 @@ firebase.auth().onAuthStateChanged(() => {
 // khi nhấn nút đăng xuất
 $('#sign-out').click(()=>{
 	firebase.auth().signOut();
-	window.location.href = 'signin.html';
+	window.location.href = '/signin.html';
 })
 
 var Toast = Swal.mixin({
@@ -38,64 +38,93 @@ var Toast = Swal.mixin({
 
 var rtdb = firebase.database();
 var fsdb = firebase.firestore();
-var lastIndex = 0;
-rtdb.ref('knowledge/').orderByKey().limitToLast(1).on('value', function(snapshot) {
-	let value = snapshot.val();
-	if (value) {
-		lastIndex = Object.keys(value)[0];
-	}
-	else
-	{
-		lastIndex = 0;
-	}
-	$('#number-knowledge').text(lastIndex);
-});
 
-$('[data-widget="control-sidebar"],#highlight-text').click(function ()
+$('[data-widget="control-sidebar"],#fast-highlight').click(function ()
 {
 	let highlight = getSelectText().trim();
-	$('#text-to-knowledge').val(highlight);
-	$('#create-knowledge').prop('disabled', false);
+	$('#fast-content').val(highlight);
 	clearSelectText();
-});
 
-$('#text-to-knowledge').change(function ()
-{
-	let highlight = $('#text-to-knowledge').val().toLowerCase();
-	$('#create-course option').each(function ()
+	// lấy danh sách lĩnh vực
+	if ($('#fast-categories option').length == 0)
 	{
-		let course = this.value.toLowerCase();
-		if (highlight.includes(course))
-		{
-			//$('#create-course').val(this.value);
-		}
+		fsdb.collection("categories").orderBy("index", "asc").get()
+		.then((querySnapshot) => {
+			querySnapshot.forEach((doc) => {
+				let docid = doc.id;
+				let docdata = doc.data();
+				var code = '<option value="' + docid + '">' + docdata.category + '</option>';
+				$('#fast-categories').append(code);
+			});
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+	}
+});
+// load course to fast
+$('#fast-categories').change(function ()
+{
+	let category_id = $('#fast-categories').val();
+
+	$('#fast-courses').html('');
+
+	fsdb.collection("courses").where('category_id', '==', category_id).orderBy("index", "asc").get()
+	.then((querySnapshot) =>
+	{
+		querySnapshot.forEach((doc) => {
+			let docid = doc.id;
+			let docdata = doc.data();
+
+			var code = '<option value="' + docid + '">' + docdata.course + '</option>';
+			$('#fast-courses').append(code);
+		});
 	})
-});
+	.catch((error) => {
+		console.log(error);
+	});
+})
 
-$('#create-knowledge').click(function ()
+// lưu kiến thức nhanh
+$('#fast-knowledge').click(function ()
 {
-	let highlight = $('#text-to-knowledge').val().trim();
-	let course = $('#create-course').val().trim();
-	let image = $('#create-image').val().trim();
+	let highlight = $('#fast-content').removeClass('is-invalid').val().trim();
+	let course_id = $('#fast-courses').removeClass('is-invalid').val();
 
-	let button = $('#create-knowledge').html();
-	if (highlight.length > 0 && course.length > 0)
+	if (!highlight)
 	{
-		++lastIndex;
+		$('#fast-content').addClass('is-invalid');
+		return;
+	}
+	if (!course_id)
+	{
+		$('#fast-courses').addClass('is-invalid');
+		return;
+	}
 
-		highlight = highlight.charAt(0).toUpperCase() + highlight.slice(1);
+	let before = $('#fast-knowledge').removeClass('btn-primary').html();
+	let created_at = moment().unix();
 
-		KnowledgeSave(lastIndex, highlight, course, image);
-		
-		$('#text-to-knowledge').val('');
-		$('#create-course').val('');
-		$('#create-knowledge').html('<i class="fas fa-check"></i></i> Kiến Tạo Thành Công');
-		$('#create-knowledge').removeClass('btn-primary').addClass('btn-success');
+	fsdb.collection("informations").add({
+		course_id: course_id,
+		lesson_id: null,
+		created_at: created_at,
+		study: highlight
+	})
+	.then((docRef) => {
+		// reset form
+		$('#fast-content').val('');
+		$('#fast-courses').val('');
+		$('#fast-knowledge').addClass('btn-success').html('<i class="fas fa-check"></i>');
 		setTimeout(function(){
-			$('#create-knowledge').html(button).removeClass('btn-success').addClass('btn-primary');
+			$('#fast-knowledge').removeClass('btn-success').addClass('btn-primary').html(before);
 			document.querySelector('a[data-widget="control-sidebar"]').click();
 		}, 500);
-	}
+	})
+	.catch((error) => {
+		console.log(error);
+		$('#fast-knowledge').html('<i class="fas fa-exclamation-triangle"></i>');
+	});
 });
 
 var timer = null;
@@ -167,22 +196,6 @@ function RenderSearch(doc)
 	let item = '<a href="'+linkurl+'" class="list-group-item"><div class="search-title">'+docdata.title+'</div><div class="search-path">'+docdata.creator+', '+docdata.category+'</div></a>';
 
 	$('.sidebar-search-results .list-group').append(item);
-}
-
-function KnowledgeSave(klgIndex, learn, course, image = '')
-{
-	let created_at = moment().unix();
-
-	rtdb.ref('knowledge/' + klgIndex).set({
-		learn : learn,
-		course: course,
-		created_at: created_at,
-		repeat: 0,
-		practice_at: 0,
-		image: image
-	}).catch((error) => {
-		console.log(error);
-	});
 }
 
 function myClock() {

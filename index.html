@@ -164,33 +164,14 @@
 			<div class="p-3">
 				<h5>Thanh Công Cụ</h5>
 				<div class="mb-4"><input type="checkbox" id="dark-mode" class="mr-1"><span>Dark Mode</span></div>
-
-				<button class="btn btn-sm btn-default" id="highlight-text"><span class="badge bg-success" id="number-knowledge"></span> <i class="fas fa-spell-check"></i> highlight text</button>
-				<textarea class="form-control" id="text-to-knowledge" rows="8"></textarea>
-				<input type="text" list="courses" class="form-control" name="create-course" id="create-course" placeholder="chọn khóa học">
-				<datalist id="courses">
-					<option value="Sức Khỏe"/>
-					<option value="Sự Nghiệp"/>
-					<option value="Gia Đình"/>
-					<option value="Bạn Bè"/>
-					<option value="Giao Tiếp"/>
-					<option value="Con Gái">*</option>
-					<option value="Tán Gái">*</option>
-					<option value="Tìm Hiểu Nhàn">*</option>
-					<option value="Cuộc Sống"/>
-					<option value="Công Việc"/>
-					<option value="Xã Hội"/>
-					<option value="Tình Yêu"/>
-					<option value="Phụ Nữ"/>
-					<option value="Tiền Bạc/Tài Chính"/>
-					<option value="Tư Duy"/>
-					<option value="Khoa Học"/>
-					<option value="Thời Gian"/>
-					<option value="Con Người"/>
-					<option value="Sách"/>
-				</datalist>
-				<input type="text" class="form-control" name="create-image" id="create-image" placeholder="url hình ảnh">
-				<button class="btn btn-sm btn-primary" id="create-knowledge"><i class="fas fa-edit"></i> Kiến Tạo</button>
+				
+				<button class="btn btn-sm btn-default" id="fast-highlight"><span class="badge bg-success" id="fast-number"></span> <i class="fas fa-spell-check"></i> highlight</button>
+				<textarea class="form-control" id="fast-content" rows="8"></textarea>
+				<select class="form-control" id="fast-categories">
+				</select>
+				<select class="form-control" id="fast-courses">
+				</select>
+				<button class="btn btn-sm btn-primary" id="fast-knowledge"><i class="fas fa-edit"></i> Kiến Tạo</button>
 			</div>
 		</aside>
 		<div class="content-wrapper">
@@ -338,7 +319,7 @@
 			})
 			.catch((error) => {
 				console.log(error);
-				$('[data-widget="todo-list"]').html('<i class="fas fa-exclamation-circle fa-2x"></i>');
+				$('[data-widget="todo-list"]').html('<i class="fas fa-exclamation-triangle"></i>');
 			});
 		}
 		// sua to do
