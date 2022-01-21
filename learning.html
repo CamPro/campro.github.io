@@ -200,7 +200,7 @@
 											</th>
 										</tr>
 									</thead>
-									<tbody id="kitchen-studies">
+									<tbody id="kitchen-informations">
 									</tbody>
 								</table>
 							</div>
@@ -357,22 +357,22 @@
 		{
 			var course_id = $(this).val();
 
-			$('#kitchen-studies').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
+			$('#kitchen-informations').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
 
-			fsdb.collection("studies").where('course_id', '==', course_id).orderBy("created_at", "asc").get()
+			fsdb.collection("informations").where('course_id', '==', course_id).orderBy("created_at", "asc").get()
 			.then((querySnapshot) => {
-				$('#kitchen-studies').html('');
+				$('#kitchen-informations').html('');
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
 
 					let code = '<tr id="' + docid + '"><td class="" onclick="StudyLearning(this)">' + docdata.study + '</td></tr>';
-					$('#kitchen-studies').append(code);
+					$('#kitchen-informations').append(code);
 				});
 			})
 			.catch((error) => {
 				console.log(error);
-				$('#kitchen-studies').html('<i class="fas fa-exclamation-circle fa-2x"></i>');
+				$('#kitchen-informations').html('<i class="fas fa-exclamation-circle fa-2x"></i>');
 			});
 
 			//$('#card-learning').CardWidget('collapse');
@@ -503,7 +503,7 @@
 			$('#think_interactive').val('');
 			$('#think_experience').val('');
 
-			$('#kitchen-studies tr td').removeClass('text-primary').removeClass('bg-yellow');
+			$('#kitchen-informations tr td').removeClass('text-primary').removeClass('bg-yellow');
 			$(element).addClass('text-primary').addClass('bg-yellow');
 			$('#card-learning').CardWidget('expand');
 

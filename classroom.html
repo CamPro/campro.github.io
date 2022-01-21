@@ -311,7 +311,7 @@
 					}
 
 					// lấy danh sách study của bài học
-					fsdb.collection("studies").where('course_id', '==', docdata.course_id).where('lesson_id', '==', lesson_index).orderBy("created_at", "asc").get()
+					fsdb.collection("informations").where('course_id', '==', docdata.course_id).where('lesson_id', '==', lesson_index).orderBy("created_at", "asc").get()
 					.then((querySnapshot) => {
 						querySnapshot.forEach((doc) => {
 							let docid = doc.id;
@@ -477,7 +477,7 @@
 
 			let created_at = moment().unix();
 
-			fsdb.collection("studies").add({
+			fsdb.collection("informations").add({
 				course_id: course_id,
 				lesson_id: lesson_index,
 				created_at: created_at,
@@ -555,7 +555,7 @@
 			let study_index = $(element).data('study-id');
 			let new_study = $(element).val().trim();
 
-			fsdb.collection("studies").doc(study_index).update({
+			fsdb.collection("informations").doc(study_index).update({
 				study: new_study
 			})
 			.then(() => {
@@ -598,7 +598,7 @@
 			}
 			var study_id = $(element).data('study-id');
 
-			fsdb.collection("studies").doc(study_id).delete().then(() => {
+			fsdb.collection("informations").doc(study_id).delete().then(() => {
 				$(element).parents('div.input-group').remove();
 			}).catch((error) => {
 				console.log(error);
