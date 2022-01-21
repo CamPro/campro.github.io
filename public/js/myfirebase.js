@@ -48,6 +48,7 @@ $('[data-widget="control-sidebar"],#fast-highlight').click(function ()
 	// lấy danh sách lĩnh vực
 	if ($('#fast-categories option').length == 0)
 	{
+		$('#fast-categories').html('<option>-- Chọn chủ đề --</option>');
 		fsdb.collection("categories").orderBy("index", "asc").get()
 		.then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
