@@ -191,6 +191,13 @@
 									</thead>
 									<tbody id="office-knowledge">
 									</tbody>
+									<tfoot>
+										<tr>
+											<td class="text-center">
+												<button type="button" class="btn btn-default btn-sm" id="office-more"><i class="fas fa-plus"></i></button>
+											</td>
+										</tr>
+									</tfoot>
 								</table>
 							</div>
 						</div>
@@ -207,7 +214,17 @@
 											<td><input type="text" class="form-control" id="tag-life" placeholder="Tên nhãn"></td>
 										</tr>
 										<tr>
-											<td><button type="button" class="btn btn-default" id="tag-create">Tạo Nhãn</button></td>
+											<td>
+												<select class="select2" id="tag-skills" data-placeholder="Chọn con đường" style="width: 100%;">
+													<option></option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<button type="button" class="btn btn-default" id="tag-create">Tạo Nhãn</button>
+												<button type="button" class="btn btn-default btn-xs" id="tags-sort"><i class="fas fa-stream"></i></button>
+											</td>
 										</tr>
 									</thead>
 									<tbody id="list-tags">
@@ -228,6 +245,7 @@
 	</div>
 	<div id="back-to-top" onclick="backToTop()"><i class="fa fa-chevron-up"></i></div>
 	<script src="./public/plugins/jquery/jquery.min.js"></script>
+	<script src="./public/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<!-- The core Firebase JS SDK is always required and must be listed first -->
 	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
@@ -243,21 +261,45 @@
 	<script type="text/javascript">
 		
 		var tags = [];
+		var limit_doc = 1;
+		var last_doc = null;
 
 		// tải danh sách kiến thức chưa phân loại
-		fsdb.collection("knowledges").where('tags', '==', null).orderBy("created_at", "asc").get()
+		fsdb.collection("knowledges").orderBy("created_at", "asc").limit(limit_doc).get()
 		.then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				let docid = doc.id;
 				let docdata = doc.data();
 
-				let code = '<tr id="' + docid + '"><td class="" onclick="OfficeKnowledge(this)"><span>' + docdata.content + '</span></td><td class="tags"></td></tr>';
+				let code = '<tr id="' + docid + '"><td><div class="row"><span class="col-sm-8 text" onclick="OfficeKnowledge(this)">' + docdata.content + '</span><span class="col-sm-4 tags">' + docdata.tags.join('>') + '</span></div></td></tr>';
 				$('#office-knowledge').append(code);
+
+				last_doc = doc;
 			});
 		})
 		.catch((error) => {
 			console.log(error);
 		});
+
+		// load more
+		$('#office-more').click(function ()
+		{
+			fsdb.collection("knowledges").orderBy("created_at", "asc").startAfter(last_doc).limit(limit_doc).get()
+			.then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					let docid = doc.id;
+					let docdata = doc.data();
+
+					let code = '<tr id="' + docid + '"><td><div class="row"><span class="col-sm-8 text" onclick="OfficeKnowledge(this)">' + docdata.content + '</span><span class="col-sm-4 tags">' + docdata.tags.join('>') + '</span></div></td></tr>';
+					$('#office-knowledge').append(code);
+
+					last_doc = doc;
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		})
 
 		// tải danh sách tags
 		GetTags();
@@ -265,20 +307,49 @@
 		$('#tag-create').click(function ()
 		{
 			var life = $('#tag-life').val().trim();
+			var skills = [];
+
+			if ($('#tag-skills').val().length > 0)
+			{
+				skills = $('#tag-skills').val().split('>');
+			}
 
 			if (!life) return;
 
 			fsdb.collection("tags").add({
 				index: 0,
-				life: life
+				life: life,
+				skills: skills
 			})
 			.then((docRef) => {
 				$('#tag-life').val('');
+				$('#tag-skills').val('');
 				GetTags();
 			})
 			.catch((error) => {
 				console.log(error);
 			});
+		})
+		// sap xep tags
+		$('#tags-sort').click(function ()
+		{
+			$("#list-tags").sortable({
+				// cập nhật số thứ tự
+				update: function(event, ui)
+				{
+					var lists = $("#list-tags" ).sortable("toArray");
+					for (var i = 0; i < lists.length; i++)
+					{
+						var todo_id = lists[i];
+						fsdb.collection("tags").doc(todo_id).update({
+							index: (i + 1)
+						})
+						.then(() => {}).catch((error) => {
+							console.log(error);
+						});
+					}
+				}
+			}).disableSelection();
 		})
 		// tải danh sách tags
 		function GetTags()
@@ -295,9 +366,13 @@
 
 					tags.push(docdata);
 
-					code = '<tr><td data-tag-id="' + docid + '">' + docdata.life + '<span class="float-right" onclick="DeleteTag(this)"><i class="fas fa-trash-alt text-gray"></i></span></td></tr>';
+					let code = '<tr id="' + docid + '"><td data-tag-id="' + docid + '">' + (docdata.skills.length > 0 ? docdata.skills.join('>') + '>' : '') + docdata.life + '<span class="float-right" onclick="DeleteTag(this)"><i class="fas fa-trash-alt text-gray"></i></span></td></tr>';
 					$('#list-tags').append(code);
+
+					code = '<option value="' + (docdata.skills.length > 0 ? docdata.skills.join('>') + '>' : '') + docdata.life + '">' + (docdata.skills.length > 0 ? docdata.skills.join('>') + '>' : '') + docdata.life + '</option>';
+					$('#tag-skills').append(code);
 				});
+				$('select.select2').select2();
 			})
 			.catch((error) => {
 				console.log(error);
@@ -306,26 +381,38 @@
 		// phân tích kiến thức gợi ý tags phù hợp
 		function OfficeKnowledge(element)
 		{
-			var knowledge_id = $(element).parent().attr('id');
-			let code = '<select class="select2" multiple="multiple" data-placeholder="Chọn liên kết" style="width: 100%;">';
-			let text = $(element).parent().find('span').text();
+			let text = $(element).text();
 
+			let code = '<select class="select2" onchange="KnowledgeLife(this)" data-placeholder="Chọn nhánh" style="width: 100%;"><option></option>';
 			for (var i = 0; i < tags.length; i++)
 			{
+				let docdata = tags[i];
 				// kiểm tra có từ liên quan
 				let selected = '';
-				if (text.includes(tags[i].life))
+				if (text.includes(docdata.life))
 				{
 					selected = 'selected';
 				}
-				code += '<option value="' + tags[i].life + '" ' + selected + '>' + tags[i].life + '</option>';
+				code += '<option value="' + (docdata.skills.length > 0 ? docdata.skills.join('>') + '>' : '') + docdata.life + '" ' + selected + '>' + (docdata.skills.length > 0 ? docdata.skills.join('>') + '>' : '') + docdata.life + '</option>';
 			}
 			code += '</select>';
-			$(element).parent().find('td.tags').html(code);
-
-			$('.select2').select2();
+			$(element).parent().find('span.tags').html(code);
+			$('select.select2').select2();
 		}
+		// lưu tag vào kiến thức
+		function KnowledgeLife(element)
+		{
+			var knowledge_id = $(element).parents('tr').attr('id');
+			let tags = $(element).val().split('>');
 
+			fsdb.collection("knowledges").doc(knowledge_id).update({
+				tags: tags
+			})
+			.then(() => {}).catch((error) => {
+				console.log(error);
+			});
+		}
+		// xóa tag
 		function DeleteTag(element)
 		{
 			if (!confirm('Xóa nhãn?'))
