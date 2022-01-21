@@ -324,6 +324,7 @@
 			$('#library-knowledge').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
 			let tags = $(element).data('tag');
 			let skills = tags.skills.concat([tags.life]);
+			let number = 0;
 
 			let query = fsdb.collection("knowledges").where('tags', '==', skills).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
@@ -334,7 +335,9 @@
 
 					let code = '<tr id="' + docid + '"><td>' + docdata.content + '</td></tr>';
 					$('#library-knowledge').append(code);
+					++number;
 				});
+				$(element).find('span i').html(number);
 			})
 			.catch((error) => {
 				console.log(error);
