@@ -183,7 +183,7 @@
 		<div class="content-wrapper">
 			<div class="content">
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-5">
 						<div class="card">
 							<div class="card-header">
 								<h3 class="card-title">Thư Viện</h3>
@@ -199,7 +199,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-8">
+					<div class="col-sm-7">
 						<div class="card">
 							<div class="card-header">
 								<h3 class="card-title">Từng Viên Gạch</h3>
@@ -249,10 +249,10 @@
 				// cập nhật số thứ tự
 				update: function(event, ui)
 				{
-					var lists = $("#library-tags" ).sortable("toArray");
+					let lists = $("#library-tags" ).sortable("toArray");
 					for (var i = 0; i < lists.length; i++)
 					{
-						var todo_id = lists[i];
+						let todo_id = lists[i];
 						fsdb.collection("tags").doc(todo_id).update({
 							index: (i + 1)
 						})
@@ -270,10 +270,10 @@
 				// cập nhật số thứ tự
 				update: function(event, ui)
 				{
-					var lists = $("#library-knowledge" ).sortable("toArray");
+					let lists = $("#library-knowledge" ).sortable("toArray");
 					for (var i = 0; i < lists.length; i++)
 					{
-						var todo_id = lists[i];
+						let todo_id = lists[i];
 						fsdb.collection("knowledges").doc(todo_id).update({
 							index: (i + 1)
 						})
@@ -321,24 +321,24 @@
 		// tải kiến thức của tag
 		function LibraryLoad(element)
 		{
+			$('#library-knowledge').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
 			let tags = $(element).data('tag');
-			let values = tags.skills;
-			values.push(tags.life);
+			let skills = tags.skills.concat([tags.life]);
 
-			fsdb.collection("knowledges").where('tags', 'array-contains', values).orderBy("index", "asc").get()
+			let query = fsdb.collection("knowledges").where('tags', '==', skills).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
+				$('#library-knowledge').html('');
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
 
 					let code = '<tr id="' + docid + '"><td>' + docdata.content + '</td></tr>';
 					$('#library-knowledge').append(code);
-
-					//last_doc = doc;
 				});
 			})
 			.catch((error) => {
 				console.log(error);
+				$('#library-knowledge').html('<i class="fas fa-exclamation-circle fa-2x"></i>');
 			});
 		}
 	</script>
