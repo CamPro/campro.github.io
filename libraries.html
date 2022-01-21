@@ -263,6 +263,27 @@
 				}
 			}).disableSelection();
 		})
+		// sap xep kiến thức
+		$('#knowledge-sort').click(function ()
+		{
+			$("#library-knowledge").sortable({
+				// cập nhật số thứ tự
+				update: function(event, ui)
+				{
+					var lists = $("#library-knowledge" ).sortable("toArray");
+					for (var i = 0; i < lists.length; i++)
+					{
+						var todo_id = lists[i];
+						fsdb.collection("knowledges").doc(todo_id).update({
+							index: (i + 1)
+						})
+						.then(() => {}).catch((error) => {
+							console.log(error);
+						});
+					}
+				}
+			}).disableSelection();
+		})
 		// tải danh sách tags
 		function GetTags()
 		{
