@@ -184,11 +184,10 @@
 
 			<section class="content-header">
 				<div class="container-fluid">
-					<div class="row mb-2">
-						<div class="col-sm-6">
-							<h1>Nhật Ký Ý Tưởng</h1>
-						</div>
-					</div>
+					<table class="table table-hover table-bordered" id="table-lifes">
+						<tbody>
+						</tbody>
+					</table>
 				</div>
 			</section>
 
@@ -280,7 +279,6 @@
 
 		</div>
 
-
 		<footer class="main-footer">
 			<div class="text-center">** Cắp sách đi học Trường Đời **</div>
 		</footer>
@@ -300,6 +298,32 @@
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
 
+		var code = '<tr>';
+		var this_year = new Date().getFullYear();
+
+		for (var i = 0; i < 85; i++)
+		{
+			let year = i + 1996;
+			let color = '';
+
+			if (year < this_year)
+			{
+				color = 'text-warning';
+			}
+			else if (year == this_year)
+			{
+				color = 'bg-green';
+			}
+			else
+			{
+				color = 'text-bold';
+			}
+
+			if (i > 0 && i % 10 == 0) code += '</tr><tr>';
+			code += '<td class="' + color + '">' + year + '</td>';
+		}
+		code += '</tr>';
+		$('#table-lifes tbody').html(code);
 	</script>
 </body>
 </html>
