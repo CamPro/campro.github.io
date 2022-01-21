@@ -320,7 +320,7 @@
 			}
 
 			if (i > 0 && i % 10 == 0) code += '</tr><tr>';
-			code += '<td class="' + color + '">' + year + '</td>';
+			code += '<td class="' + color + '"><span>' + year + '</span><span class="float-right text-xs text-info">' + i + '</span></td>';
 		}
 		code += '</tr>';
 		$('#table-lifes tbody').html(code);
