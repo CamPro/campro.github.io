@@ -498,7 +498,7 @@
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
-					var code = '<tr id="' + docid + '"><td onclick="GetCourses(\'' + docid + '\')"><i class="fas fa-cube"></i> <span>' + docdata.category + '</span><span class="text-gray"> --> </span><span class="badge badge-default text-gray">' + docdata.purpose + '</span><span class="float-right" data-category-id="' + docid + '" onclick="DeleteCategory(this)"><i class="fas fa-trash-alt text-gray"></i></span></td></tr>';
+					var code = '<tr id="' + docid + '"><td onclick="GetCourses(\'' + docid + '\')"><i class="fas fa-cube"></i> <span>' + docdata.category + '</span><span class="float-right" data-category-id="' + docid + '" onclick="DeleteCategory(this)"><i class="fas fa-trash-alt text-gray"></i></span></td></tr>';
 					$('#room-categories').append(code);
 					categories.push(doc);
 				});
