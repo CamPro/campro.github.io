@@ -549,7 +549,7 @@
 					++total;
 					if (completed) ++done;
 
-					let link = '/classroom.html?lesson=' + docid + '&title=' + TextToSlug(doc.data().lesson);
+					let link = '/classroom.html?lesson=' + docid + '&slug=' + TextToSlug(doc.data().lesson);
 
 					var code = '<tr id="' + docid + '"><td><a class="' + (completed ? 'text-gray' : '') + '" href="' + link + '">' + (completed ? '<i class="fas fa-graduation-cap text-success"></i>' : '<i class="far fa-list-alt"></i>') + ' <span>' + docdata.lesson + '</span></a><span class="float-right" data-lesson-id="' + docid + '" onclick="DeleteLesson(this)"><i class="fas fa-trash-alt text-gray"></i></span></td></tr>';
 					$('#room-lessons').append(code);
