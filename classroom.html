@@ -183,7 +183,7 @@
 											<div class="input-group">
 												<textarea class="form-control" rows="1" id="room-content" placeholder="<html>"></textarea>
 												<div class="input-group-append">
-													<span class="btn input-group-text btn-xs" id="room-content-frame"><i class="fas fa-crop"></i></span>
+													<span class="btn input-group-text btn-xs" id="room-content-body"><i class="fas fa-crop"></i></span>
 												</div>
 											</div>
 										</div>
@@ -493,11 +493,11 @@
 		})
 
 		// gắn url vào iframe nếu content là 1 url
-		$('#room-content-frame').click(function ()
+		$('#room-content-body').click(function ()
 		{
-			//var link = $('#room-content').val();
-			//$('#room-frame').attr('src', link);
-			$('#room-content').parents('div.input-group').hide();
+			var content = $('#room-content').val();
+			$('#room-frame').parent().html(content);
+			//$('#room-content').parents('div.input-group').hide();
 		})
 		// aanr 
 		$('#room-view-hide').click(function ()
