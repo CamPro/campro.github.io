@@ -279,6 +279,9 @@
 
 					$('#room-content').val(docdata.content);
 					$('#room-lesson').val(docdata.lesson);
+
+					$('div.content-wrapper h1').text(docdata.lesson);
+					
 					GetCourses(docdata.course_id);
 
 					if (docdata.completed && docdata.completed == true)
@@ -495,9 +498,15 @@
 		// gắn url vào iframe nếu content là 1 url
 		$('#room-content-body').click(function ()
 		{
-			var content = $('#room-content').val();
-			$('#room-frame').parent().html(content);
-			//$('#room-content').parents('div.input-group').hide();
+			var myContent = $('#room-content').val();
+			myContent = '<body contentEditable="true">' + myContent + '</body>';
+
+			var iframeView = document.getElementById('room-frame').contentWindow || document.getElementById('room-frame').contentDocument;
+			iframeView.document.write(myContent);
+			iframeView.document.close();
+
+			/*change the height of the iframe */
+			document.getElementById('room-frame').height = (iframeView.document.body.offsetHeight + 25) + 'px';
 		})
 		// aanr 
 		$('#room-view-hide').click(function ()
@@ -508,26 +517,20 @@
 		// xem html sang iframe
 		$('#room-view').click(function ()
 		{
-			var myContent = $('#room-content').val();
-			myContent = '<body contentEditable="true">' + myContent + '</body>';
-
-			var iframeView = document.getElementById('room-frame').contentWindow || document.getElementById('room-frame').contentDocument;
-			iframeView.document.write(myContent);
-			iframeView.document.close();
-
-			/*change the height of the iframe */
-			document.getElementById('room-frame').height = (iframeView.document.body.offsetHeight + 25) + 'px';
+			var content = $('#room-content').val();
+			$('#room-frame').parent().html(content);
+			//$('#room-content').parents('div.input-group').hide();
 		});
 
 		$('#page-height-plus').click(function ()
 		{
-			var height = $('#room-frame').attr('height').replace('px', '').replace('%', '');
-			$('#room-frame').attr('height', Number(height) + 100 + 'px');
+			var height = $('div.card-body iframe').attr('height').replace('px', '').replace('%', '');
+			$('div.card-body iframe').attr('height', Number(height) + 100 + 'px');
 		})
 		$('#page-height-minus').click(function ()
 		{
-			var height = $('#room-frame').attr('height').replace('px', '').replace('%', '');
-			$('#room-frame').attr('height', Number(height) - 100 + 'px');
+			var height = $('div.card-body iframe').attr('height').replace('px', '').replace('%', '');
+			$('div.card-body iframe').attr('height', Number(height) - 100 + 'px');
 		})
 
 		// cập nhật nội dung kiến thức đã có
