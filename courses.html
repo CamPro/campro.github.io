@@ -498,6 +498,7 @@
 			fsdb.collection("courses").where('category_id', '==', category_id).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
 				$('#room-courses').html('');
+				let number = 0;
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
@@ -511,7 +512,9 @@
 					code += '</div></div></td></tr>';
 
 					$('#room-courses').append(code);
+					++number;
 				});
+				$('#room-categories tr#' + category_id + ' span i').text(number);
 			})
 			.catch((error) => {
 				console.log(error);
