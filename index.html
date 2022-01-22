@@ -308,11 +308,11 @@
 					let docid = doc.id;
 					let docdata = doc.data();
 
-					var code = '<tr id="' + docid + '"><td><span class="text" data-todo-id="' + docid + '" onkeyup="UpdateTodo(this)">' + docdata.todo + '</span></td>';
-					code += '<td><div class="float-right">';
+					var code = '<tr id="' + docid + '"><td><span class="text" data-todo-id="' + docid + '" onkeyup="UpdateTodo(this)">' + docdata.todo + '</span>';
+					code += '<span class="float-right">';
 					code += '<i class="fas fa-edit" data-todo-id="' + docid + '" onclick="EditTodo(this)"></i>';
 					code += '<i class="fas fa-trash-alt text-gray" data-todo-id="' + docid + '" onclick="DeleteTodo(this)"></i>';
-					code += '</div></td>';
+					code += '</span></td>';
 					code += '</tr>';
 					$('tbody.todo-list').append(code);
 				});
