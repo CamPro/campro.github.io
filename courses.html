@@ -460,7 +460,6 @@
 					clearInterval(interval);
 				}
 			}, 10);
-
 		});
 
 		function HtmlChange(element)
@@ -494,6 +493,9 @@
 		function GetCourses(docid)
 		{
 			category_id = docid;
+			$('#room-categories tr').removeClass('bg-warning');
+			$('#room-categories tr#' + category_id).addClass('bg-warning');
+
 			$('#room-courses').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
 			fsdb.collection("courses").where('category_id', '==', category_id).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
@@ -508,7 +510,7 @@
 					code += '<span class="progress-text"><i class="fas fa-book"></i> <span>' + docdata.course + '</span></span>';
 					code += '<span class="float-right"><span class="progress-number"></span> <span data-course-id="' + docid + '" onclick="DeleteCourse(this)"><i class="fas fa-trash-alt text-gray"></i></span></span>';
 					code += '<div class="progress progress-xs">';
-					code += '<div class="progress-bar bg-warning" style="width: 0%"></div>';
+					code += '<div class="progress-bar bg-success" style="width: 0%"></div>';
 					code += '</div></div></td></tr>';
 
 					$('#room-courses').append(code);
@@ -529,6 +531,10 @@
 		function GetLessons(docid)
 		{
 			course_id = docid;
+
+			$('#room-courses tr').removeClass('bg-warning');
+			$('#room-courses tr#' + course_id).addClass('bg-warning');
+
 			$('#room-lessons').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
 			fsdb.collection("lessons").where('course_id', '==', course_id).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
