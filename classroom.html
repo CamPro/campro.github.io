@@ -508,13 +508,13 @@
 
 		$('#page-height-plus').click(function ()
 		{
-			var height = $('div.card-body iframe').attr('height').replace('px', '').replace('%', '');
-			$('div.card-body iframe').attr('height', Number(height) + 100 + 'px');
+			var height = $('#card-content iframe').attr('height').replace('px', '').replace('%', '');
+			$('#card-content iframe').attr('height', Number(height) + 200 + 'px');
 		})
 		$('#page-height-minus').click(function ()
 		{
-			var height = $('div.card-body iframe').attr('height').replace('px', '').replace('%', '');
-			$('div.card-body iframe').attr('height', Number(height) - 100 + 'px');
+			var height = $('#card-content iframe').attr('height').replace('px', '').replace('%', '');
+			$('#card-content iframe').attr('height', Number(height) - 100 + 'px');
 		})
 
 		// cập nhật nội dung kiến thức đã có
