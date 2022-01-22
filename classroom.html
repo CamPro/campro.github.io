@@ -317,7 +317,7 @@
 					.then((querySnapshot) => {
 						querySnapshot.forEach((doc) => {
 							let docid = doc.id;
-							let link = '/classroom.html?lesson=' + docid + '&title=' + encodeURIComponent(doc.data().lesson);
+							let link = '/classroom.html?lesson=' + docid + '&title=' + TextToSlug(doc.data().lesson);
 							$('#lesson-next').html('<i class="fas fa-step-forward"></i>').attr('href', link);
 						});
 					})

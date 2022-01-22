@@ -16,37 +16,62 @@ $('#dark-mode').click(function ()
 
 window.onscroll = function() {scrollFunction()};
 function scrollFunction() {
-  if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0)
-  {
-    document.getElementById("back-to-top").style.display = "block";
-  } else {
-    document.getElementById("back-to-top").style.display = "none";
-  }
+	if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0)
+	{
+		document.getElementById("back-to-top").style.display = "block";
+	} else {
+		document.getElementById("back-to-top").style.display = "none";
+	}
 }
 function backToTop() {
-  $("html, body").animate({scrollTop: 0}, 500);
+	$("html, body").animate({scrollTop: 0}, 500);
 }
 window.getSelection().toString();
 
 function getSelectText()
 {
-    var text = "";
-    if (window.getSelection) {
-        text = window.getSelection().toString();
-    } else if (document.selection && document.selection.type != "Control") {
-        text = document.selection.createRange().text;
-    }
-    return text;
+		var text = "";
+		if (window.getSelection) {
+				text = window.getSelection().toString();
+		} else if (document.selection && document.selection.type != "Control") {
+				text = document.selection.createRange().text;
+		}
+		return text;
 }
 function clearSelectText()
 {
-  if (window.getSelection) {
-    if (window.getSelection().empty) {  // Chrome
-      window.getSelection().empty();
-    } else if (window.getSelection().removeAllRanges) {  // Firefox
-      window.getSelection().removeAllRanges();
-    }
-  } else if (document.selection) {  // IE?
-    document.selection.empty();
-  }
+	if (window.getSelection) {
+		if (window.getSelection().empty) {  // Chrome
+			window.getSelection().empty();
+		} else if (window.getSelection().removeAllRanges) {  // Firefox
+			window.getSelection().removeAllRanges();
+		}
+	} else if (document.selection) {  // IE?
+		document.selection.empty();
+	}
+}
+
+function TextToSlug(str)
+{
+	/* Chuyển hết sang chữ thường */
+	str = str.toLowerCase();     
+	/* xóa dấu */
+	str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
+	str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
+	str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
+	str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
+	str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
+	str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
+	str = str.replace(/(đ)/g, 'd');
+	/* Xóa ký tự đặc biệt */
+	str = str.replace(/([^0-9a-z-\s])/g, '');
+	/* Xóa khoảng trắng thay bằng ký tự - */
+	str = str.replace(/(\s+)/g, '-');
+	/* xóa phần dự - ở đầu */
+	str = str.replace(/^-+/g, '');
+	/* xóa phần dư - ở cuối */
+	str = str.replace(/-+$/g, '');
+	str = str.replace(/-+/g, '-').trim();
+	/* return */
+	return str;
 }
