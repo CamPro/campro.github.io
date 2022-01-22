@@ -183,7 +183,6 @@
 											<div class="input-group">
 												<textarea class="form-control" rows="1" id="room-content" placeholder="<html>"></textarea>
 												<div class="input-group-append">
-													<span class="btn input-group-text btn-sm" id="room-content-body"><i class="fas fa-crop"></i></span>
 												</div>
 											</div>
 										</div>
@@ -197,8 +196,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="card-body">
-									<iframe width="100%" height="500px" id="room-frame" style="border:none;overflow:hidden" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+								<div class="card-body" id="card-content">
 								</div>
 								<div class="card-footer">
 									<button class="btn btn-xs btn-default" id="page-height-plus"><i class="fas fa-plus"></i></button>
@@ -281,7 +279,7 @@
 					$('#room-lesson').val(docdata.lesson);
 
 					$('div.content-wrapper h1').text(docdata.lesson);
-					
+
 					GetCourses(docdata.course_id);
 
 					if (docdata.completed && docdata.completed == true)
@@ -495,19 +493,6 @@
 			$(this).val(content);
 		})
 
-		// gắn url vào iframe nếu content là 1 url
-		$('#room-content-body').click(function ()
-		{
-			var myContent = $('#room-content').val();
-			myContent = '<body contentEditable="true">' + myContent + '</body>';
-
-			var iframeView = document.getElementById('room-frame').contentWindow || document.getElementById('room-frame').contentDocument;
-			iframeView.document.write(myContent);
-			iframeView.document.close();
-
-			/*change the height of the iframe */
-			document.getElementById('room-frame').height = (iframeView.document.body.offsetHeight + 25) + 'px';
-		})
 		// aanr 
 		$('#room-view-hide').click(function ()
 		{
@@ -518,8 +503,7 @@
 		$('#room-view').click(function ()
 		{
 			var content = $('#room-content').val();
-			$('#room-frame').parent().html(content);
-			//$('#room-content').parents('div.input-group').hide();
+			$('#card-content').html(content);
 		});
 
 		$('#page-height-plus').click(function ()
