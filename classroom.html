@@ -179,15 +179,15 @@
 											<div class="input-group">
 												<textarea class="form-control" rows="1" id="room-content" placeholder="<html>"></textarea>
 												<div class="input-group-append">
-													<span class="btn input-group-text" id="room-lesson-completed"></span>
+													<span class="btn input-group-text" id="room-lesson-completed" data-toggle="tooltip" title="Đánh dấu đã học"></span>
 												</div>
 											</div>
 										</div>
 										<div class="col-sm-3">
 											<div class="btn-group float-right">
-												<button type="button" class="btn btn-default btn-block" id="room-view">Bắt Đầu</button>
-												<button type="button" class="btn btn-default btn-xs" id="room-view-hide"><i class="fas fa-eye-slash"></i></button>
-												<a href="#" class="btn btn-default" id="lesson-next"></a>
+												<button type="button" class="btn btn-default btn-block" id="room-view" data-toggle="tooltip" title="Xem nội dung">Bắt Đầu</button>
+												<button type="button" class="btn btn-default btn-xs" id="room-view-hide" data-toggle="tooltip" title="Ẩn thanh thông tin"><i class="fas fa-eye-slash"></i></button>
+												<a href="#" class="btn btn-default" id="lesson-next" data-toggle="tooltip" title="Bài tiếp theo"></a>
 											</div>
 										</div>
 									</div>
@@ -195,8 +195,8 @@
 								<div class="card-body" id="card-content">
 								</div>
 								<div class="card-footer">
-									<button class="btn btn-xs btn-default" id="page-height-plus"><i class="fas fa-plus"></i></button>
-									<button class="btn btn-xs btn-default float-right" id="page-height-minus"><i class="fas fa-minus"></i></button>
+									<button class="btn btn-xs btn-default" id="page-height-plus" data-toggle="tooltip" title="Tăng chiều dài"><i class="fas fa-plus"></i></button>
+									<button class="btn btn-xs btn-default float-right" id="page-height-minus" data-toggle="tooltip" title="Giảm chiều dài"><i class="fas fa-minus"></i></button>
 								</div>
 							</div>
 						</div>
@@ -210,7 +210,7 @@
 									<div class="input-group">
 										<input type="text" class="form-control" id="room-lesson" value="" placeholder="Tiêu đề bài giảng">
 										<div class="input-group-append">
-											<span class="btn input-group-text" id="room-lesson-save"><i class="fas fa-save"></i></span>
+											<span class="btn input-group-text" id="room-lesson-save" data-toggle="tooltip" title="Lưu bài học"><i class="fas fa-save"></i></span>
 										</div>
 									</div>
 								</div>
@@ -219,7 +219,7 @@
 										<div class="input-group">
 											<textarea class="form-control" id="room-brain" rows="2" placeholder="Thông tin hữu ích, Ghi lại để ngẫm"></textarea>
 											<div class="input-group-append">
-												<span class="btn btn-primary input-group-text" id="room-study-save"><i class="far fa-lightbulb"></i></span>
+												<span class="btn btn-primary input-group-text" id="room-study-save" data-toggle="tooltip" title="Lưu thông tin hữu ích"><i class="far fa-lightbulb"></i></span>
 											</div>
 										</div>
 									</div>
@@ -248,6 +248,7 @@
 	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
 	<script src="./public/plugins/moment/moment.min.js"></script>
 	<script src="./public/plugins/sweetalert2/sweetalert2.min.js"></script>
+	<script src="./public/plugins/bootstrap/bootstrap.bundle.min.js"></script>
 	<script src="./public/js/adminlte.min.js"></script>
 	<script src="./public/js/myfirebase.js"></script>
 	<script src="./public/js/myscript.js"></script>
@@ -337,6 +338,8 @@
 		{
 			GetCourses();
 		}
+
+		$('[data-toggle="tooltip"]').tooltip();
 
 		// kiểm nhắc nhở chọn khóa học
 		$('#room-lesson, #room-courses').on('change keyup', function ()
