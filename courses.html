@@ -257,8 +257,7 @@
 		$('#category-create').click(function ()
 		{
 			var code = '<tr><td><div class="row">';
-			code += '<div class="col-sm-5"><input type="text" class="form-control" placeholder="Tên lĩnh vực"></div>';
-			code += '<div class="col-sm-5"><select class="form-control"><option value="Sức Khỏe">Sức Khỏe</option><option value="Gia Đình">Gia Đình</option><option value="Sự Nghiệp">Sự Nghiệp</option><option value="Bạn Bè">Bạn Bè</option></select></div>';
+			code += '<div class="col-sm-10"><input type="text" class="form-control" placeholder="Tên lĩnh vực"></div>';
 			code += '<div class="col-sm-2"><button class="btn btn-success" onclick="SaveCategory(this)">Lưu</button></div>';
 			'</div></td></tr>';
 			$('#room-categories').append(code);
@@ -288,14 +287,12 @@
 		function SaveCategory(element)
 		{
 			var category = $(element).parents('div.row').find('input').val().trim();
-			var purpose = $(element).parents('div.row').find('select').val();
 
 			let created_at = moment().unix();
 
 			fsdb.collection("categories").add({
 				index: 0,
 				category: category,
-				purpose: purpose,
 				created_at: created_at
 			})
 			.then((docRef) => {
