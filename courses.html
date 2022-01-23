@@ -175,7 +175,7 @@
 				<div class="container-fluid" id="page-box">
 
 					<div class="row">
-						<div class="col-sm-3">
+						<div class="col-sm-3 table-responsive">
 							<table class="table table-hover table-bordered text-nowrap">
 								<thead>
 									<tr>
@@ -190,7 +190,7 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="col-sm-4">
+						<div class="col-sm-4 table-responsive">
 							<table class="table table-hover table-bordered text-nowrap">
 								<thead>
 									<tr>
@@ -377,9 +377,11 @@
 		// tạo ô thêm thông tin 1 bài học
 		$('#lesson-create').click(function ()
 		{
+			let number = $("#room-lessons tr").length + 1;
+
 			var code = '<tr><td><div class="row">';
-			code += '<div class="col-sm-6"><input type="text" class="form-control" placeholder="Tiêu đề"></div>';
-			code += '<div class="col-sm-6"><textarea class="form-control" rows="1" onkeyup="HtmlChange(this)" placeholder="<html>"></textarea></div>';
+			code += '<div class="col-sm-6"><input type="text" class="form-control" placeholder="Tiêu đề ' + number + '"></div>';
+			code += '<div class="col-sm-6"><textarea class="form-control" rows="1" onkeyup="HtmlChange(this)" placeholder="<html> ' + number + '"></textarea></div>';
 			'</div></td></tr>';
 			$('#room-lessons').append(code);
 			$('#lesson-save').removeClass('d-none');
