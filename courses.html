@@ -474,7 +474,7 @@
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
-					var code = '<tr id="' + docid + '"><td onclick="GetCourses(\'' + docid + '\')"><i class="fas fa-cube"></i> <span>' + docdata.category + '</span><span class="float-right" data-category-id="' + docid + '" onclick="DeleteCategory(this)"><i class="fas fa-trash-alt text-gray"></i></span></td></tr>';
+					var code = '<tr id="' + docid + '"><td onclick="GetCourses(\'' + docid + '\')"><i class="fas fa-cube"></i> <span class="text">' + docdata.category + '</span><span class="float-right"><span data-category-id="' + docid + '" onclick="EditCategory(this)"><i class="fas fa-edit"></i></span><span data-category-id="' + docid + '" onclick="DeleteCategory(this)"><i class="fas fa-trash-alt text-gray"></i></span></span></td></tr>';
 					$('#room-categories').append(code);
 					categories.push(doc);
 				});
@@ -500,11 +500,10 @@
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
-					var code = '<tr id="' + docid + '"><td onclick="GetLessons(\'' + docid + '\')"><i class="fas fa-book"></i> <span>' + docdata.course + '</span><span class="float-right" data-course-id="' + docid + '" onclick="DeleteCourse(this)"><i class="fas fa-trash-alt text-gray"></i></span></td></tr>';
 
 					var code = '<tr id="' + docid + '"><td onclick="GetLessons(\'' + docid + '\')"><div class="progress-group progress-xs">';
-					code += '<span class="progress-text"><i class="fas fa-book"></i> <span>' + docdata.course + '</span></span>';
-					code += '<span class="float-right"><span class="progress-number"></span> <span data-course-id="' + docid + '" onclick="DeleteCourse(this)"><i class="fas fa-trash-alt text-gray"></i></span></span>';
+					code += '<span class="progress-text"><i class="fas fa-book"></i> <span class="text">' + docdata.course + '</span></span>';
+					code += '<span class="float-right"><span class="progress-number text-sm"></span> <span data-course-id="' + docid + '" onclick="EditCourse(this)"><i class="fas fa-edit"></i></span><span data-course-id="' + docid + '" onclick="DeleteCourse(this)"><i class="fas fa-trash-alt text-gray"></i></span></span>';
 					code += '<div class="progress progress-xs">';
 					code += '<div class="progress-bar bg-success" style="width: 0%"></div>';
 					code += '</div></div></td></tr>';
@@ -512,7 +511,7 @@
 					$('#room-courses').append(code);
 					++number;
 				});
-				$('#room-categories tr#' + category_id + ' span i').text(number);
+				$('#room-categories tr#' + category_id + ' span i.text-gray').text(number);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -547,7 +546,7 @@
 
 					let link = '/classroom.html?lesson=' + docid + '&slug=' + TextToSlug(doc.data().lesson);
 
-					var code = '<tr id="' + docid + '"><td><a class="' + (completed ? 'text-gray' : '') + '" href="' + link + '">' + (completed ? '<i class="fas fa-graduation-cap text-success"></i>' : '<i class="far fa-list-alt"></i>') + ' <span>' + docdata.lesson + '</span></a><span class="float-right" data-lesson-id="' + docid + '" onclick="DeleteLesson(this)"><i class="fas fa-trash-alt text-gray"></i></span></td></tr>';
+					var code = '<tr id="' + docid + '"><td><div class="float-left"><a class="' + (completed ? 'text-gray' : '') + '" href="' + link + '">' + (completed ? '<i class="fas fa-graduation-cap text-success"></i>' : '<i class="far fa-list-alt"></i>') + ' <span class="text">' + docdata.lesson + '</span></a></div><div class="float-right"><span data-lesson-id="' + docid + '" onclick="EditLesson(this)"><i class="fas fa-edit"></i></span><span data-lesson-id="' + docid + '" onclick="DeleteLesson(this)"><i class="fas fa-trash-alt text-gray"></i></span></div></td></tr>';
 					$('#room-lessons').append(code);
 				});
 
@@ -561,7 +560,21 @@
 			});
 			$('#lesson-create').removeClass('d-none');
 		}
+		// xóa 1 khóa học
+		function DeleteCourse(element)
+		{
+			if (!confirm('Xóa khóa học?'))
+			{
+				return;
+			}
+			var course_id = $(element).data('course-id');
 
+			fsdb.collection("courses").doc(course_id).delete().then(() => {
+				GetCourses(category_id);
+			}).catch((error) => {
+				console.log(error);
+			});
+		}
 		// xóa 1 chủ đề
 		function DeleteCategory(element)
 		{
@@ -590,17 +603,62 @@
 				console.log(error);
 			});
 		}
-		// xóa 1 khóa học
-		function DeleteCourse(element)
+		// sửa tên 1 chủ đề
+		function EditCategory(element)
 		{
-			if (!confirm('Xóa khóa học?'))
+			var category_id = $(element).data('category-id');
+			let title = $('#room-categories tr#' + category_id + ' span.text').text();
+
+			title = prompt('Nhập tên mới', title);
+			if (!title)
 			{
 				return;
 			}
+			fsdb.collection("categories").doc(category_id).update({
+				category: title
+			})
+			.then(() => {
+				$('#room-categories tr#' + category_id + ' span.text').text(title);
+			}).catch((error) => {
+				console.log(error);
+			});
+		}
+		// sửa tên 1 khóa học
+		function EditCourse(element)
+		{
 			var course_id = $(element).data('course-id');
+			let title = $('#room-courses tr#' + course_id + ' span.text').text();
 
-			fsdb.collection("courses").doc(course_id).delete().then(() => {
-				GetCourses(category_id);
+			title = prompt('Nhập tên mới', title);
+			if (!title)
+			{
+				return;
+			}
+			fsdb.collection("courses").doc(course_id).update({
+				course: title
+			})
+			.then(() => {
+				$('#room-courses tr#' + course_id + ' span.text').text(title);
+			}).catch((error) => {
+				console.log(error);
+			});
+		}
+		// sửa tên 1 bài học
+		function EditLesson(element)
+		{
+			var lesson_id = $(element).data('lesson-id');
+			let title = $('#room-lessons tr#' + lesson_id + ' span.text').text();
+
+			title = prompt('Nhập tên mới', title);
+			if (!title)
+			{
+				return;
+			}
+			fsdb.collection("lessons").doc(lesson_id).update({
+				lesson: title
+			})
+			.then(() => {
+				$('#room-lessons tr#' + lesson_id + ' span.text').text(title);
 			}).catch((error) => {
 				console.log(error);
 			});
