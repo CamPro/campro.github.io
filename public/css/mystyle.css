@@ -32,3 +32,6 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.main-footer {
+  padding:0px !important;
+}
