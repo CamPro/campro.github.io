@@ -5,14 +5,22 @@ $('#dark-mode').click(function ()
 		$('body').addClass('dark-mode');
 		$('#header').removeClass('navbar-light');
 		$('#header').addClass('navbar-dark');
+		sessionStorage.darkMode = true;
 	}
 	else
 	{
 		$('body').removeClass('dark-mode');
 		$('#header').removeClass('navbar-dark');
 		$('#header').addClass('navbar-light');
+
 	}
 });
+if (sessionStorage.darkMode)
+{
+	$('body').addClass('dark-mode');
+	$('#header').removeClass('navbar-light');
+	$('#header').addClass('navbar-dark');
+}
 
 window.onscroll = function() {scrollFunction()};
 function scrollFunction() {
