@@ -300,6 +300,7 @@
 		// lấy danh sách todo
 		function GetTodolist()
 		{
+			$('#todo-sort').html('<i class="fas fa-spinner fa-spin"></i>');
 			fsdb.collection("todolists").orderBy("index", "asc").get()
 			.then((querySnapshot) => {
 				let code = '';
@@ -315,10 +316,12 @@
 					code += '</tr>';
 				});
 				$('tbody.todo-list').html(code);
+				$('#todo-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
 			})
 			.catch((error) => {
 				console.log(error);
 				$('tbody.todo-list').html('<i class="fas fa-exclamation-triangle"></i>');
+				$('#todo-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
 			});
 		}
 		// sua to do
