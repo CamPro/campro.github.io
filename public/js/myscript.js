@@ -1,3 +1,14 @@
+if (sessionStorage.darkMode == 'true')
+{
+	$('#dark-mode').prop('checked', true);
+	$('body').addClass('dark-mode');
+	$('#header').removeClass('navbar-light');
+	$('#header').addClass('navbar-dark');
+}
+if (sessionStorage.sidebarCollapse == 'true')
+{
+	$('body').addClass('sidebar-collapse');
+}
 $('#dark-mode').click(function ()
 {
 	if ($(this).is(':checked'))
@@ -12,15 +23,24 @@ $('#dark-mode').click(function ()
 		$('body').removeClass('dark-mode');
 		$('#header').removeClass('navbar-dark');
 		$('#header').addClass('navbar-light');
-
+		sessionStorage.darkMode = null;
 	}
 });
-if (sessionStorage.darkMode)
+
+$('[data-widget="pushmenu"]').click(function ()
 {
-	$('body').addClass('dark-mode');
-	$('#header').removeClass('navbar-light');
-	$('#header').addClass('navbar-dark');
-}
+	setTimeout(function ()
+	{
+		if ($('body.sidebar-collapse').length > 0)
+		{
+			sessionStorage.sidebarCollapse = true;
+		}
+		else
+		{
+			sessionStorage.sidebarCollapse = null;
+		}
+	}, 1000);
+})
 
 window.onscroll = function() {scrollFunction()};
 function scrollFunction() {
