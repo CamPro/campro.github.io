@@ -25,6 +25,7 @@ $('#dark-mode').click(function ()
 		$('#header').addClass('navbar-light');
 		sessionStorage.darkMode = null;
 	}
+	document.querySelector('a[data-widget="control-sidebar"]').click();
 });
 
 $('[data-widget="pushmenu"]').click(function ()
