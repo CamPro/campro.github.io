@@ -444,7 +444,13 @@
 		$('#room-study-save').click(function ()
 		{
 			let new_study = $("#room-brain").val().trim();
-			if (!new_study) return;
+			if (!new_study)
+			{
+				let highlight = getSelectText().trim();
+				$('#room-brain').val(highlight);
+				clearSelectText();
+				return;
+			}
 
 			let course_id = $('#room-courses').val().trim();
 			
