@@ -249,6 +249,7 @@
 		var categories = [];
 		var category_id = null;
 		var course_id = null;
+		var lesson_id = null;
 
 		// lấy danh sách lĩnh vực
 		GetCategories();
@@ -256,7 +257,7 @@
 		// thêm 1 lĩnh vực
 		$('#category-create').click(function ()
 		{
-			var code = '<tr><td><div class="row">';
+			let code = '<tr><td><div class="row">';
 			code += '<div class="col-sm-10"><input type="text" class="form-control" placeholder="Tên lĩnh vực"></div>';
 			code += '<div class="col-sm-2"><button class="btn btn-success" onclick="SaveCategory(this)">Lưu</button></div>';
 			'</div></td></tr>';
@@ -269,10 +270,10 @@
 				// cập nhật số thứ tự
 				update: function(event, ui)
 				{
-					var lists = $("#room-categories" ).sortable("toArray");
+					let lists = $("#room-categories" ).sortable("toArray");
 					for (var i = 0; i < lists.length; i++)
 					{
-						var category_id = lists[i];
+						category_id = lists[i];
 						fsdb.collection("categories").doc(category_id).update({
 							index: (i + 1)
 						})
@@ -286,7 +287,7 @@
 		// lưu 1 lĩnh vực mới
 		function SaveCategory(element)
 		{
-			var category = $(element).parents('div.row').find('input').val().trim();
+			let category = $(element).parents('div.row').find('input').val().trim();
 
 			let created_at = moment().unix();
 
@@ -306,7 +307,7 @@
 		// thêm 1 khóa học
 		$('#course-create').click(function ()
 		{
-			var code = '<tr><td><div class="row">';
+			let code = '<tr><td><div class="row">';
 			code += '<div class="col-sm-5"><input type="text" class="form-control" placeholder="Tên khóa học"></div>';
 			code += '<div class="col-sm-5"><select class="form-control"><option value="">-- Lĩnh vực --</option>';
 			for (var i = 0; i < categories.length; i++)
@@ -331,10 +332,10 @@
 				// cập nhật số thứ tự
 				update: function(event, ui)
 				{
-					var lists = $("#room-courses" ).sortable("toArray");
+					let lists = $("#room-courses" ).sortable("toArray");
 					for (var i = 0; i < lists.length; i++)
 					{
-						var course_id = lists[i];
+						course_id = lists[i];
 						fsdb.collection("courses").doc(course_id).update({
 							index: (i + 1)
 						})
@@ -348,8 +349,8 @@
 		// lưu 1 khóa học mới
 		function SaveCourse(element)
 		{
-			var course = $(element).parents('div.row').find('input').val().trim();
-			var category_id = $(element).parents('div.row').find('select').val();
+			let course = $(element).parents('div.row').find('input').val().trim();
+			category_id = $(element).parents('div.row').find('select').val();
 			if (!category_id)
 			{
 				$(element).parents('div.row').find('select').addClass('is-invalid');
@@ -376,10 +377,11 @@
 		{
 			let number = $("#room-lessons tr").length + 1;
 
-			var code = '<tr><td><div class="row">';
+			let code = '<tr><td><div class="row">';
 			code += '<div class="col-sm-6"><input type="text" class="form-control" placeholder="Tiêu đề ' + number + '"></div>';
 			code += '<div class="col-sm-6"><textarea class="form-control" rows="1" onkeyup="HtmlChange(this)" placeholder="<html> ' + number + '"></textarea></div>';
 			'</div></td></tr>';
+
 			$('#room-lessons').append(code);
 			$('#lesson-save').removeClass('d-none');
 		})
@@ -391,10 +393,10 @@
 				// cập nhật số thứ tự
 				update: function(event, ui)
 				{
-					var lists = $("#room-lessons" ).sortable("toArray");
+					let lists = $("#room-lessons" ).sortable("toArray");
 					for (var i = 0; i < lists.length; i++)
 					{
-						var lesson_id = lists[i];
+						lesson_id = lists[i];
 						fsdb.collection("lessons").doc(lesson_id).update({
 							index: (i + 1)
 						})
@@ -410,14 +412,14 @@
 		{
 			if (!course_id) return;
 
-			var elements = document.querySelectorAll('#room-lessons div.row');
+			let elements = document.querySelectorAll('#room-lessons div.row');
+			let index = 0;
 
-			var index = 0;
-			var interval = setInterval(function ()
+			let interval = setInterval(function ()
 			{
-				var element = elements[index];
-				var lesson = $(element).find('input').val().trim();
-				var content = $(element).find('textarea').val().trim();
+				let element = elements[index];
+				let lesson = $(element).find('input').val().trim();
+				let content = $(element).find('textarea').val().trim();
 				let created_at = moment().unix();
 
 				if (!lesson)
@@ -457,7 +459,7 @@
 
 		function HtmlChange(element)
 		{
-			var content = $(element).val().replace(/width="(\w+.)"/, 'width="100%"').replace(/height="(\w+.)"/, 'height="100%"');
+			let content = $(element).val().replace(/width="(\w+.)"/, 'width="100%"').replace(/height="(\w+.)"/, 'height="100%"');
 			$(element).val(content);
 		}
 
@@ -471,7 +473,7 @@
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
-					code += '<tr id="' + docid + '"><td onclick="GetCourses(\'' + docid + '\')"><i class="fas fa-cube"></i> <span class="text">' + docdata.category + '</span><span class="float-right"><span data-category-id="' + docid + '" onclick="EditCategory(this)"><i class="fas fa-edit"></i></span><span data-category-id="' + docid + '" onclick="DeleteCategory(this)"><i class="fas fa-trash-alt text-gray"></i></span></span></td></tr>';
+					code += '<tr id="' + docid + '"><td onclick="GetCourses(\'' + docid + '\')"><i class="fas fa-cube"></i> <span class="text">' + docdata.category + '</span><span class="float-right"><span onclick="EditCategory(this)"><i class="fas fa-edit"></i></span><span onclick="DeleteCategory(this)"><i class="fas fa-trash-alt text-gray"></i></span></span></td></tr>';
 
 					categories.push(doc);
 				});
@@ -503,7 +505,7 @@
 
 					code += '<tr id="' + docid + '"><td onclick="GetLessons(\'' + docid + '\')"><div class="progress-group progress-xs">';
 					code += '<span class="progress-text"><i class="fas fa-book"></i> <span class="text">' + docdata.course + '</span></span>';
-					code += '<span class="float-right"><span class="progress-number text-sm"></span> <span data-course-id="' + docid + '" onclick="EditCourse(this)"><i class="fas fa-edit"></i></span><span data-course-id="' + docid + '" onclick="DeleteCourse(this)"><i class="fas fa-trash-alt text-gray"></i></span></span>';
+					code += '<span class="float-right"><span class="progress-number text-sm"></span> <span onclick="EditCourse(this)"><i class="fas fa-edit"></i></span><span onclick="DeleteCourse(this)"><i class="fas fa-trash-alt text-gray"></i></span></span>';
 					code += '<div class="progress progress-xs">';
 					code += '<div class="progress-bar bg-success" style="width: 0%"></div>';
 					code += '</div></div></td></tr>';
@@ -523,7 +525,6 @@
 			$('#lesson-create').addClass('d-none');
 			$('#lesson-save').addClass('d-none');
 		}
-
 		// lấy danh sách bài học theo khóa học
 		function GetLessons(docid)
 		{
@@ -534,8 +535,8 @@
 
 			fsdb.collection("lessons").where('course_id', '==', course_id).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
-				var total = 0;
-				var done = 0;
+				let total = 0;
+				let done = 0;
 				let code = '';
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
@@ -547,7 +548,7 @@
 
 					let link = '/classroom.html?lesson=' + docid + '&slug=' + TextToSlug(doc.data().lesson);
 
-					code += '<tr id="' + docid + '"><td><div class="float-left"><a class="' + (completed ? 'text-gray' : '') + '" href="' + link + '">' + (completed ? '<i class="fas fa-graduation-cap text-success"></i>' : '<i class="far fa-list-alt"></i>') + ' <span class="text">' + docdata.lesson + '</span></a></div><div class="float-right"><span data-lesson-id="' + docid + '" onclick="EditLesson(this)"><i class="fas fa-edit"></i></span><span data-lesson-id="' + docid + '" onclick="DeleteLesson(this)"><i class="fas fa-trash-alt text-gray"></i></span></div></td></tr>';
+					code += '<tr id="' + docid + '"><td><div class="float-left"><a class="' + (completed ? 'text-gray' : '') + '" href="' + link + '">' + (completed ? '<i class="fas fa-graduation-cap text-success"></i>' : '<i class="far fa-list-alt"></i>') + ' <span class="text">' + docdata.lesson + '</span></a></div><div class="float-right"><span onclick="EditLesson(this)"><i class="fas fa-edit"></i></span><span onclick="DeleteLesson(this)"><i class="fas fa-trash-alt text-gray"></i></span></div></td></tr>';
 				});
 				$('#room-lessons').html(code);
 				// cập nhật chỉ số
@@ -569,7 +570,7 @@
 			{
 				return;
 			}
-			var course_id = $(element).data('course-id');
+			course_id = $(element).parents('tr').attr('id');
 
 			fsdb.collection("courses").doc(course_id).delete().then(() => {
 				GetCourses(category_id);
@@ -584,7 +585,7 @@
 			{
 				return;
 			}
-			var category_id = $(element).data('category-id');
+			category_id = $(element).parents('tr').attr('id');
 			fsdb.collection("categories").doc(category_id).delete().then(() => {
 				GetCategories();
 			}).catch((error) => {
@@ -598,7 +599,7 @@
 			{
 				return;
 			}
-			var lesson_id = $(element).data('lesson-id');
+			lesson_id = $(element).parents('tr').attr('id');
 			fsdb.collection("lessons").doc(lesson_id).delete().then(() => {
 				GetLessons(course_id);
 			}).catch((error) => {
@@ -608,7 +609,7 @@
 		// sửa tên 1 chủ đề
 		function EditCategory(element)
 		{
-			var category_id = $(element).data('category-id');
+			category_id = $(element).parents('tr').attr('id');
 			let title = $('#room-categories tr#' + category_id + ' span.text').text();
 
 			title = prompt('Nhập tên mới', title);
@@ -628,7 +629,7 @@
 		// sửa tên 1 khóa học
 		function EditCourse(element)
 		{
-			var course_id = $(element).data('course-id');
+			course_id = $(element).parents('tr').attr('id');
 			let title = $('#room-courses tr#' + course_id + ' span.text').text();
 
 			title = prompt('Nhập tên mới', title);
@@ -648,7 +649,7 @@
 		// sửa tên 1 bài học
 		function EditLesson(element)
 		{
-			var lesson_id = $(element).data('lesson-id');
+			lesson_id = $(element).parents('tr').attr('id');
 			let title = $('#room-lessons tr#' + lesson_id + ' span.text').text();
 
 			title = prompt('Nhập tên mới', title);
