@@ -279,6 +279,7 @@
 					$('#room-lesson').val(docdata.lesson);
 
 					$('div.content-wrapper h1').text(docdata.lesson);
+					document.title = docdata.lesson;
 
 					GetCourses(docdata.course_id);
 
@@ -495,7 +496,7 @@
 			$(this).val(content);
 		})
 
-		// aanr 
+		// ẩn thanh điều khiển 
 		$('#room-view-hide').click(function ()
 		{
 			$('#room-content').parents('div.card-header').toggle('hide');
