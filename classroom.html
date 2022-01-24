@@ -185,7 +185,7 @@
 										</div>
 										<div class="col-sm-3">
 											<div class="btn-group float-right">
-												<button type="button" class="btn btn-default btn-xs" id="room-view-hide" data-toggle="tooltip" title="Ẩn thanh thông tin"><i class="fas fa-eye-slash"></i></button>
+												
 												<button type="button" class="btn btn-default btn-block" id="room-view" data-toggle="tooltip" title="Xem nội dung">Bắt Đầu</button>
 												<a href="#" class="btn btn-default" id="lesson-next" data-toggle="tooltip" title="Bài tiếp theo"></a>
 											</div>
@@ -203,9 +203,12 @@
 						<div class="col-sm-4">
 							<div class="card card-default">
 								<div class="card-header">
-									<div class="form-group">
+									<div class="input-group">
 										<select class="form-control" id="room-courses">
 										</select>
+										<div class="input-group-append">
+											<span class="btn input-group-text" id="room-view-hide" data-toggle="tooltip" title="Ẩn thanh thông tin"><i class="fas fa-expand"></i></span>
+										</div>
 									</div>
 									<div class="input-group">
 										<input type="text" class="form-control" id="room-lesson" value="" placeholder="Tiêu đề bài giảng">
@@ -495,7 +498,9 @@
 		// aanr 
 		$('#room-view-hide').click(function ()
 		{
-			$('#room-content').parents('div.card-header').hide();
+			$('#room-content').parents('div.card-header').toggle('hide');
+
+
 		})
 
 		// xem html sang iframe
