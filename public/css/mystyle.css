@@ -1,37 +1,40 @@
 #back-to-top {
-  position: fixed;
-  bottom: 20px;
-  right: 25px;
-  width: 40px;
-  height: 40px;
-  color: #eee;
-  line-height: 40px;
-  text-align: center;
-  background-color: #222d32;
-  cursor: pointer;
-  border-radius: 5px;
-  z-index: 99999;
-  opacity: 0.5;
-  display: none;
+	position: fixed;
+	bottom: 20px;
+	right: 25px;
+	width: 40px;
+	height: 40px;
+	color: #eee;
+	line-height: 40px;
+	text-align: center;
+	background-color: #222d32;
+	cursor: pointer;
+	border-radius: 5px;
+	z-index: 99999;
+	opacity: 0.5;
+	display: none;
 }
 #back-to-top:hover {
-  opacity: 1;
+	opacity: 1;
 }
 
 .content img, .content iframe {
-  width: 100% !important;
+	width: 100% !important;
 }
 
 .multicolor {
-  background: -webkit-linear-gradient(green, yellow, red);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+	background: -webkit-linear-gradient(green, yellow, red);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 .twocolor {
-  background: -webkit-linear-gradient(white, black, white);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+	background: -webkit-linear-gradient(white, black, white);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 .main-footer {
-  padding:0px !important;
+	padding:0px !important;
+}
+.card-fixed {
+	position: fixed;
 }
