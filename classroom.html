@@ -168,7 +168,7 @@
 				</div>
 			</div>
 			<div class="content">
-				<div class="container-fluid" id="page-box">
+				<div class="container-fluid">
 
 					<div class="row">
 						<div class="col-sm-8">
@@ -499,8 +499,8 @@
 		$('#room-view-hide').click(function ()
 		{
 			$('#room-content').parents('div.card-header').toggle('hide');
-
-
+			$('.content-wrapper .content-header').toggle('hide');
+			$('#room-lesson').parents('div.input-group').toggle('hide');
 		})
 
 		// xem html sang iframe
