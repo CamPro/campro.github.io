@@ -449,18 +449,17 @@
 		function GetStudy(course_id)
 		{
 			DisBox(true);
-			$('#kitchen-informations').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
 
 			fsdb.collection("informations").where('course_id', '==', course_id).orderBy("created_at", "asc").get()
 			.then((querySnapshot) => {
-				$('#kitchen-informations').html('');
+				let code = '';
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
 
-					let code = '<tr id="' + docid + '"><td class="" onclick="StudyLearning(this)">' + docdata.study + '<span class="float-right" onclick="DeleteStudy(this)"><i class="fas fa-trash-alt text-gray"></i></span></td></tr>';
-					$('#kitchen-informations').append(code);
+					code += '<tr id="' + docid + '"><td class="" onclick="StudyLearning(this)">' + docdata.study + '<span class="float-right" onclick="DeleteStudy(this)"><i class="fas fa-trash-alt text-gray"></i></span></td></tr>';
 				});
+				$('#kitchen-informations').html(code);
 			})
 			.catch((error) => {
 				console.log(error);
