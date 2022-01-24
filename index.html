@@ -300,22 +300,21 @@
 		// lấy danh sách todo
 		function GetTodolist()
 		{
-			$('tbody.todo-list').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
 			fsdb.collection("todolists").orderBy("index", "asc").get()
 			.then((querySnapshot) => {
-				$('tbody.todo-list').html('');
+				let code = '';
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
 
-					var code = '<tr id="' + docid + '"><td><span class="text" data-todo-id="' + docid + '" onkeyup="UpdateTodo(this)">' + docdata.todo + '</span>';
+					code += '<tr id="' + docid + '"><td><span class="text" onkeyup="UpdateTodo(this)">' + docdata.todo + '</span>';
 					code += '<span class="float-right">';
-					code += '<i class="fas fa-edit" data-todo-id="' + docid + '" onclick="EditTodo(this)"></i>';
+					code += '<i class="fas fa-edit" onclick="EditTodo(this)"></i>';
 					code += '<i class="fas fa-trash-alt text-gray" data-todo-id="' + docid + '" onclick="DeleteTodo(this)"></i>';
 					code += '</span></td>';
 					code += '</tr>';
-					$('tbody.todo-list').append(code);
 				});
+				$('tbody.todo-list').html(code);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -325,18 +324,18 @@
 		// sua to do
 		function EditTodo(element)
 		{
-			var todo_id = $(element).hide().data('todo-id');
+			var todo_id = $(element).parents('tr').attr('id');
 			$('tr#' + todo_id + ' span.text').prop('contenteditable', true);
 		}
 		// cập nhật to do
 		function UpdateTodo(element)
 		{
-			var todo_id = $(element).data('todo-id');
+			var todo_id = $(element).parents('tr').attr('id');
 			var new_todo = $(element).text().trim();
 
 			if (timer) clearTimeout(timer);
 
-			$('tr#' + todo_id + ' div.float-right').html('<i class="fas fa-spinner"></i>');
+			$('tr#' + todo_id + ' span.float-right').html('<i class="fas fa-spinner"></i>');
 
 			timer = setTimeout(function ()
 			{
@@ -344,7 +343,7 @@
 					todo: new_todo
 				})
 				.then(() => {
-					$('tr#' + todo_id + ' div.float-right').html('<i class="fas fa-check text-success"></i>');
+					$('tr#' + todo_id + ' span.float-right').html('<i class="fas fa-check text-success"></i>');
 				})
 				.catch((error) => {
 					console.log(error);
@@ -358,7 +357,7 @@
 			{
 				return;
 			}
-			var todo_id = $(element).data('todo-id');
+			var todo_id = $(element).parents('tr').attr('id');
 			fsdb.collection("todolists").doc(todo_id).delete().then(() => {
 				GetTodolist();
 			}).catch((error) => {
