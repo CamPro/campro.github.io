@@ -490,8 +490,8 @@
 			$('#think_interactive').val('');
 			$('#think_experience').val('');
 
-			$('#kitchen-informations tr td').removeClass('text-primary').removeClass('bg-yellow');
-			$(element).addClass('text-primary').addClass('bg-yellow');
+			$('#kitchen-informations tr td').removeClass('text-primary').css('background-color', '');
+			$(element).css('background-color', 'gold');
 			$('#card-learning').CardWidget('expand');
 
 			// get form data

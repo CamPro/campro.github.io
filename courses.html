@@ -492,8 +492,8 @@
 		{
 			category_id = docid;
 			$('#course-sort').html('<i class="fas fa-spinner fa-spin"></i>');
-			$('#room-categories tr').removeClass('bg-warning');
-			$('#room-categories tr#' + category_id).addClass('bg-warning');
+			$('#room-categories tr').css('background-color', '');
+			$('#room-categories tr#' + category_id).css('background-color', 'gold');
 
 			fsdb.collection("courses").where('category_id', '==', category_id).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
@@ -530,8 +530,8 @@
 		{
 			course_id = docid;
 			$('#lesson-sort').html('<i class="fas fa-spinner fa-spin"></i>');
-			$('#room-courses tr').removeClass('bg-warning');
-			$('#room-courses tr#' + course_id).addClass('bg-warning');
+			$('#room-courses tr').css('background-color', '');
+			$('#room-courses tr#' + course_id).css('background-color', 'gold');
 
 			fsdb.collection("lessons").where('course_id', '==', course_id).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
