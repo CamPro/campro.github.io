@@ -464,21 +464,24 @@
 		// lấy danh sách lĩnh vực
 		function GetCategories()
 		{
-			$('#room-categories').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
+			$('#category-sort').html('<i class="fas fa-spinner fa-spin"></i>');
 			fsdb.collection("categories").orderBy("index", "asc").get()
 			.then((querySnapshot) => {
-				$('#room-categories').html('');
+				let code = '';
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
-					var code = '<tr id="' + docid + '"><td onclick="GetCourses(\'' + docid + '\')"><i class="fas fa-cube"></i> <span class="text">' + docdata.category + '</span><span class="float-right"><span data-category-id="' + docid + '" onclick="EditCategory(this)"><i class="fas fa-edit"></i></span><span data-category-id="' + docid + '" onclick="DeleteCategory(this)"><i class="fas fa-trash-alt text-gray"></i></span></span></td></tr>';
-					$('#room-categories').append(code);
+					code += '<tr id="' + docid + '"><td onclick="GetCourses(\'' + docid + '\')"><i class="fas fa-cube"></i> <span class="text">' + docdata.category + '</span><span class="float-right"><span data-category-id="' + docid + '" onclick="EditCategory(this)"><i class="fas fa-edit"></i></span><span data-category-id="' + docid + '" onclick="DeleteCategory(this)"><i class="fas fa-trash-alt text-gray"></i></span></span></td></tr>';
+
 					categories.push(doc);
 				});
+				$('#room-categories').html(code);
+				$('#category-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
 			})
 			.catch((error) => {
 				console.log(error);
 				$('#room-categories').html('<i class="fas fa-exclamation-triangle"></i>');
+				$('#category-sort').html('<i class="fas fa-exclamation-triangle"></i>');
 			});
 		}
 
@@ -486,33 +489,35 @@
 		function GetCourses(docid)
 		{
 			category_id = docid;
+			$('#course-sort').html('<i class="fas fa-spinner fa-spin"></i>');
 			$('#room-categories tr').removeClass('bg-warning');
 			$('#room-categories tr#' + category_id).addClass('bg-warning');
 
-			$('#room-courses').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
 			fsdb.collection("courses").where('category_id', '==', category_id).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
-				$('#room-courses').html('');
+				let code = '';
 				let number = 0;
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
 
-					var code = '<tr id="' + docid + '"><td onclick="GetLessons(\'' + docid + '\')"><div class="progress-group progress-xs">';
+					code += '<tr id="' + docid + '"><td onclick="GetLessons(\'' + docid + '\')"><div class="progress-group progress-xs">';
 					code += '<span class="progress-text"><i class="fas fa-book"></i> <span class="text">' + docdata.course + '</span></span>';
 					code += '<span class="float-right"><span class="progress-number text-sm"></span> <span data-course-id="' + docid + '" onclick="EditCourse(this)"><i class="fas fa-edit"></i></span><span data-course-id="' + docid + '" onclick="DeleteCourse(this)"><i class="fas fa-trash-alt text-gray"></i></span></span>';
 					code += '<div class="progress progress-xs">';
 					code += '<div class="progress-bar bg-success" style="width: 0%"></div>';
 					code += '</div></div></td></tr>';
 
-					$('#room-courses').append(code);
 					++number;
 				});
+				$('#room-courses').html(code);
 				$('#room-categories tr#' + category_id + ' span i.text-gray').text(number);
+				$('#course-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
 			})
 			.catch((error) => {
 				console.log(error);
 				$('#room-courses').html('<i class="fas fa-exclamation-triangle"></i>');
+				$('#course-sort').html('<i class="fas fa-exclamation-triangle"></i>');
 			});
 			$('#room-lessons').html('');
 			$('#lesson-create').addClass('d-none');
@@ -523,16 +528,15 @@
 		function GetLessons(docid)
 		{
 			course_id = docid;
-
+			$('#lesson-sort').html('<i class="fas fa-spinner fa-spin"></i>');
 			$('#room-courses tr').removeClass('bg-warning');
 			$('#room-courses tr#' + course_id).addClass('bg-warning');
 
-			$('#room-lessons').html('<i class="fas fa-spinner fa-spin fa-2x"></i>');
 			fsdb.collection("lessons").where('course_id', '==', course_id).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
-				$('#room-lessons').html('');
 				var total = 0;
 				var done = 0;
+				let code = '';
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
@@ -543,17 +547,18 @@
 
 					let link = '/classroom.html?lesson=' + docid + '&slug=' + TextToSlug(doc.data().lesson);
 
-					var code = '<tr id="' + docid + '"><td><div class="float-left"><a class="' + (completed ? 'text-gray' : '') + '" href="' + link + '">' + (completed ? '<i class="fas fa-graduation-cap text-success"></i>' : '<i class="far fa-list-alt"></i>') + ' <span class="text">' + docdata.lesson + '</span></a></div><div class="float-right"><span data-lesson-id="' + docid + '" onclick="EditLesson(this)"><i class="fas fa-edit"></i></span><span data-lesson-id="' + docid + '" onclick="DeleteLesson(this)"><i class="fas fa-trash-alt text-gray"></i></span></div></td></tr>';
-					$('#room-lessons').append(code);
+					code += '<tr id="' + docid + '"><td><div class="float-left"><a class="' + (completed ? 'text-gray' : '') + '" href="' + link + '">' + (completed ? '<i class="fas fa-graduation-cap text-success"></i>' : '<i class="far fa-list-alt"></i>') + ' <span class="text">' + docdata.lesson + '</span></a></div><div class="float-right"><span data-lesson-id="' + docid + '" onclick="EditLesson(this)"><i class="fas fa-edit"></i></span><span data-lesson-id="' + docid + '" onclick="DeleteLesson(this)"><i class="fas fa-trash-alt text-gray"></i></span></div></td></tr>';
 				});
-
+				$('#room-lessons').html(code);
 				// cập nhật chỉ số
 				$('tr#' + course_id).find('.progress-number').html(done + '/' + total);
 				$('tr#' + course_id).find('.progress-bar').attr('style', 'width: ' + Math.ceil(done / total) + '%');
+				$('#lesson-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
 			})
 			.catch((error) => {
 				console.log(error);
 				$('#room-lessons').html('<i class="fas fa-exclamation-triangle"></i>');
+				$('#lesson-sort').html('<i class="fas fa-exclamation-triangle"></i>');
 			});
 			$('#lesson-create').removeClass('d-none');
 		}
