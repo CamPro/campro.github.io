@@ -475,7 +475,7 @@
 				var html = '<div class="input-group">';
 				html += '<textarea class="form-control room-brains is-valid" rows="1" data-study-id="' + docRef.id + '" onchange="StudyChange(this)">' + new_study + '</textarea>';
 				html += '<div class="input-group-append">';
-				html += '<span class="btn btn-danger input-group-text" data-study-id="' + docRef.id + '" onclick="DeleteStudy(this)"><i class="fas fa-trash-alt"></i></span>';
+				html += '<span class="btn btn-danger input-group-text btn-xs" data-study-id="' + docRef.id + '" onclick="DeleteStudy(this)"><i class="fas fa-trash-alt"></i></span>';
 				html += '</div></div>';
 
 				$('#room-list').append(html);
