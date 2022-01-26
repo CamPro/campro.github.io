@@ -260,6 +260,7 @@
 		var lesson_index = null;
 		var lesson_doc = null;
 		var course_id = null;
+		var timer = null;
 
 		var url = new URL(window.location.href);
 		lesson_index = url.searchParams.get("lesson");
@@ -328,6 +329,12 @@
 					});
 					// view to frame
 					document.querySelector('#room-view').click();
+
+					setTimeout(function ()
+					{
+						let height = sessionStorage.getItem(lesson_index);
+						$(document).scrollTop(height);
+					}, 500);
 				}
 				else
 				{
@@ -344,6 +351,19 @@
 		}
 
 		$('[data-toggle="tooltip"]').tooltip();
+
+		// lưu vị trí cuộn chuột để khôi phục sau khi reload
+		setTimeout(function ()
+		{
+			$(document).scroll(function()
+			{
+				clearTimeout(timer);
+				timer = setTimeout(function () {
+					let height = $(document).scrollTop();
+					sessionStorage.setItem(lesson_index, height);
+				}, 1000);
+			});
+		}, 2000)
 
 		// kiểm nhắc nhở chọn khóa học
 		$('#room-lesson, #room-courses').on('change keyup', function ()
