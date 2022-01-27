@@ -257,8 +257,10 @@
 		// thêm 1 lĩnh vực
 		$('#category-create').click(function ()
 		{
+			let number = $("#room-categories tr").length + 1;
+
 			let code = '<tr><td><div class="row">';
-			code += '<div class="col-sm-10"><input type="text" class="form-control" placeholder="Tên lĩnh vực"></div>';
+			code += '<div class="col-sm-10"><input type="text" class="form-control" placeholder="Tên lĩnh vực ' + number + '"></div>';
 			code += '<div class="col-sm-2"><button class="btn btn-success" onclick="SaveCategory(this)">Lưu</button></div>';
 			'</div></td></tr>';
 			$('#room-categories').append(code);
@@ -307,14 +309,16 @@
 		// thêm 1 khóa học
 		$('#course-create').click(function ()
 		{
+			let number = $("#room-courses tr").length + 1;
+
 			let code = '<tr><td><div class="row">';
-			code += '<div class="col-sm-5"><input type="text" class="form-control" placeholder="Tên khóa học"></div>';
+			code += '<div class="col-sm-5"><input type="text" class="form-control" placeholder="Tên khóa học ' + number + '"></div>';
 			code += '<div class="col-sm-5"><select class="form-control"><option value="">-- Lĩnh vực --</option>';
 			for (var i = 0; i < categories.length; i++)
 			{
 				let chose = '';
 				if (categories[i].id == category_id)
-				{
+				{number
 					chose = 'selected';
 				}
 				code += '<option value="' + categories[i].id + '" ' + chose + '>' + categories[i].data().category + '</option>';
@@ -379,7 +383,7 @@
 
 			let code = '<tr><td><div class="row">';
 			code += '<div class="col-sm-6"><input type="text" class="form-control" placeholder="Tiêu đề ' + number + '"></div>';
-			code += '<div class="col-sm-6"><textarea class="form-control" rows="1" onkeyup="HtmlChange(this)" placeholder="<html> ' + number + '"></textarea></div>';
+			code += '<div class="col-sm-6"><textarea class="form-control" rows="1" onkeyup="HtmlChange(this)" placeholder="html ' + number + '"></textarea></div>';
 			'</div></td></tr>';
 
 			$('#room-lessons').append(code);

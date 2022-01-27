@@ -497,8 +497,6 @@
 				study: new_study
 			})
 			.then((docRef) => {
-				console.log("Study ID: ", docRef.id);
-
 				var html = '<div class="input-group">';
 				html += '<textarea class="form-control room-brains is-valid" rows="1" data-study-id="' + docRef.id + '" onchange="StudyChange(this)">' + new_study + '</textarea>';
 				html += '<div class="input-group-append">';
