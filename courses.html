@@ -557,7 +557,7 @@
 				$('#room-lessons').html(code);
 				// cập nhật chỉ số
 				$('tr#' + course_id).find('.progress-number').html(done + '/' + total);
-				$('tr#' + course_id).find('.progress-bar').attr('style', 'width: ' + Math.ceil(done / total) + '%');
+				$('tr#' + course_id).find('.progress-bar').attr('style', 'width: ' + Math.ceil(done * 100 / total) + '%');
 				$('#lesson-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
 			})
 			.catch((error) => {
