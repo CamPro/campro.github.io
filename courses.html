@@ -558,10 +558,10 @@
 				$('#room-lessons').html(code);
 				// cập nhật chỉ số
 				let persent = Math.ceil(done * 100 / total);
-				$('tr#' + course_id).find('.progress-number').html(done + '/' + total);
+				$('tr#' + course_id).find('.progress-number').html(persent + '%');
 				$('tr#' + course_id).find('.progress-bar').attr('style', 'width: ' + persent + '%');
 				$('#lesson-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
-				$('#lesson-percent').text(persent + '%');
+				$('#lesson-percent').text(done + '/' + total);
 			})
 			.catch((error) => {
 				console.log(error);
