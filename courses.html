@@ -182,7 +182,7 @@
 										<th>
 											Lĩnh Vực/Chủ Đề
 											<button class="btn btn-default btn-xs" id="category-sort"><i class="fas fa-sort-amount-up-alt"></i></button>
-											<button class="btn btn-success btn-xs float-right" id="category-create"><i class="fas fa-plus"></i></button>
+											<button class="btn btn-primary btn-xs float-right" id="category-create"><i class="fas fa-plus"></i></button>
 										</th>
 									</tr>
 								</thead>
@@ -197,7 +197,7 @@
 										<th>
 											Khóa học
 											<button class="btn btn-default btn-xs" id="course-sort"><i class="fas fa-sort-amount-up-alt"></i></button>
-											<button class="btn btn-success btn-xs float-right" id="course-create"><i class="fas fa-plus"></i></button>
+											<button class="btn btn-primary btn-xs float-right" id="course-create"><i class="fas fa-plus"></i></button>
 										</th>
 									</tr>
 								</thead>
@@ -212,6 +212,7 @@
 										<th>Danh sách 
 											<button class="btn btn-success btn-xs d-none" id="lesson-save">Lưu danh sách</button>
 											<button class="btn btn-default btn-xs" id="lesson-sort"><i class="fas fa-sort-amount-up-alt"></i></button>
+											<small id="lesson-percent"></small>
 											<button class="btn btn-primary btn-xs d-none float-right" id="lesson-create"><i class="fas fa-plus"></i></button>
 										</th>
 									</tr>
@@ -556,9 +557,11 @@
 				});
 				$('#room-lessons').html(code);
 				// cập nhật chỉ số
+				let persent = Math.ceil(done * 100 / total);
 				$('tr#' + course_id).find('.progress-number').html(done + '/' + total);
-				$('tr#' + course_id).find('.progress-bar').attr('style', 'width: ' + Math.ceil(done * 100 / total) + '%');
+				$('tr#' + course_id).find('.progress-bar').attr('style', 'width: ' + persent + '%');
 				$('#lesson-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
+				$('#lesson-percent').text(persent + '%');
 			})
 			.catch((error) => {
 				console.log(error);
