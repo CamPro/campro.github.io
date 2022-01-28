@@ -346,7 +346,7 @@
 
 					tags.push(docdata);
 
-					let code = '<tr id="' + docid + '"><td data-tag-id="' + docid + '">' + (docdata.skills.length > 0 ? docdata.skills.join('>') + '>' : '') + docdata.life + '<span class="float-right" onclick="DeleteTag(this)"><i class="fas fa-trash-alt text-gray"></i></span></td></tr>';
+					let code = '<tr id="' + docid + '"><td data-tag-id="' + docid + '">' + (docdata.skills.length > 0 ? docdata.skills.join('>') + '>' : '') + docdata.life + '<small class="float-right" onclick="DeleteTag(this)"><i class="fas fa-trash-alt text-gray"></i></small></td></tr>';
 					$('#list-tags').append(code);
 
 					code = '<option value="' + (docdata.skills.length > 0 ? docdata.skills.join('>') + '>' : '') + docdata.life + '">' + (docdata.skills.length > 0 ? docdata.skills.join('>') + '>' : '') + docdata.life + '</option>';

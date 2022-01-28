@@ -457,7 +457,7 @@
 					let docid = doc.id;
 					let docdata = doc.data();
 
-					code += '<tr id="' + docid + '"><td class="" onclick="StudyLearning(this)">' + docdata.study + '<span class="float-right" onclick="DeleteStudy(this)"><i class="fas fa-trash-alt text-gray"></i></span></td></tr>';
+					code += '<tr id="' + docid + '"><td class="" onclick="StudyLearning(this)">' + docdata.study + '<small class="float-right" onclick="DeleteStudy(this)"><i class="fas fa-trash-alt text-gray"></i></small></td></tr>';
 				});
 				$('#kitchen-informations').html(code);
 			})
