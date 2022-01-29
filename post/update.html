@@ -252,7 +252,7 @@
 											</div>
 										</div>
 										<div class="col-sm-3">
-											<img id="post-avatar" class="attachment-img elevation-2" src="">
+											<a href="" target="_blank"><img id="post-avatar" class="attachment-img elevation-2" src=""></a>
 										</div>
 									</div>
 								</div>
@@ -301,6 +301,8 @@
 				$('#post-number-read').val(docdata.number_reads);
 				$('#post-index').val(docdata.index);
 				$('#post-avatar').attr('src', docdata.image);
+
+				$('#post-avatar').parent().attr('href', docdata.link);
 
 				let created = moment.unix(docdata.created).format("YYYY-MM-DD");
 				$('#post-created').val(created);
