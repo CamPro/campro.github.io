@@ -259,6 +259,8 @@
 				$('#todo-text').addClass('is-invalid');
 				return;
 			}
+			$('#todo-create').html('<i class="fas fa-spinner fa-spin"></i>');
+
 			let created_at = moment().unix();
 
 			fsdb.collection("todolists").add({
@@ -270,9 +272,11 @@
 			.then((docRef) => {
 				$('#todo-text').val('');
 				GetTodolist();
+				$('#todo-create').html('<i class="fas fa-plus"></i>');
 			})
 			.catch((error) => {
 				console.log(error);
+				$('#todo-create').html('<i class="fas fa-exclamation-triangle"></i>');
 			});
 		})
 		// sap xep to do
