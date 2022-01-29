@@ -478,7 +478,7 @@
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
-					code += '<tr id="' + docid + '"><td onclick="GetCourses(\'' + docid + '\')"><i class="fas fa-cube"></i> <span class="text">' + docdata.category + '</span><span class="float-right"><span onclick="EditCategory(this)"><i class="fas fa-edit"></i></span><span onclick="DeleteCategory(this)"><i class="fas fa-trash-alt text-gray"></i></span></span></td></tr>';
+					code += '<tr id="' + docid + '"><td onclick="GetCourses(\'' + docid + '\')"><i class="fas fa-cube"></i> <span class="text">' + docdata.category + '</span><small class="float-right"><span class="progress-number"></span><span onclick="EditCategory(this)"><i class="fas fa-edit"></i></span><span onclick="DeleteCategory(this)"><i class="fas fa-trash-alt text-gray"></i></span></small></td></tr>';
 
 					categories.push(doc);
 				});
@@ -510,7 +510,7 @@
 
 					code += '<tr id="' + docid + '"><td onclick="GetLessons(\'' + docid + '\')"><div class="progress-group progress-xs">';
 					code += '<span class="progress-text"><i class="fas fa-book"></i> <span class="text">' + docdata.course + '</span></span>';
-					code += '<span class="float-right"><span class="progress-number text-sm"></span> <span onclick="EditCourse(this)"><i class="fas fa-edit"></i></span><span onclick="DeleteCourse(this)"><i class="fas fa-trash-alt text-gray"></i></span></span>';
+					code += '<small class="float-right"><span class="progress-number"></span> <span onclick="EditCourse(this)"><i class="fas fa-edit"></i></span><span onclick="DeleteCourse(this)"><i class="fas fa-trash-alt text-gray"></i></span></small>';
 					code += '<div class="progress progress-xs">';
 					code += '<div class="progress-bar bg-success" style="width: 0%"></div>';
 					code += '</div></div></td></tr>';
@@ -518,7 +518,7 @@
 					++number;
 				});
 				$('#room-courses').html(code);
-				$('#room-categories tr#' + category_id + ' span i.text-gray').text(number);
+				$('#room-categories tr#' + category_id + ' span.progress-number').text(number);
 				$('#course-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
 			})
 			.catch((error) => {
@@ -553,7 +553,7 @@
 
 					let link = '/classroom.html?lesson=' + docid + '&slug=' + TextToSlug(doc.data().lesson);
 
-					code += '<tr id="' + docid + '"><td><div class="float-left"><a class="' + (completed ? 'text-gray' : '') + '" href="' + link + '">' + (completed ? '<i class="fas fa-graduation-cap text-success"></i>' : '<i class="far fa-list-alt"></i>') + ' <span class="text">' + docdata.lesson + '</span></a></div><div class="float-right"><span onclick="EditLesson(this)"><i class="fas fa-edit"></i></span><span onclick="DeleteLesson(this)"><i class="fas fa-trash-alt text-gray"></i></span></div></td></tr>';
+					code += '<tr id="' + docid + '"><td><div class="float-left"><a class="' + (completed ? 'text-gray' : '') + '" href="' + link + '">' + (completed ? '<i class="fas fa-graduation-cap text-success"></i>' : '<i class="far fa-list-alt"></i>') + ' <span class="text">' + docdata.lesson + '</span></a></div><small class="float-right"><span onclick="EditLesson(this)"><i class="fas fa-edit"></i></span><span onclick="DeleteLesson(this)"><i class="fas fa-trash-alt text-gray"></i></span></small></td></tr>';
 				});
 				$('#room-lessons').html(code);
 				// cập nhật chỉ số
