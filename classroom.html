@@ -505,13 +505,12 @@
 
 				$('#room-list').prepend(html);
 				$("#room-brain").val('');
+				$('#room-study-save').html('<i class="far fa-lightbulb"></i>');
 			})
 			.catch((error) => {
 				console.log(error);
-				$('#room-study-save').html('<i class="fas fa-times"></i>');
+				$('#room-study-save').html('<i class="fas fa-exclamation-triangle"></i>');
 			});
-
-			$('#room-study-save').html('<i class="far fa-lightbulb"></i>');
 		});
 
 		// sửa kích thước iframe full width height
