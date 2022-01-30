@@ -559,7 +559,7 @@
 
 					let link = '/classroom.html?lesson=' + docid + '&slug=' + TextToSlug(doc.data().lesson);
 
-					code += '<tr id="' + docid + '"><td><div class="float-left"><a class="' + (completed ? 'text-gray' : '') + '" href="' + link + '">' + (completed ? '<i class="fas fa-graduation-cap text-success"></i>' : '<i class="far fa-list-alt"></i>') + ' <span class="text">' + docdata.lesson + '</span></a></div><small class="float-right"><span onclick="EditLesson(this)"><i class="fas fa-edit"></i></span> <span onclick="DeleteLesson(this)"><i class="fas fa-trash-alt text-gray"></i></span></small></td></tr>';
+					code += '<tr id="' + docid + '"><td><div class="float-left"><a class="' + (completed ? 'text-gray' : '') + '" href="' + link + '">' + (completed ? '<i class="fas fa-graduation-cap text-success"></i>' : '<i class="fas fa-hiking"></i>') + ' <span class="text">' + docdata.lesson + '</span></a></div><small class="float-right"><span onclick="EditLesson(this)"><i class="fas fa-edit"></i></span> <span onclick="DeleteLesson(this)"><i class="fas fa-trash-alt text-gray"></i></span></small></td></tr>';
 				});
 				$('#room-lessons').html(code);
 				// cập nhật chỉ số
