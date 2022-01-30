@@ -286,12 +286,12 @@
 
 					if (docdata.completed && docdata.completed == true)
 					{
-						$('#room-lesson-completed').addClass('text-success').html('<i class="fas fa-graduation-cap"></i>');
+						$('#room-lesson-completed').addClass('text-success').html('<i class="fas fa-user-graduate"></i>');
 						$('#room-view').text('Đã Học');
 					}
 					else
 					{
-						$('#room-lesson-completed').html('<i class="fas fa-check"></i>');
+						$('#room-lesson-completed').html('<i class="fas fa-hiking"></i>');
 					}
 
 					// lấy danh sách study của bài học
@@ -454,7 +454,7 @@
 				completed: true
 			})
 			.then(() => {
-				$('#room-lesson-completed').addClass('text-success').html('<i class="fas fa-graduation-cap"></i>');
+				$('#room-lesson-completed').addClass('text-success').html('<i class="fas fa-user-graduate"></i>');
 			})
 			.catch((error) => {
 				console.log(error);
