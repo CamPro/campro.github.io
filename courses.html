@@ -210,10 +210,10 @@
 								<thead>
 									<tr>
 										<th>Danh sách 
-											<button class="btn btn-success btn-xs d-none" id="lesson-save">Lưu danh sách</button>
 											<button class="btn btn-default btn-xs" id="lesson-sort"><i class="fas fa-sort-amount-up-alt"></i></button>
+											<button class="btn btn-success btn-xs" id="lesson-save">Lưu danh sách</button>
 											<small id="lesson-percent"></small>
-											<button class="btn btn-primary btn-xs d-none float-right" id="lesson-create"><i class="fas fa-plus"></i></button>
+											<button class="btn btn-primary btn-xs float-right" id="lesson-create"><i class="fas fa-plus"></i></button>
 										</th>
 									</tr>
 								</thead>
@@ -247,13 +247,15 @@
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
 
-		var categories = [];
 		var category_id = null;
 		var course_id = null;
 		var lesson_id = null;
 
 		// lấy danh sách lĩnh vực
 		GetCategories();
+		$('#lesson-save').hide();
+		$('#lesson-create').hide();
+		$('#course-create').hide();
 
 		// thêm 1 lĩnh vực
 		$('#category-create').click(function ()
@@ -313,18 +315,7 @@
 			let number = $("#room-courses tr").length + 1;
 
 			let code = '<tr><td><div class="row">';
-			code += '<div class="col-sm-5"><input type="text" class="form-control" placeholder="Khóa học ' + number + '"></div>';
-			code += '<div class="col-sm-5"><select class="form-control"><option value="">-- Lĩnh vực --</option>';
-			for (var i = 0; i < categories.length; i++)
-			{
-				let chose = '';
-				if (categories[i].id == category_id)
-				{number
-					chose = 'selected';
-				}
-				code += '<option value="' + categories[i].id + '" ' + chose + '>' + categories[i].data().category + '</option>';
-			}
-			code += '</select></div>';
+			code += '<div class="col-sm-10"><input type="text" class="form-control" placeholder="Khóa học ' + number + '"></div>';
 			code += '<div class="col-sm-2"><button class="btn btn-success" onclick="SaveCourse(this)">Lưu</button></div>';
 			'</div></td></tr>';
 			$('#room-courses').append(code);
@@ -355,10 +346,10 @@
 		function SaveCourse(element)
 		{
 			let course = $(element).parents('div.row').find('input').val().trim();
-			category_id = $(element).parents('div.row').find('select').val();
+
 			if (!category_id)
 			{
-				$(element).parents('div.row').find('select').addClass('is-invalid');
+				alert('category id is null');
 				return;
 			}
 			let created_at = moment().unix();
@@ -388,7 +379,7 @@
 			'</div></td></tr>';
 
 			$('#room-lessons').append(code);
-			$('#lesson-save').removeClass('d-none');
+			$('#lesson-save').show();
 		})
 		// xap sep
 		$('#lesson-sort').click(function ()
@@ -471,6 +462,7 @@
 		// lấy danh sách lĩnh vực
 		function GetCategories()
 		{
+			$('#course-create').hide();
 			$('#category-sort').html('<i class="fas fa-spinner fa-spin"></i>');
 			fsdb.collection("categories").orderBy("index", "asc").get()
 			.then((querySnapshot) => {
@@ -479,8 +471,6 @@
 					let docid = doc.id;
 					let docdata = doc.data();
 					code += '<tr id="' + docid + '"><td onclick="GetCourses(\'' + docid + '\')"><i class="fas fa-cube"></i> <span class="text">' + docdata.category + '</span><small class="float-right"><span class="progress-number"></span> <span onclick="EditCategory(this)"><i class="fas fa-edit"></i></span> <span onclick="DeleteCategory(this)"><i class="fas fa-trash-alt text-gray"></i></span></small></td></tr>';
-
-					categories.push(doc);
 				});
 				$('#room-categories').html(code);
 				$('#category-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
@@ -527,8 +517,9 @@
 				$('#course-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
 			});
 			$('#room-lessons').html('');
-			$('#lesson-create').addClass('d-none');
-			$('#lesson-save').addClass('d-none');
+			$('#lesson-create').hide();
+			$('#lesson-save').hide();
+			$('#course-create').show();
 		}
 		// lấy danh sách bài học theo khóa học
 		function GetLessons(docid)
@@ -557,7 +548,7 @@
 				});
 				$('#room-lessons').html(code);
 				// cập nhật chỉ số
-				let persent = Math.ceil(done * 100 / total);
+				let persent = Math.ceil(done * 100 / total) || 0;
 				$('tr#' + course_id).find('.progress-number').html(persent + '%');
 				$('tr#' + course_id).find('.progress-bar').attr('style', 'width: ' + persent + '%');
 				$('#lesson-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
@@ -568,7 +559,7 @@
 				$('#room-lessons').html('<i class="fas fa-exclamation-triangle"></i>');
 				$('#lesson-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
 			});
-			$('#lesson-create').removeClass('d-none');
+			$('#lesson-create').show();
 		}
 		// xóa 1 khóa học
 		function DeleteCourse(element)
