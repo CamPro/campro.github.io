@@ -175,7 +175,7 @@
 				<div class="container-fluid" id="page-box">
 
 					<div class="row">
-						<div class="col-sm-3 table-responsive">
+						<div class="col-sm-4 table-responsive">
 							<table class="table table-hover table-bordered text-nowrap">
 								<thead>
 									<tr>
@@ -190,7 +190,7 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="col-sm-4 table-responsive">
+						<div class="col-sm-8 table-responsive">
 							<table class="table table-hover table-bordered text-nowrap">
 								<thead>
 									<tr>
@@ -205,22 +205,6 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="col-sm-5">
-							<table class="table table-hover table-bordered text-nowrap table-sm">
-								<thead>
-									<tr>
-										<th>Danh sách 
-											<button class="btn btn-default btn-xs" id="lesson-sort"><i class="fas fa-sort-amount-up-alt"></i></button>
-											<button class="btn btn-success btn-xs" id="lesson-save">Lưu danh sách</button>
-											<small id="lesson-percent"></small>
-											<button class="btn btn-primary btn-xs float-right" id="lesson-create"><i class="fas fa-plus"></i></button>
-										</th>
-									</tr>
-								</thead>
-								<tbody id="room-lessons">
-								</tbody>
-							</table>
-						</div>
 					</div>
 
 				</div>
@@ -230,7 +214,34 @@
 		<footer class="main-footer">
 			<div class="text-center">** Cắp sách đi học Trường Đời - Cố thêm 1 Chút thôi - Thừa hơn Thiếu **</div>
 		</footer>
-
+		<div class="modal fade" id="modal-overlay">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title"></h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<table class="table table-hover table-bordered table-sm">
+							<thead>
+								<tr>
+									<th>
+										<button class="btn btn-default btn-xs" id="lesson-sort"><i class="fas fa-sort-amount-up-alt"></i></button>
+										<button class="btn btn-success btn-xs" id="lesson-save">Lưu danh sách</button>
+										<small id="lesson-percent"></small>
+										<button class="btn btn-primary btn-xs float-right" id="lesson-create"><i class="fas fa-plus"></i></button>
+									</th>
+								</tr>
+							</thead>
+							<tbody id="room-lessons">
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div id="back-to-top" onclick="backToTop()"><i class="fa fa-chevron-up"></i></div>
 	<script src="./public/plugins/jquery/jquery.min.js"></script>
@@ -242,6 +253,7 @@
 	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
 	<script src="./public/plugins/moment/moment.min.js"></script>
 	<script src="./public/plugins/sweetalert2/sweetalert2.min.js"></script>
+	<script src="./public/plugins/bootstrap/bootstrap.bundle.min.js"></script>
 	<script src="./public/js/adminlte.min.js"></script>
 	<script src="./public/js/myfirebase.js"></script>
 	<script src="./public/js/myscript.js"></script>
@@ -498,7 +510,7 @@
 					let docid = doc.id;
 					let docdata = doc.data();
 
-					code += '<tr id="' + docid + '"><td onclick="GetLessons(\'' + docid + '\')"><div class="progress-group progress-xs">';
+					code += '<tr id="' + docid + '"><td onclick="GetLessons(\'' + docid + '\')" data-toggle="modal" data-target="#modal-overlay"><div class="progress-group progress-xs">';
 					code += '<span class="progress-text"><i class="fas fa-book"></i> <span class="text">' + docdata.course + '</span></span>';
 					code += '<small class="float-right"><span class="progress-number"></span> <span onclick="EditCourse(this)"><i class="fas fa-edit"></i></span> <span onclick="DeleteCourse(this)"><i class="fas fa-trash-alt text-gray"></i></span></small>';
 					code += '<div class="progress progress-xs">';
@@ -508,6 +520,7 @@
 					++number;
 				});
 				$('#room-courses').html(code);
+
 				$('#room-categories tr#' + category_id + ' span.progress-number').text(number);
 				$('#course-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
 			})
@@ -528,6 +541,8 @@
 			$('#lesson-sort').html('<i class="fas fa-spinner fa-spin"></i>');
 			$('#room-courses tr').css('background-color', '');
 			$('#room-courses tr#' + course_id).css('background-color', 'gold');
+			let course = $('tr#' + course_id).find('span.text').text();
+			$('#modal-overlay .modal-title').text(course);
 
 			fsdb.collection("lessons").where('course_id', '==', course_id).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
