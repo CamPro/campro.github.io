@@ -370,7 +370,9 @@
 				index: 0,
 				course: course,
 				category_id: category_id,
-				created_at: created_at
+				created_at: created_at,
+				number_lesson: 0,
+				number_done: 0
 			})
 			.then((docRef) => {
 				GetCourses(category_id);
@@ -510,11 +512,16 @@
 					let docid = doc.id;
 					let docdata = doc.data();
 
+					let done = docdata.number_done;
+					let total = docdata.number_lesson;
+
+					let persent = Math.ceil(done * 100 / total) || 0;
+
 					code += '<tr id="' + docid + '"><td onclick="GetLessons(\'' + docid + '\')" data-toggle="modal" data-target="#modal-overlay"><div class="progress-group progress-xs">';
 					code += '<span class="progress-text"><i class="fas fa-book"></i> <span class="text">' + docdata.course + '</span></span>';
-					code += '<small class="float-right"><span class="progress-number"></span> <span onclick="EditCourse(this)"><i class="fas fa-edit"></i></span> <span onclick="DeleteCourse(this)"><i class="fas fa-trash-alt text-gray"></i></span></small>';
+					code += '<small class="float-right"><span class="progress-number">' + done + '/' + total + '</span> <span onclick="EditCourse(this)"><i class="fas fa-edit"></i></span> <span onclick="DeleteCourse(this)"><i class="fas fa-trash-alt text-gray"></i></span></small>';
 					code += '<div class="progress progress-xs">';
-					code += '<div class="progress-bar bg-success" style="width: 0%"></div>';
+					code += '<div class="progress-bar bg-success" style="width: ' + persent + '%"></div>';
 					code += '</div></div></td></tr>';
 
 					++number;
@@ -568,6 +575,15 @@
 				$('tr#' + course_id).find('.progress-bar').attr('style', 'width: ' + persent + '%');
 				$('#lesson-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
 				$('#lesson-percent').text(done + '/' + total);
+
+				// cập nhật chỉ số khóa học
+				fsdb.collection("courses").doc(course_id).update({
+					number_lesson: total,
+					number_done: done
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 			})
 			.catch((error) => {
 				console.log(error);
