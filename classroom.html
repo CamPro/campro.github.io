@@ -204,6 +204,9 @@
 							<div class="card card-default card-fixed">
 								<div class="card-header">
 									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="text-zoom"><i class="fas fa-text-height"></i></span>
+										</div>
 										<select class="form-control" id="room-courses">
 										</select>
 										<div class="input-group-append">
@@ -359,6 +362,11 @@
 				$('#room-courses').removeClass('is-invalid');
 			}
 		});
+
+		$('#text-zoom').click(function ()
+		{
+			$('#card-content').addClass('text-lg');
+		})
 
 		// lưu bài học mới hoặc cập nhật
 		$('#room-lesson-save').click(function ()
