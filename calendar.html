@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>My Learn</title>
+	<link rel="stylesheet" href="./public/plugins/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="./public/plugins/sweetalert2/sweetalert2.min.css">
+	<!-- fullCalendar -->
+	<link rel="stylesheet" href="./public/plugins/fullcalendar/main.css">
+	<link rel="stylesheet" href="./public/css/adminlte.min.css">
+	<link rel="stylesheet" href="./public/css/mystyle.css">
+</head>
+
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+
+	<div class="wrapper">
+
+		<nav class="main-header navbar navbar-expand border-bottom-0 text-sm navbar-light" id="header">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+				</li>
+				<li class="nav-item d-none d-sm-inline-block">
+					<a href="./" class="nav-link"><i class="fas fa-home"></i></a>
+				</li>
+			</ul>
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<span class="nav-link" id="my-clock" onclick="myClock()"><i class="far fa-clock"></i></span>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link" data-toggle="dropdown" href="#">
+						<i class="far fa-comments"></i>
+						<span class="badge badge-danger navbar-badge">0</span>
+					</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link" data-toggle="dropdown" href="#">
+						<i class="far fa-bell"></i>
+						<span class="badge badge-warning navbar-badge">0</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+						<i class="fas fa-th-large"></i>
+					</a>
+				</li>
+			</ul>
+		</nav>
+
+		<aside class="main-sidebar sidebar-dark-primary elevation-4">
+			<a href="./" class="brand-link text-md">
+				<img src="https://graph.facebook.com/100007543845219/picture?height=100&width=100&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light" id="hello-user">MY LEARN</span>
+			</a>
+			<div class="sidebar">
+				<div class="form-inline">
+					<div class="input-group" data-widget="sidebar-search">
+						<input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+						<div class="input-group-append">
+							<button class="btn btn-sidebar">
+								<i class="fas fa-search fa-fw"></i>
+							</button>
+						</div>
+					</div>
+					<div class="sidebar-search-results">
+						<div class="list-group">
+						</div>
+					</div>
+				</div>
+				<nav class="mt-2 text-sm">
+					<ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+						<li class="nav-item">
+							<a href="/home.html" class="nav-link ">
+								<i class="nav-icon fas fa-tachometer-alt"></i><p>Ngôi Nhà Vĩ Nhân</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="/calendar.html" class="nav-link active">
+								<i class="nav-icon fas fa-calendar-alt"></i><p>Lịch Treo Tường</p>
+							</a>
+						</li>
+						<li class="nav-header text-warning">6. Áp dụng kiến thức</li>
+						<li class="nav-item">
+							<a href="/libraries.html" class="nav-link ">
+								<i class="nav-icon fas fa-skating"></i><p>Thư Viện Cuộc Sống</p>
+							</a>
+						</li>
+						<li class="nav-header text-warning">5. Tổng hợp kiến thức</li>
+						<li class="nav-item">
+							<a href="/knowledge.html" class="nav-link ">
+								<i class="nav-icon fas fa-sitemap"></i><p>Xây Thành Đắp Lũy</p>
+							</a>
+						</li>
+						<li class="nav-header text-warning">4. Phân tích thông tin</li>
+						<li class="nav-item">
+							<a href="/learning.html" class="nav-link ">
+								<i class="nav-icon fas fa-rocket"></i><p>Tiêu Hóa Thông Tin</p>
+							</a>
+						</li>
+						<li class="nav-header text-warning">3. Tóm tắt thông tin</li>
+						<li class="nav-item">
+							<a href="/classroom.html" class="nav-link ">
+								<i class="nav-icon fas fa-chalkboard-teacher"></i><p>Lớp Học Quái Vật</p>
+							</a>
+						</li>
+						<li class="nav-header text-warning">2. Tổ chức dữ liệu</li>
+						<li class="nav-item">
+							<a href="/courses.html" class="nav-link ">
+								<i class="nav-icon fas fa-cubes"></i><p>Trèo Tường Vào Trường</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="/posts.html" class="nav-link ">
+								<i class="nav-icon fas fa-cloud-sun"></i><p>Kho Tàng Tri Thức</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="/booking.html" class="nav-link ">
+								<i class="nav-icon fas fa-book"></i><p>Từ Sách Đến Đời</p>
+							</a>
+						</li>
+						<li class="nav-header text-warning">1. Thu thập dữ liệu</li>
+						<li class="nav-item">
+							<a href="/timeline.html" class="nav-link ">
+								<i class="nav-icon fas fa-pencil-alt"></i><p>Nhật Ký Ý Tưởng</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="/crawler.html" class="nav-link ">
+								<i class="nav-icon fas fa-leaf"></i><p>Duyệt Kinh Điển</p>
+							</a>
+						</li>
+						<li class="nav-header">------------------</li>
+						<li class="nav-item">
+							<a href="/backup.html" class="nav-link ">
+								<i class="nav-icon fas fa-dove"></i><p>Trường Sinh Bất Lão</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="/signin.html" class="nav-link">
+								<i class="nav-icon fas fa-sign-in-alt"></i><p>Đăng Nhập</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link" id="sign-out">
+								<i class="nav-icon fas fa-sign-out-alt"></i><p>Đăng Xuất</p>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</aside>
+
+		<aside class="control-sidebar control-sidebar-dark">
+			<div class="p-3">
+				<h5>Thanh Công Cụ</h5>
+				<div class="mb-4"><input type="checkbox" id="dark-mode" class="mr-1"><span>Dark Mode</span></div>
+				
+				<button class="btn btn-sm btn-default" id="fast-highlight"><span class="badge bg-success" id="fast-number"></span> <i class="fas fa-spell-check"></i> highlight</button>
+				<textarea class="form-control" id="fast-content" rows="8"></textarea>
+				<select class="form-control" id="fast-categories">
+				</select>
+				<select class="form-control" id="fast-courses">
+				</select>
+				<button class="btn btn-sm btn-primary" id="fast-knowledge"><i class="fas fa-edit"></i> Kiến Tạo</button>
+			</div>
+		</aside>
+
+		<div class="content-wrapper">
+			<section class="content-header">
+				<div class="container-fluid">
+				</div>
+			</section>
+			<section class="content">
+				<div class="container-fluid">
+					<div class="card card-primary">
+						<div class="card-body p-0">
+							<div id="calendar"></div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<footer class="main-footer">
+			<div class="text-center">** Cắp sách đi học Trường Đời - Cố thêm 1 Chút thôi - Thừa hơn Thiếu **</div>
+		</footer>
+	</div>
+	<div id="back-to-top" onclick="backToTop()"><i class="fa fa-chevron-up"></i></div>
+	<script src="./public/plugins/jquery/jquery.min.js"></script>
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-database.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+	<script src="./public/plugins/moment/moment.min.js"></script>
+	<script src="./public/plugins/sweetalert2/sweetalert2.min.js"></script>
+	<script src="./public/js/adminlte.min.js"></script>
+	<!-- jQuery UI -->
+	<script src="./public/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<!-- fullCalendar 2.2.5 -->
+	<script src="./public/plugins/fullcalendar/main.js"></script>
+	<script src="./public/js/myfirebase.js"></script>
+	<script src="./public/js/myscript.js"></script>
+	<script type="text/javascript">
+
+	//Date for the calendar events (dummy data)
+	var date = new Date()
+	var d = date.getDate(),
+	m = date.getMonth(),
+	y = date.getFullYear();
+
+	var Calendar = FullCalendar.Calendar;
+
+	var calendarEl = document.getElementById('calendar');
+
+	var calendar = new Calendar(calendarEl, {
+		headerToolbar: {
+			left  : 'prev,next today',
+			center: 'title',
+			right : 'dayGridMonth,timeGridWeek,timeGridDay'
+		},
+		themeSystem: 'bootstrap',
+	  //Random default events
+	  events: [
+	  {
+		title          : 'All Day Event',
+		start          : new Date(y, m, 1),
+		  backgroundColor: '#f56954', //red
+		  borderColor    : '#f56954', //red
+		  allDay         : true
+	  },
+	  {
+		title          : 'Long Event',
+		start          : new Date(y, m, d - 5),
+		end            : new Date(y, m, d - 2),
+		  backgroundColor: '#f39c12', //yellow
+		  borderColor    : '#f39c12' //yellow
+	  },
+	  {
+		title          : 'Meeting',
+		start          : new Date(y, m, d, 10, 30),
+		allDay         : false,
+		  backgroundColor: '#0073b7', //Blue
+		  borderColor    : '#0073b7' //Blue
+	  },
+	  {
+		title          : 'Lunch',
+		start          : new Date(y, m, d, 12, 0),
+		end            : new Date(y, m, d, 14, 0),
+		allDay         : false,
+		  backgroundColor: '#00c0ef', //Info (aqua)
+		  borderColor    : '#00c0ef' //Info (aqua)
+	  },
+	  {
+		title          : 'Birthday Party',
+		start          : new Date(y, m, d + 1, 19, 0),
+		end            : new Date(y, m, d + 1, 22, 30),
+		allDay         : false,
+		  backgroundColor: '#00a65a', //Success (green)
+		  borderColor    : '#00a65a' //Success (green)
+	  },
+	  {
+		title          : 'Click for Google',
+		start          : new Date(y, m, 28),
+		end            : new Date(y, m, 29),
+		url            : 'https://www.google.com/',
+		  backgroundColor: '#3c8dbc', //Primary (light-blue)
+		  borderColor    : '#3c8dbc' //Primary (light-blue)
+	  }
+	  ],
+	  editable  : true,
+	  droppable : true, // this allows things to be dropped onto the calendar !!!
+	  drop      : function(info) {
+		// is the "remove after drop" checkbox checked?
+		if (checkbox.checked) {
+		  // if so, remove the element from the "Draggable Events" list
+		  info.draggedEl.parentNode.removeChild(info.draggedEl);
+	  }
+  }
+});
+
+	calendar.render();
+
+</script>
+</body>
+</html>
