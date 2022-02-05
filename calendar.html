@@ -206,7 +206,9 @@
 						</div>
 					</div>
 					<div class="modal-footer justify-content-between">
+						<input type="hidden" id="event-id" value="">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+						<button type="button" class="btn btn-danger" id="event-delete">Xóa</button>
 						<button type="button" class="btn btn-primary" id="event-save">Thêm sự kiện</button>
 					</div>
 				</div>
@@ -249,12 +251,13 @@
 				right : 'today dayGridMonth,timeGridWeek,timeGridDay'
 			},
 			customButtons: {
-				addEventButton: {
-				text: '+ Thêm',
-				click: function(){
-						ModalClear();
+				addEventButton:
+				{
+					text: '+ Thêm',
+					click: function()
+					{
 						let today = moment().format("YYYY-MM-DD");
-						$('#event-date').val(today);
+						ModalClear(today);
 						$('#modal-default').modal('toggle');
 					}
 				}
@@ -266,16 +269,15 @@
 			droppable : true,
 			dateClick: function(info)
 			{
-				ModalClear();
-				$('#event-date').val(info.dateStr);
+				ModalClear(info.dateStr);
 				$('#modal-default').modal('toggle');
 			},
 			eventDrop: function(info)
 			{
 				//console.log(info.delta);
-				let newdate = moment(info.event.start).unix();
-				let start = newdate;
-				let end = newdate;
+				let date = moment(info.event.start).unix();
+				let start = date;
+				let end = date;
 				fsdb.collection("calendars").doc(info.event.id).update({
 					start: start,
 					end: end
@@ -286,11 +288,10 @@
 			},
 			eventClick: function(info)
 			{
-				// xóa 1 sự kiện
-				if (!info.event.url)
-				{
-					CalendarDelete(info.event);
-				}
+				console.log(info.event);
+				let date = moment(info.event.start).format("YYYY-MM-DD");
+				ModalClear(date, info.event.title, info.event.url, info.event.backgroundColor, info.event.id);
+				$('#modal-default').modal('toggle');
 			}
 		});
 		calendar.render();
@@ -299,10 +300,12 @@
 
 		$('#event-save').click(function ()
 		{
+			let docid = $('#event-id').val();
 			let date = $('#event-date').val();
 			let title = $('#event-title').removeClass('is-invalid').val();
 			let url = $('#event-url').val();
-			let color = $('#event-color').val();
+			let backgroundColor = $('#event-color').val();
+			let borderColor = backgroundColor.replace('f', 'c').replace('0', 'a').replace('f', 'm');
 			let button = $(this).html();
 
 			if (!title)
@@ -315,30 +318,64 @@
 			let end = moment(date).unix();
 
 			$('#event-save').html('<i class="fas fa-spinner fa-spin"></i>');
-
-			fsdb.collection("calendars").add({
-				title: title,
-				start: start,
-				end: end,
-				url: url,
-				allDay: true,
-				backgroundColor: color,
-				borderColor: color
-			})
-			.then((docRef) => {
-				CalendarReload();
-				$('#modal-default').modal('hide');
-				$('#event-save').html(button);
-			})
-			.catch((error) => {
-				console.log(error);
-				$('#event-save').html('<i class="fas fa-exclamation-triangle"></i>');
-			});
+			// cập nhật
+			if (docid)
+			{
+				fsdb.collection("calendars").doc(docid).update({
+					title: title,
+					start: start,
+					end: end,
+					url: url,
+					allDay: true,
+					backgroundColor: backgroundColor,
+					borderColor: borderColor
+				})
+				.then((docRef) => {
+					CalendarReload();
+					$('#modal-default').modal('hide');
+					$('#event-save').html(button);
+				})
+				.catch((error) => {
+					console.log(error);
+					$('#event-save').html('<i class="fas fa-exclamation-triangle"></i>');
+				});
+			}
+			// thêm mới
+			else
+			{
+				fsdb.collection("calendars").add({
+					title: title,
+					start: start,
+					end: end,
+					url: url,
+					allDay: true,
+					backgroundColor: backgroundColor,
+					borderColor: borderColor
+				})
+				.then((docRef) => {
+					CalendarReload();
+					$('#modal-default').modal('hide');
+					$('#event-save').html(button);
+				})
+				.catch((error) => {
+					console.log(error);
+					$('#event-save').html('<i class="fas fa-exclamation-triangle"></i>');
+				});
+			}
+		})
+		$('#event-delete').click(function ()
+		{
+			let docid = $(this).parent().find('#event-id').val();
+			CalendarDelete(docid);
+			$('#modal-default').modal('toggle');
 		})
 		// load sự kiện tháng này
 		function CalendarReload()
 		{
-			fsdb.collection("calendars").get()
+			let first_mon = moment().startOf('month').unix();
+			let last_mon = moment().add(2, 'months').startOf('month').unix();
+
+			fsdb.collection("calendars").where('start', '>=', first_mon).where('start', '<', last_mon).get()
 			.then((querySnapshot) => {
 				let events = [];
 				querySnapshot.forEach((doc) => {
@@ -364,25 +401,34 @@
 			});
 		}
 		// xóa 1 sự kiện
-		function CalendarDelete(event)
+		function CalendarDelete(docid)
 		{
-			if (!confirm('Bạn có muốn xóa "' + event.title + '" không?'))
+			if (!confirm('Bạn có muốn xóa sự kiện không?'))
 			{
 				return;
 			}
-			fsdb.collection("calendars").doc(event.id).delete().then(() => {
+			fsdb.collection("calendars").doc(docid).delete().then(() => {
 				CalendarReload();
 			}).catch((error) => {
 				console.log(error);
 			});
 		}
 		// làm trống form thêm sự kiện
-		function ModalClear()
+		function ModalClear(date='', title='', url='', color='', docid=null)
 		{
-			$('#event-date').val('');
-			$('#event-title').val('');
-			$('#event-url').val('');
-			$('#event-color').val('');
+			$('#event-id').val(docid);
+			$('#event-date').val(date);
+			$('#event-title').val(title);
+			$('#event-url').val(url);
+			$('#event-color').val(color);
+			if (docid)
+			{
+				$('#event-delete').show();
+			}
+			else
+			{
+				$('#event-delete').hide();
+			}
 		}
 	</script>
 </body>
