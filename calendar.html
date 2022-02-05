@@ -373,7 +373,8 @@
 		function CalendarReload()
 		{
 			let first_mon = moment().startOf('month').unix();
-			let last_mon = moment().add(2, 'months').startOf('month').unix();
+			let haft_mon = moment().add(15, 'days').unix();
+			let last_mon = moment().add(30, 'days').unix();
 
 			fsdb.collection("calendars").where('start', '>=', first_mon).where('start', '<', last_mon).get()
 			.then((querySnapshot) => {
