@@ -288,7 +288,11 @@
 			},
 			eventClick: function(info)
 			{
-				console.log(info.event);
+				if (info.event.url)
+				{
+					info.jsEvent.preventDefault();
+					window.open(info.event.url, "_blank");
+				}
 				let date = moment(info.event.start).format("YYYY-MM-DD");
 				ModalClear(date, info.event.title, info.event.url, info.event.backgroundColor, info.event.id);
 				$('#modal-default').modal('toggle');
