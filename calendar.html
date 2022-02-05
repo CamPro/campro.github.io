@@ -307,7 +307,7 @@
 			let title = $('#event-title').removeClass('is-invalid').val();
 			let url = $('#event-url').val();
 			let backgroundColor = $('#event-color').val();
-			let borderColor = backgroundColor.replace('f', 'c').replace('0', 'a').replace('f', 'm');
+			let borderColor = "#" + Math.floor(Math.random()*16777215).toString(16);
 			let button = $(this).html();
 
 			if (!title)
