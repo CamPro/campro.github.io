@@ -371,6 +371,13 @@
 			CalendarDelete(docid);
 			$('#modal-default').modal('toggle');
 		})
+		$('#event-title').keyup(function(e)
+		{
+			if(e.keyCode == 13)
+			{
+				document.querySelector('#event-save').click();
+			}
+		});
 		// load sự kiện tháng này
 		function CalendarReload()
 		{
