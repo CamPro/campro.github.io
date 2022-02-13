@@ -382,7 +382,8 @@
 			let first_date = moment().add(-15, 'days').unix();
 			let last_date = moment().add(30, 'days').unix();
 
-			fsdb.collection("calendars").where('start', '>=', first_date).where('start', '<=', last_date).get()
+			//fsdb.collection("calendars").where('start', '>=', first_date).where('start', '<=', last_date).get()
+			fsdb.collection("calendars").get()
 			.then((querySnapshot) => {
 				let events = [];
 				querySnapshot.forEach((doc) => {
