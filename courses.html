@@ -315,6 +315,7 @@
 
 			fsdb.collection("categories").add({
 				index: 0,
+				number_course: 0,
 				category: category,
 				created_at: created_at
 			})
@@ -535,6 +536,14 @@
 
 				$('#room-categories tr#' + category_id + ' span.progress-number').text(number);
 				$('#course-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
+
+				// cập nhật chỉ số chủ đề
+				fsdb.collection("categories").doc(category_id).update({
+					number_course: number
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 			})
 			.catch((error) => {
 				console.log(error);
