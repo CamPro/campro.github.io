@@ -490,7 +490,7 @@
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
-					code += '<tr id="' + docid + '"><td onclick="GetCourses(\'' + docid + '\')"><i class="fas fa-cube"></i> <span class="text">' + docdata.category + '</span><small class="float-right"><span class="progress-number"></span> <span onclick="EditCategory(this)"><i class="fas fa-edit"></i></span> <span onclick="DeleteCategory(this)"><i class="fas fa-trash-alt text-gray"></i></span></small></td></tr>';
+					code += '<tr id="' + docid + '"><td onclick="GetCourses(\'' + docid + '\')"><i class="fas fa-cube"></i> <span class="text">' + docdata.category + '</span><small class="float-right"><span class="progress-number">' + docdata.number_course + '</span> <span onclick="EditCategory(this)"><i class="fas fa-edit"></i></span> <span onclick="DeleteCategory(this)"><i class="fas fa-trash-alt text-gray"></i></span></small></td></tr>';
 				});
 				$('#room-categories').html(code);
 				$('#category-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
@@ -501,7 +501,6 @@
 				$('#category-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
 			});
 		}
-
 		// lấy danh dách toàn bộ khóa học
 		function GetCourses(docid)
 		{
