@@ -270,6 +270,7 @@
 		var lesson_doc = null;
 		var course_id = null;
 		var timer = null;
+		var select_text = null;
 
 		var url = new URL(window.location.href);
 		lesson_index = url.searchParams.get("lesson");
@@ -376,7 +377,7 @@
 
 		document.addEventListener("selectionchange", function(event)
 		{
-			
+			select_text = getSelectText();
 		});
 		document.addEventListener('touchend', showToolbox);
 		document.addEventListener("mouseup", showToolbox);
@@ -385,7 +386,6 @@
 			let x = e.pageX;
 			let y = e.pageY;
 			let elem = $("#toolbox");
-			let select_text = getSelectText();
 			if (select_text)
 			{
 				elem.css('position', 'absolute');
@@ -400,7 +400,6 @@
 		}
 		$("#toolbox").click(function ()
 		{
-			let select_text = getSelectText();
 			var innerHTML = $('#card-content').html();
 			var index = innerHTML.indexOf(select_text);
 			if (index >= 0 && select_text)
