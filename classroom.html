@@ -266,39 +266,6 @@
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
 
-		$(this).mouseup(function(e)
-		{
-			let x = e.pageX;
-			let y = e.pageY;
-			let elem = $("#toolbox");
-			let select_text = getSelectText();
-			if (select_text)
-			{
-				elem.css('position', 'absolute');
-				elem.css("left", x);
-				elem.css("top", y);
-				$("#toolbox").show();
-			}
-			else
-			{
-				$("#toolbox").hide();
-			}
-		});
-		$("#toolbox").click(function (e)
-		{
-			let select_text = getSelectText();
-			var innerHTML = $('#card-content').html();
-			var index = innerHTML.indexOf(select_text);
-			if (index >= 0 && select_text)
-			{
-				innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+select_text.length) + "</span>" + innerHTML.substring(index + select_text.length);
-				$('#card-content').html(innerHTML);
-				$('#room-content').val(innerHTML);
-			}
-			$("#toolbox").hide();
-			clearSelectText();
-		});
-
 		var lesson_index = null;
 		var lesson_doc = null;
 		var course_id = null;
@@ -406,6 +373,45 @@
 		{
 			$('#card-content').addClass('text-lg');
 		})
+
+		document.addEventListener("selectionchange", function(event)
+		{
+			
+		});
+		document.addEventListener('touchend', showToolbox);
+		document.addEventListener("mouseup", showToolbox);
+		function showToolbox(e)
+		{
+			let x = e.pageX;
+			let y = e.pageY;
+			let elem = $("#toolbox");
+			let select_text = getSelectText();
+			if (select_text)
+			{
+				elem.css('position', 'absolute');
+				elem.css("left", x);
+				elem.css("top", y);
+				elem.show();
+			}
+			else
+			{
+				elem.hide();
+			}
+		}
+		$("#toolbox").click(function ()
+		{
+			let select_text = getSelectText();
+			var innerHTML = $('#card-content').html();
+			var index = innerHTML.indexOf(select_text);
+			if (index >= 0 && select_text)
+			{
+				innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+select_text.length) + "</span>" + innerHTML.substring(index + select_text.length);
+				$('#card-content').html(innerHTML);
+				$('#room-content').val(innerHTML);
+			}
+			$("#toolbox").hide();
+			clearSelectText();
+		});
 
 		// lưu bài học mới hoặc cập nhật
 		$('#room-lesson-save').click(function ()
