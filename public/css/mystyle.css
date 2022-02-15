@@ -38,3 +38,6 @@
 .card-fixed {
 	position: fixed;
 }
+.highlight {
+	background-color: yellow;
+}

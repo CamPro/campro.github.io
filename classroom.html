@@ -249,6 +249,7 @@
 			<div class="text-center">** Cắp sách đi học Trường Đời - Cố thêm 1 Chút thôi - Thừa hơn Thiếu **</div>
 		</footer>
 
+		<div class="" id="toolbox"><button class="btn btn-sm bg-warning"><i class="fas fa-heading"></i></button></div>
 	</div>
 	<div id="back-to-top" onclick="backToTop()"><i class="fa fa-chevron-up"></i></div>
 	<script src="./public/plugins/jquery/jquery.min.js"></script>
@@ -264,6 +265,39 @@
 	<script src="./public/js/myfirebase.js"></script>
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
+
+		$(this).mouseup(function(e)
+		{
+			let x = e.pageX;
+			let y = e.pageY;
+			let elem = $("#toolbox");
+			let select_text = getSelectText();
+			if (select_text)
+			{
+				elem.css('position', 'absolute');
+				elem.css("left", x);
+				elem.css("top", y);
+				$("#toolbox").show();
+			}
+			else
+			{
+				$("#toolbox").hide();
+			}
+		});
+		$("#toolbox").click(function (e)
+		{
+			let select_text = getSelectText();
+			var innerHTML = $('#card-content').html();
+			var index = innerHTML.indexOf(select_text);
+			if (index >= 0 && select_text)
+			{
+				innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+select_text.length) + "</span>" + innerHTML.substring(index + select_text.length);
+				$('#card-content').html(innerHTML);
+				$('#room-content').val(innerHTML);
+			}
+			$("#toolbox").hide();
+			clearSelectText();
+		});
 
 		var lesson_index = null;
 		var lesson_doc = null;

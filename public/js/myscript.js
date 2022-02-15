@@ -59,23 +59,32 @@ window.getSelection().toString();
 
 function getSelectText()
 {
-		var text = "";
-		if (window.getSelection) {
-				text = window.getSelection().toString();
-		} else if (document.selection && document.selection.type != "Control") {
-				text = document.selection.createRange().text;
-		}
-		return text;
+	var text = null;
+	if (window.getSelection)
+	{
+		text = window.getSelection().toString();
+	}
+	else if (document.selection && document.selection.type != "Control")
+	{
+		text = document.selection.createRange().text;
+	}
+	return text;
 }
 function clearSelectText()
 {
-	if (window.getSelection) {
-		if (window.getSelection().empty) {  // Chrome
+	if (window.getSelection)
+	{
+		if (window.getSelection().empty)// Chrome
+		{
 			window.getSelection().empty();
-		} else if (window.getSelection().removeAllRanges) {  // Firefox
+		}
+		else if (window.getSelection().removeAllRanges)// Firefox
+		{
 			window.getSelection().removeAllRanges();
 		}
-	} else if (document.selection) {  // IE?
+	}
+	else if (document.selection)// IE?
+	{
 		document.selection.empty();
 	}
 }
