@@ -203,6 +203,7 @@
 											Khóa học
 											<button class="btn btn-default btn-xs" id="course-sort"><i class="fas fa-sort-amount-up-alt"></i></button>
 											<button class="btn btn-primary btn-xs float-right" id="course-create"><i class="fas fa-plus"></i></button>
+											<button class="btn btn-default btn-xs float-right" id="lesson-modal"><i class="fas fa-vector-square"></i></button>
 										</th>
 									</tr>
 								</thead>
@@ -497,6 +498,11 @@
 				}
 			}, 10);
 		});
+
+		$('#lesson-modal').click(function ()
+		{
+			$('#modal-overlay').modal('show');
+		})
 
 		function HtmlChange(element)
 		{
