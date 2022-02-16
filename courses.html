@@ -267,6 +267,7 @@
 		var category_id = null;
 		var course_id = null;
 		var lesson_id = null;
+		var timer = null;
 
 		$('#lesson-save').hide();
 		$('#lesson-create').hide();
@@ -277,13 +278,21 @@
 		// thêm 1 lĩnh vực
 		$('#category-create').click(function ()
 		{
+			clearTimeout(timer);
 			let number = $("#room-categories tr").length + 1;
 
 			let code = '<tr><td><div class="row">';
 			code += '<div class="col-sm-10"><input type="text" class="form-control" placeholder="Tên lĩnh vực ' + number + '"></div>';
 			code += '<div class="col-sm-2"><button class="btn btn-success" onclick="SaveCategory(this)">Lưu</button></div>';
 			'</div></td></tr>';
+
 			$('#room-categories').append(code);
+			$('#category-create').html(number);
+
+			timer = setTimeout(function ()
+			{
+				$('#category-create').html('<i class="fas fa-plus"></i>');
+			}, 1000);
 		});
 		// xap sep
 		$('#category-sort').click(function ()
@@ -330,13 +339,21 @@
 		// thêm 1 khóa học
 		$('#course-create').click(function ()
 		{
+			clearTimeout(timer);
 			let number = $("#room-courses tr").length + 1;
 
 			let code = '<tr><td><div class="row">';
 			code += '<div class="col-sm-10"><input type="text" class="form-control" placeholder="Khóa học ' + number + '"></div>';
 			code += '<div class="col-sm-2"><button class="btn btn-success" onclick="SaveCourse(this)">Lưu</button></div>';
 			'</div></td></tr>';
+
 			$('#room-courses').append(code);
+			$('#course-create').html(number);
+
+			timer = setTimeout(function ()
+			{
+				$('#course-create').html('<i class="fas fa-plus"></i>');
+			}, 1000);
 		})
 		// xap sep
 		$('#course-sort').click(function ()
@@ -391,6 +408,7 @@
 		// tạo ô thêm thông tin 1 bài học
 		$('#lesson-create').click(function ()
 		{
+			clearTimeout(timer);
 			let number = $("#room-lessons tr").length + 1;
 
 			let code = '<tr><td><div class="row">';
@@ -400,6 +418,12 @@
 
 			$('#room-lessons').append(code);
 			$('#lesson-save').show();
+			$('#lesson-create').html(number);
+
+			timer = setTimeout(function ()
+			{
+				$('#lesson-create').html('<i class="fas fa-plus"></i>');
+			}, 1000);
 		})
 		// xap sep
 		$('#lesson-sort').click(function ()
