@@ -453,11 +453,12 @@
 			if (!course_id) return;
 
 			let elements = document.querySelectorAll('#room-lessons div.row');
-			let index = 0;
+			let loop = 0;
+			let index = $("#room-lessons tr").length;
 
 			let interval = setInterval(function ()
 			{
-				let element = elements[index];
+				let element = elements[loop];
 				let lesson = $(element).find('input').val().trim();
 				let content = $(element).find('textarea').val().trim();
 				let created_at = moment().unix();
@@ -474,7 +475,7 @@
 				}
 				
 				fsdb.collection("lessons").add({
-					index: index,
+					index: ++index,
 					content: content,
 					course_id: course_id,
 					lesson: lesson,
@@ -490,7 +491,7 @@
 					$(element).find('textarea').addClass('is-invalid');
 				});
 
-				if (++index >= elements.length)
+				if (++loop >= elements.length)
 				{
 					clearInterval(interval);
 				}
