@@ -578,12 +578,14 @@
 		$('#page-height-plus').click(function ()
 		{
 			var height = $('#card-content iframe').attr('height').replace('px', '').replace('%', '');
-			$('#card-content iframe').attr('height', Number(height) + 100 + 'px');
+			height = Number(height) + 100;
+			$('#card-content iframe').attr('height', height + 'px');
 		})
 		$('#page-height-minus').click(function ()
 		{
 			var height = $('#card-content iframe').attr('height').replace('px', '').replace('%', '');
-			$('#card-content iframe').attr('height', Number(height) - 100 + 'px');
+			height = Number(height) - 100;
+			$('#card-content iframe').attr('height', (height >= 0 ? height : '0') + 'px');
 		})
 		// set chiều dài iframe
 		function SetFrameHeight(number)
