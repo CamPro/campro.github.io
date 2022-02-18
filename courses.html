@@ -237,7 +237,18 @@
 										<button class="btn btn-default btn-xs" id="lesson-sort"><i class="fas fa-sort-amount-up-alt"></i></button>
 										<button class="btn btn-success btn-xs" id="lesson-save">Lưu danh sách</button>
 										<small id="lesson-percent"></small>
+										<button class="btn btn-default btn-xs text-info" id="lesson-upload"><i class="fas fa-cloud-upload-alt"></i></button>
 										<button class="btn btn-primary btn-xs float-right" id="lesson-create"><i class="fas fa-plus"></i></button>
+
+										<div class="input-group d-none">
+											<div class="custom-file">
+												<input type="file" class="custom-file-input" id="courseFileUpload">
+												<label class="custom-file-label" for="courseFileUpload">Chọn ảnh</label>
+											</div>
+											<div class="input-group-append">
+												<span class="btn btn-primary input-group-text" id="buttonFileUpload">Tải lên</span>
+											</div>
+										</div>
 									</th>
 								</tr>
 							</thead>
@@ -257,9 +268,11 @@
 	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-database.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-storage.js"></script>
 	<script src="./public/plugins/moment/moment.min.js"></script>
 	<script src="./public/plugins/sweetalert2/sweetalert2.min.js"></script>
 	<script src="./public/plugins/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="./public/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 	<script src="./public/js/adminlte.min.js"></script>
 	<script src="./public/js/myfirebase.js"></script>
 	<script src="./public/js/myscript.js"></script>
@@ -269,12 +282,15 @@
 		var course_id = null;
 		var lesson_id = null;
 		var timer = null;
+		var file = null;
 
 		$('#lesson-save').hide();
 		$('#lesson-create').hide();
 		$('#course-create').hide();
 		// lấy danh sách lĩnh vực
 		GetCategories();
+
+		bsCustomFileInput.init();
 
 		// thêm 1 lĩnh vực
 		$('#category-create').click(function ()
@@ -336,7 +352,6 @@
 				console.log(error);
 			});
 		}
-
 		// thêm 1 khóa học
 		$('#course-create').click(function ()
 		{
@@ -405,7 +420,6 @@
 				console.log(error);
 			});
 		}
-
 		// tạo ô thêm thông tin 1 bài học
 		$('#lesson-create').click(function ()
 		{
@@ -502,6 +516,32 @@
 		$('#lesson-modal').click(function ()
 		{
 			$('#modal-overlay').modal('show');
+		});
+
+		$('#lesson-upload').click(function ()
+		{
+			$(this).hide();
+			$('#courseFileUpload').parents('div.input-group').removeClass('d-none');
+			document.getElementById('courseFileUpload').click();
+		})
+
+		$('#courseFileUpload').change(function (e)
+		{
+			file = e.target.files[0];
+		})
+
+		$('#buttonFileUpload').click(function ()
+		{
+			var extension = file.type;
+			console.log(extension);
+			extension = file.name.split('.').pop();
+
+			var storageRef = firebase.storage().ref().child('simple_mind_courses/' + course_id);
+			storageRef.put(file).then((snapshot) =>
+			{
+				$('#courseFileUpload').parents('div.input-group').addClass('d-none');
+				$('#lesson-upload').show();
+			});
 		})
 
 		function HtmlChange(element)
@@ -509,7 +549,6 @@
 			let content = $(element).val().replace(/width="(\w+.)"/, 'width="100%"').replace(/height="(\w+.)"/, 'height="100%"');
 			$(element).val(content);
 		}
-
 		// lấy danh sách lĩnh vực
 		function GetCategories()
 		{
@@ -599,7 +638,7 @@
 			.then((querySnapshot) => {
 				let total = 0;
 				let done = 0;
-				let code = '';
+				let code = '<tr><td class="d-none"><img src="" class="img-fluid" id="course-picture"></td></tr>';
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
@@ -620,6 +659,7 @@
 				$('#lesson-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
 				$('#lesson-percent').text(done + '/' + total);
 
+
 				// cập nhật chỉ số khóa học
 				fsdb.collection("courses").doc(course_id).update({
 					number_lesson: total,
@@ -628,6 +668,16 @@
 				.catch((error) => {
 					console.log(error);
 				});
+				// lấy hình ảnh mindmap nếu có
+				var storageRef = firebase.storage().ref();
+				storageRef.child('simple_mind_courses/' + course_id).getDownloadURL().then((url) => {
+					$('#course-picture').attr('src', url);
+					$('#course-picture').parent().removeClass('d-none');
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+
 			})
 			.catch((error) => {
 				console.log(error);
