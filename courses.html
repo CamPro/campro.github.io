@@ -246,7 +246,7 @@
 												<label class="custom-file-label" for="courseFileUpload">Chọn ảnh</label>
 											</div>
 											<div class="input-group-append">
-												<span class="btn btn-primary input-group-text" id="buttonFileUpload">Tải lên</span>
+												<span class="btn btn-primary input-group-text" id="buttonFileUpload"><i class="far fa-image"></i></span>
 											</div>
 										</div>
 									</th>
@@ -528,6 +528,7 @@
 		$('#courseFileUpload').change(function (e)
 		{
 			file = e.target.files[0];
+			$('#buttonFileUpload').text('Tải lên');
 		})
 
 		$('#buttonFileUpload').click(function ()
@@ -658,7 +659,6 @@
 				$('tr#' + course_id).find('.progress-bar').attr('style', 'width: ' + persent + '%');
 				$('#lesson-sort').html('<i class="fas fa-sort-amount-up-alt"></i>');
 				$('#lesson-percent').text(done + '/' + total);
-
 
 				// cập nhật chỉ số khóa học
 				fsdb.collection("courses").doc(course_id).update({
