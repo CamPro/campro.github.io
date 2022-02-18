@@ -241,12 +241,12 @@
 										<button class="btn btn-primary btn-xs float-right" id="lesson-create"><i class="fas fa-plus"></i></button>
 
 										<div class="input-group d-none">
+											<div class="input-group-prepend">
+												<span class="btn btn-primary input-group-text" id="buttonFileUpload"><i class="far fa-image"></i></span>
+											</div>
 											<div class="custom-file">
 												<input type="file" class="custom-file-input" id="courseFileUpload">
 												<label class="custom-file-label" for="courseFileUpload">Chọn ảnh</label>
-											</div>
-											<div class="input-group-append">
-												<span class="btn btn-primary input-group-text" id="buttonFileUpload"><i class="far fa-image"></i></span>
 											</div>
 										</div>
 									</th>
@@ -521,6 +521,8 @@
 		$('#lesson-upload').click(function ()
 		{
 			$(this).hide();
+			$('#buttonFileUpload').html('<i class="far fa-image"></i>');
+			$('#courseFileUpload').removeClass('is-invalid').val('');
 			$('#courseFileUpload').parents('div.input-group').removeClass('d-none');
 			document.getElementById('courseFileUpload').click();
 		})
@@ -528,13 +530,32 @@
 		$('#courseFileUpload').change(function (e)
 		{
 			file = e.target.files[0];
-			$('#buttonFileUpload').text('Tải lên');
+			if (!file)
+			{
+				return;
+			}
+			console.log(file.type);
+			if (!file.type.includes('image'))
+			{
+				$(this).addClass('is-invalid');
+				$('#buttonFileUpload').html('<i class="fas fa-exclamation-triangle text-danger"></i>');
+				return;
+			}
+			else
+			{
+				$(this).removeClass('is-invalid');
+				$('#buttonFileUpload').html('Tải lên');
+			}
 		})
 
 		$('#buttonFileUpload').click(function ()
 		{
 			var extension = file.type;
-			console.log(extension);
+			if (!extension.includes('image'))
+			{
+				$('#buttonFileUpload').html('<i class="fas fa-exclamation-triangle text-danger"></i>');
+				return;
+			}
 			extension = file.name.split('.').pop();
 
 			var storageRef = firebase.storage().ref().child('simple_mind_courses/' + course_id);
@@ -634,6 +655,10 @@
 			$('#room-courses tr#' + course_id).css('background-color', 'gold');
 			let course = $('tr#' + course_id).find('span.text').text();
 			$('#modal-overlay .modal-title').text(course);
+
+			// khôi phục nút upload
+			$('#courseFileUpload').parents('div.input-group').addClass('d-none');
+			$('#lesson-upload').show();
 
 			fsdb.collection("lessons").where('course_id', '==', course_id).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
