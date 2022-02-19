@@ -254,7 +254,10 @@
 			<div class="text-center">** Cắp sách đi học Trường Đời - Cố thêm 1 Chút thôi - Thừa hơn Thiếu **</div>
 		</footer>
 
-		<div class="" id="toolbox"><button class="btn bg-warning"><i class="fas fa-heading"></i></button></div>
+		<div class="" id="toolbox">
+			<button class="btn bg-warning" id="toolbox-highlight"><i class="fas fa-heading"></i></button>
+			<button class="btn bg-info btn-xs" id="toolbox-undo"><i class="fas fa-undo"></i></button>
+		</div>
 	</div>
 	<div id="back-to-top" onclick="backToTop()"><i class="fa fa-chevron-up"></i></div>
 	<script src="./public/plugins/jquery/jquery.min.js"></script>
@@ -276,6 +279,7 @@
 		var course_id = null;
 		var timer = null;
 		var select_text = null;
+		var html_content = null;
 
 		var url = new URL(window.location.href);
 		lesson_index = url.searchParams.get("lesson");
@@ -403,19 +407,26 @@
 				elem.hide();
 			}
 		}
-		$("#toolbox").click(function ()
+		$("#toolbox-highlight").click(function ()
 		{
-			var innerHTML = $('#card-content').html();
-			var index = innerHTML.indexOf(select_text);
+			let inner_html = $('#card-content').html();
+			html_content = inner_html;
+			let index = inner_html.indexOf(select_text);
 			if (index >= 0 && select_text)
 			{
-				innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+select_text.length) + "</span>" + innerHTML.substring(index + select_text.length);
-				$('#card-content').html(innerHTML);
-				$('#room-content').val(innerHTML);
+				inner_html = inner_html.substring(0,index) + "<span class='highlight'>" + inner_html.substring(index,index+select_text.length) + "</span>" + inner_html.substring(index + select_text.length);
+				$('#card-content').html(inner_html);
+				$('#room-content').val(inner_html);
 			}
 			$("#toolbox").hide();
 			clearSelectText();
 		});
+		$('#toolbox-undo').click(function ()
+		{
+			if (!html_content) return;
+			$('#card-content').html(html_content);
+			$("#toolbox").hide();
+		})
 
 		// lưu bài học mới hoặc cập nhật
 		$('#room-lesson-save').click(function ()
