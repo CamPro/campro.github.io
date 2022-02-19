@@ -6,6 +6,7 @@
 	<title>Lớp Học Quái Vật</title>
 	<link rel="stylesheet" href="./public/plugins/fontawesome/css/all.min.css">
 	<link rel="stylesheet" href="./public/plugins/sweetalert2/sweetalert2.min.css">
+	<link rel="stylesheet" href="./public/plugins/select2/css/select2.min.css">
 	<link rel="stylesheet" href="./public/css/adminlte.min.css">
 	<link rel="stylesheet" href="./public/css/mystyle.css">
 </head>
@@ -218,7 +219,7 @@
 										<div class="input-group-prepend">
 											<span class="btn input-group-text" id="text-zoom"><i class="fas fa-text-height"></i></span>
 										</div>
-										<select class="form-control" id="room-courses">
+										<select class="form-control select2" id="room-courses">
 										</select>
 										<div class="input-group-append">
 											<span class="btn input-group-text" id="room-view-hide" data-toggle="tooltip" title="Ẩn thanh thông tin"><i class="fas fa-expand"></i></span>
@@ -270,6 +271,7 @@
 	<script src="./public/plugins/moment/moment.min.js"></script>
 	<script src="./public/plugins/sweetalert2/sweetalert2.min.js"></script>
 	<script src="./public/plugins/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="./public/plugins/select2/js/select2.full.min.js"></script>
 	<script src="./public/js/adminlte.min.js"></script>
 	<script src="./public/js/myfirebase.js"></script>
 	<script src="./public/js/myscript.js"></script>
@@ -365,6 +367,8 @@
 		}
 
 		$('[data-toggle="tooltip"]').tooltip();
+
+		/*$('.select2').select2();*/
 
 		// kiểm nhắc nhở chọn khóa học
 		$('#room-lesson, #room-courses').on('change keyup', function ()
@@ -660,7 +664,7 @@
 		// lấy danh sách khóa học
 		function GetCourses(course_id)
 		{
-			fsdb.collection("courses").orderBy("created_at", "desc").limit(18).get()
+			fsdb.collection("courses").orderBy("created_at", "desc").get()
 			.then((querySnapshot) => {
 				var options = '<option value=""> -- Khóa Học -- </option>';
 				querySnapshot.forEach((doc) => {
