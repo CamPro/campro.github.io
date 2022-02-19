@@ -558,6 +558,8 @@
 			}
 			extension = file.name.split('.').pop();
 
+			$(this).html('<i class="fas fa-spinner fa-spin"></i>');
+
 			var storageRef = firebase.storage().ref().child('simple_mind_courses/' + course_id);
 			storageRef.put(file).then((snapshot) =>
 			{
