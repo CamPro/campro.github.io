@@ -607,7 +607,7 @@
 			// loại bỏ các thẻ span
 			content = content.replace(/<span.*?>/g, '').replace(/<\/span>/g, '');
 			// loại bỏ ký tự cách
-			content = content.replace(/&nbsp;/g, '');
+			content = content.replace(/&nbsp;/g, ' ');
 			// rút gọn các thẻ div
 			content = content.replace(/<div.*?>/g, '<div>');
 			// loại bỏ các class, alt, title
