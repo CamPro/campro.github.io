@@ -184,6 +184,7 @@
 											<div class="input-group">
 												<textarea class="form-control" rows="1" id="room-content" placeholder="<html>"></textarea>
 												<div class="input-group-append">
+													<span class="btn input-group-text" id="room-lesson-format" data-toggle="tooltip" title="Định dạng"><i class="fas fa-code"></i></span>
 													<span class="btn input-group-text" id="room-lesson-completed" data-toggle="tooltip" title="Đã chinh phục"></span>
 												</div>
 											</div>
@@ -598,6 +599,38 @@
 			var height = $('#card-content iframe').attr('height').replace('px', '').replace('%', '');
 			height = Number(height) - 100;
 			$('#card-content iframe').attr('height', (height >= 0 ? height : '0') + 'px');
+		})
+		// sửa lại định dạng nội dung
+		$('#room-lesson-format').click(function ()
+		{
+			var content = $('#room-content').val();
+			// loại bỏ các thẻ span
+			content = content.replace(/<span.*?>/g, '').replace(/<\/span>/g, '');
+			// loại bỏ ký tự cách
+			content = content.replace(/&nbsp;/g, '');
+			// rút gọn các thẻ div
+			content = content.replace(/<div.*?>/g, '<div>');
+			// loại bỏ các class, alt, title
+			content = content.replace(/class=".*?"/g, '').replace(/alt=".*?"/g, '').replace(/title=".*?"/g, '');
+			// rút gọn các thẻ p
+			content = content.replace(/<p.*?>/g, '<p>');
+			content = content.replace(/<a.*?>/g, '<a>');
+			content = content.replace(/<div.*?>/g, '<div>');
+			content = content.replace(/<span.*?>/g, '<span>');
+			content = content.replace(/<h1.*?>/g, '<h1>');
+			content = content.replace(/<h2.*?>/g, '<h2>');
+			content = content.replace(/<h3.*?>/g, '<h3>');
+			content = content.replace(/<h4.*?>/g, '<h4>');
+			content = content.replace(/<h5.*?>/g, '<h5>');
+			// rút gọn các thẻ thừa
+			content = content.replace(/<\w+><\/\w+>/g, '');
+			// rút gọn các khoản trống
+			content = content.replace(/>\s+</g, '><');
+			// loại bỏ nhiều khoảng trắng
+			content = content.replace(/\s+/g, ' ').replace(/"\s+>/g, '">');
+
+			$('#room-content').val(content);
+			$('#card-content').html(content);
 		})
 		// set chiều dài iframe
 		function SetFrameHeight(number)
