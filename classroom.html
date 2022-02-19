@@ -627,7 +627,7 @@
 			// rút gọn các khoản trống
 			content = content.replace(/>\s+</g, '><');
 			// loại bỏ nhiều khoảng trắng
-			content = content.replace(/\s+/g, ' ').replace(/"\s+>/g, '">').replace(/">\s+/g, '">');
+			content = content.replace(/\s+/g, ' ').replace(/\s+>/g, '>').replace(/>\s+/g, '>').replace(/\s+</g, '<');
 
 			$('#room-content').val(content);
 			$('#card-content').html(content);
