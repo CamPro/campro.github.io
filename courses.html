@@ -670,6 +670,7 @@
 			// khôi phục nút upload
 			$('#category-file-upload').parents('div.input-group').addClass('d-none');
 			$('#category-upload').show();
+			$('#category-picture').attr('src', '').parent().addClass('d-none');
 
 			fsdb.collection("courses").where('category_id', '==', category_id).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
@@ -738,6 +739,7 @@
 			// khôi phục nút upload
 			$('#course-file-upload').parents('div.input-group').addClass('d-none');
 			$('#course-upload').show();
+			$('#course-picture').attr('src', '').parent().addClass('d-none');
 
 			fsdb.collection("lessons").where('course_id', '==', course_id).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
