@@ -202,8 +202,19 @@
 										<th>
 											Khóa học
 											<button class="btn btn-default btn-xs" id="course-sort"><i class="fas fa-sort-amount-up-alt"></i></button>
+											<button class="btn btn-default btn-xs text-info" id="category-upload"><i class="fas fa-cloud-upload-alt"></i></button>
 											<button class="btn btn-primary btn-xs float-right" id="course-create"><i class="fas fa-plus"></i></button>
 											<button class="btn btn-default btn-xs float-right" id="lesson-modal"><i class="fas fa-vector-square"></i></button>
+											<div class="input-group d-none">
+												<div class="input-group-prepend">
+													<span class="btn btn-primary input-group-text" id="buttonCategoryUpload"><i class="far fa-image"></i></span>
+												</div>
+												<div class="custom-file">
+													<input type="file" class="custom-file-input" id="category-file-upload">
+													<label class="custom-file-label" for="category-file-upload">Chọn ảnh</label>
+												</div>
+											</div>
+
 										</th>
 									</tr>
 								</thead>
@@ -237,16 +248,16 @@
 										<button class="btn btn-default btn-xs" id="lesson-sort"><i class="fas fa-sort-amount-up-alt"></i></button>
 										<button class="btn btn-success btn-xs" id="lesson-save">Lưu danh sách</button>
 										<small id="lesson-percent"></small>
-										<button class="btn btn-default btn-xs text-info" id="lesson-upload"><i class="fas fa-cloud-upload-alt"></i></button>
+										<button class="btn btn-default btn-xs text-info" id="course-upload"><i class="fas fa-cloud-upload-alt"></i></button>
 										<button class="btn btn-primary btn-xs float-right" id="lesson-create"><i class="fas fa-plus"></i></button>
 
 										<div class="input-group d-none">
 											<div class="input-group-prepend">
-												<span class="btn btn-primary input-group-text" id="buttonFileUpload"><i class="far fa-image"></i></span>
+												<span class="btn btn-primary input-group-text" id="button-course-upload"><i class="far fa-image"></i></span>
 											</div>
 											<div class="custom-file">
-												<input type="file" class="custom-file-input" id="courseFileUpload">
-												<label class="custom-file-label" for="courseFileUpload">Chọn ảnh</label>
+												<input type="file" class="custom-file-input" id="course-file-upload">
+												<label class="custom-file-label" for="course-file-upload">Chọn ảnh</label>
 											</div>
 										</div>
 									</th>
@@ -518,16 +529,15 @@
 			$('#modal-overlay').modal('show');
 		});
 
-		$('#lesson-upload').click(function ()
+		$('#category-upload').click(function ()
 		{
 			$(this).hide();
-			$('#buttonFileUpload').html('<i class="far fa-image"></i>');
-			$('#courseFileUpload').removeClass('is-invalid').val('');
-			$('#courseFileUpload').parents('div.input-group').removeClass('d-none');
-			document.getElementById('courseFileUpload').click();
+			$('#buttonCategoryUpload').html('<i class="far fa-image"></i>');
+			$('#category-file-upload').removeClass('is-invalid').val('');
+			$('#category-file-upload').parents('div.input-group').removeClass('d-none');
+			document.getElementById('category-file-upload').click();
 		})
-
-		$('#courseFileUpload').change(function (e)
+		$('#category-file-upload').change(function (e)
 		{
 			file = e.target.files[0];
 			if (!file)
@@ -538,22 +548,70 @@
 			if (!file.type.includes('image'))
 			{
 				$(this).addClass('is-invalid');
-				$('#buttonFileUpload').html('<i class="fas fa-exclamation-triangle text-danger"></i>');
+				$('#buttonCategoryUpload').html('<i class="fas fa-exclamation-triangle text-danger"></i>');
 				return;
 			}
 			else
 			{
 				$(this).removeClass('is-invalid');
-				$('#buttonFileUpload').html('Tải lên');
+				$('#buttonCategoryUpload').html('Tải lên');
 			}
 		})
-
-		$('#buttonFileUpload').click(function ()
+		$('#buttonCategoryUpload').click(function ()
 		{
 			var extension = file.type;
 			if (!extension.includes('image'))
 			{
-				$('#buttonFileUpload').html('<i class="fas fa-exclamation-triangle text-danger"></i>');
+				$('#buttonCategoryUpload').html('<i class="fas fa-exclamation-triangle text-danger"></i>');
+				return;
+			}
+			extension = file.name.split('.').pop();
+
+			$(this).html('<i class="fas fa-spinner fa-spin"></i>');
+
+			var storageRef = firebase.storage().ref().child('simple_mind_categories/' + category_id);
+			storageRef.put(file).then((snapshot) =>
+			{
+				$('#category-file-upload').parents('div.input-group').addClass('d-none');
+				$('#category-upload').show();
+				GetCourses(category_id);
+			});
+		})
+
+		$('#course-upload').click(function ()
+		{
+			$(this).hide();
+			$('#button-course-upload').html('<i class="far fa-image"></i>');
+			$('#course-file-upload').removeClass('is-invalid').val('');
+			$('#course-file-upload').parents('div.input-group').removeClass('d-none');
+			document.getElementById('course-file-upload').click();
+		})
+		$('#course-file-upload').change(function (e)
+		{
+			file = e.target.files[0];
+			if (!file)
+			{
+				return;
+			}
+			console.log(file.type);
+			if (!file.type.includes('image'))
+			{
+				$(this).addClass('is-invalid');
+				$('#button-course-upload').html('<i class="fas fa-exclamation-triangle text-danger"></i>');
+				return;
+			}
+			else
+			{
+				$(this).removeClass('is-invalid');
+				$('#button-course-upload').html('Tải lên');
+			}
+		})
+		$('#button-course-upload').click(function ()
+		{
+			var extension = file.type;
+			if (!extension.includes('image'))
+			{
+				$('#button-course-upload').html('<i class="fas fa-exclamation-triangle text-danger"></i>');
 				return;
 			}
 			extension = file.name.split('.').pop();
@@ -563,8 +621,9 @@
 			var storageRef = firebase.storage().ref().child('simple_mind_courses/' + course_id);
 			storageRef.put(file).then((snapshot) =>
 			{
-				$('#courseFileUpload').parents('div.input-group').addClass('d-none');
-				$('#lesson-upload').show();
+				$('#course-file-upload').parents('div.input-group').addClass('d-none');
+				$('#course-upload').show();
+				GetLessons(course_id);
 			});
 		})
 
@@ -578,6 +637,7 @@
 		{
 			$('#course-create').hide();
 			$('#category-sort').html('<i class="fas fa-spinner fa-spin"></i>');
+
 			fsdb.collection("categories").orderBy("index", "asc").get()
 			.then((querySnapshot) => {
 				let code = '';
@@ -603,9 +663,13 @@
 			$('#room-categories tr').css('background-color', '');
 			$('#room-categories tr#' + category_id).css('background-color', 'gold');
 
+			// khôi phục nút upload
+			$('#category-file-upload').parents('div.input-group').addClass('d-none');
+			$('#category-upload').show();
+
 			fsdb.collection("courses").where('category_id', '==', category_id).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
-				let code = '';
+				let code = '<tr><td class="d-none"><img src="" class="img-fluid" id="category-picture"></td></tr>';
 				let number = 0;
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
@@ -637,6 +701,15 @@
 				.catch((error) => {
 					console.log(error);
 				});
+				// lấy hình ảnh mindmap nếu có
+				var storageRef = firebase.storage().ref();
+				storageRef.child('simple_mind_categories/' + category_id).getDownloadURL().then((url) => {
+					$('#category-picture').attr('src', url);
+					$('#category-picture').parent().removeClass('d-none');
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 			})
 			.catch((error) => {
 				console.log(error);
@@ -659,8 +732,8 @@
 			$('#modal-overlay .modal-title').text(course);
 
 			// khôi phục nút upload
-			$('#courseFileUpload').parents('div.input-group').addClass('d-none');
-			$('#lesson-upload').show();
+			$('#course-file-upload').parents('div.input-group').addClass('d-none');
+			$('#course-upload').show();
 
 			fsdb.collection("lessons").where('course_id', '==', course_id).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
