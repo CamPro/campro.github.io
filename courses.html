@@ -533,6 +533,7 @@
 
 		$('#category-upload').click(function ()
 		{
+			if (!category_id) return;
 			$(this).hide();
 			$('#buttonCategoryUpload').html('<i class="far fa-image"></i>');
 			$('#category-file-upload').removeClass('is-invalid').val('');
@@ -582,6 +583,7 @@
 
 		$('#course-upload').click(function ()
 		{
+			if (!course_id) return;
 			$(this).hide();
 			$('#button-course-upload').html('<i class="far fa-image"></i>');
 			$('#course-file-upload').removeClass('is-invalid').val('');
