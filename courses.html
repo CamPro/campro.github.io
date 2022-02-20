@@ -217,6 +217,7 @@
 
 										</th>
 									</tr>
+									<tr><td class="d-none"><img src="" class="img-fluid" id="category-picture"></td></tr>
 								</thead>
 								<tbody id="room-courses">
 								</tbody>
@@ -262,6 +263,7 @@
 										</div>
 									</th>
 								</tr>
+								<tr><td class="d-none"><img src="" class="img-fluid" id="course-picture"></td></tr>
 							</thead>
 							<tbody id="room-lessons">
 							</tbody>
@@ -669,7 +671,7 @@
 
 			fsdb.collection("courses").where('category_id', '==', category_id).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
-				let code = '<tr><td class="d-none"><img src="" class="img-fluid" id="category-picture"></td></tr>';
+				let code = '';
 				let number = 0;
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
@@ -739,7 +741,7 @@
 			.then((querySnapshot) => {
 				let total = 0;
 				let done = 0;
-				let code = '<tr><td class="d-none"><img src="" class="img-fluid" id="course-picture"></td></tr>';
+				let code = '';
 				querySnapshot.forEach((doc) => {
 					let docid = doc.id;
 					let docdata = doc.data();
