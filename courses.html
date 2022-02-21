@@ -207,7 +207,7 @@
 											<button class="btn btn-default btn-xs float-right" id="lesson-modal"><i class="fas fa-vector-square"></i></button>
 											<div class="input-group d-none">
 												<div class="input-group-prepend">
-													<span class="btn btn-primary input-group-text" id="buttonCategoryUpload"><i class="far fa-image"></i></span>
+													<span class="btn btn-primary input-group-text" id="button-category-upload"><i class="far fa-image"></i></span>
 												</div>
 												<div class="custom-file">
 													<input type="file" class="custom-file-input" id="category-file-upload">
@@ -535,7 +535,7 @@
 		{
 			if (!category_id) return;
 			$(this).hide();
-			$('#buttonCategoryUpload').html('<i class="far fa-image"></i>');
+			$('#button-category-upload').html('<i class="far fa-image"></i>');
 			$('#category-file-upload').removeClass('is-invalid').val('');
 			$('#category-file-upload').parents('div.input-group').removeClass('d-none');
 			document.getElementById('category-file-upload').click();
@@ -551,21 +551,21 @@
 			if (!file.type.includes('image'))
 			{
 				$(this).addClass('is-invalid');
-				$('#buttonCategoryUpload').html('<i class="fas fa-exclamation-triangle text-danger"></i>');
+				$('#button-category-upload').html('<i class="fas fa-exclamation-triangle text-danger"></i>');
 				return;
 			}
 			else
 			{
 				$(this).removeClass('is-invalid');
-				$('#buttonCategoryUpload').html('Tải lên');
+				$('#button-category-upload').html('Tải lên');
 			}
 		})
-		$('#buttonCategoryUpload').click(function ()
+		$('#button-category-upload').click(function ()
 		{
 			var extension = file.type;
 			if (!extension.includes('image'))
 			{
-				$('#buttonCategoryUpload').html('<i class="fas fa-exclamation-triangle text-danger"></i>');
+				$('#button-category-upload').html('<i class="fas fa-exclamation-triangle text-danger"></i>');
 				return;
 			}
 			extension = file.name.split('.').pop();

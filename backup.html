@@ -186,6 +186,26 @@
 					<button class="btn btn-default" id="keyword-update">Cập Nhật Từ Khóa (<span id="keyword-count"></span>)</button>
 					<button class="btn btn-default" id="crush-update">Cập Nhật Thả Thính (<span id="crush-count"></span>)</button>
 				</div>
+				<div class="container-fluid">
+					<div class="card card-default">
+						<div class="card-header">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="btn btn-primary input-group-text" id="button-file-upload"><i class="fas fa-file-archive"></i></span>
+								</div>
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" id="file-upload">
+									<label class="custom-file-label" for="file-upload">Chọn tập tin</label>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="row" id="list-files">
+								
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -200,18 +220,74 @@
 	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-database.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-storage.js"></script>
 	<script src="./public/plugins/moment/moment.min.js"></script>
 	<script src="./public/plugins/sweetalert2/sweetalert2.min.js"></script>
+	<script src="./public/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 	<script src="./public/js/adminlte.min.js"></script>
 	<script src="./public/js/myfirebase.js"></script>
 	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
+
+		var file = null;
+
+		bsCustomFileInput.init();
+
+		getFiles();
 
 		/* data post */
 		fsdb.collection("posts").get().then(function(querySnapshot)
 		{      
 			$('#post-count').text(querySnapshot.size);
 		});
+		// chọn file
+		$('#file-upload').change(function (e)
+		{
+			file = e.target.files[0];
+			if (!file)
+			{
+				$(this).addClass('is-invalid');
+				$('#button-file-upload').addClass('input-group-text').html('<i class="fas fa-exclamation-triangle text-danger"></i>');
+				return;
+			}
+			$(this).removeClass('is-invalid').addClass('is-valid');
+			$('#button-file-upload').removeClass('input-group-text').html('Tải lên');
+		})
+		// click tải file lên
+		$('#button-file-upload').click(function ()
+		{
+			if (!file) return;
+
+			$(this).html('<i class="fas fa-spinner fa-spin"></i>');
+
+			var storageRef = firebase.storage().ref().child('files_backup/' + file.name);
+			storageRef.put(file).then((snapshot) =>
+			{
+				$('#button-file-upload').addClass('input-group-text').html('<i class="fas fa-file-archive"></i>');
+				getFiles();
+			});
+		})
+		function getFiles()
+		{
+			$('#list-files').html('');
+			var storageRef = firebase.storage().ref();
+			var listRef = storageRef.child('files_backup');
+
+			listRef.listAll()
+			.then((res) => {
+			res.prefixes.forEach((folderRef) =>
+			{
+			});
+			res.items.forEach((itemRef) =>
+			{
+				let code = '<div class="col-lg-1"><a class="btn btn-app"><i class="fas fa-file"></i>' + itemRef.name + '</a></div>';
+				$('#list-files').append(code);
+			});
+			}).catch((error) =>
+			{
+				console.log(error);
+			});
+		}
 
 		$('#post-backup').click(function ()
 		{
