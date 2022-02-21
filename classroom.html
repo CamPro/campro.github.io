@@ -256,9 +256,10 @@
 			<div class="text-center">** Cắp sách đi học Trường Đời - Cố thêm 1 Chút thôi - Thừa hơn Thiếu **</div>
 		</footer>
 
-		<div class="" id="toolbox">
-			<button class="btn bg-warning" id="toolbox-highlight"><i class="fas fa-heading"></i></button>
-			<button class="btn bg-info btn-xs" id="toolbox-undo"><i class="fas fa-undo"></i></button>
+		<div class="btn-group" id="toolbox">
+			<button type="button" class="btn bg-warning" id="toolbox-highlight"><i class="fas fa-heading"></i></button>
+			<button type="button" class="btn bg-primary" id="toolbox-bold"><i class="fas fa-bold"></i></button>
+			<button type="button" class="btn bg-info btn-sm" id="toolbox-undo"><i class="fas fa-undo"></i></button>
 		</div>
 	</div>
 	<div id="back-to-top" onclick="backToTop()"><i class="fa fa-chevron-up"></i></div>
@@ -414,6 +415,7 @@
 		}
 		$("#toolbox-highlight").click(function ()
 		{
+			$("#toolbox").hide();
 			let inner_html = $('#card-content').html();
 			html_content = inner_html;
 			let index = inner_html.indexOf(select_text);
@@ -423,15 +425,28 @@
 				$('#card-content').html(inner_html);
 				$('#room-content').val(inner_html);
 			}
+			clearSelectText();
+		});
+		$('#toolbox-bold').click(function ()
+		{
 			$("#toolbox").hide();
+			let inner_html = $('#card-content').html();
+			html_content = inner_html;
+			let index = inner_html.indexOf(select_text);
+			if (index >= 0 && select_text)
+			{
+				inner_html = inner_html.substring(0,index) + "<strong>" + inner_html.substring(index,index+select_text.length) + "</strong>" + inner_html.substring(index + select_text.length);
+				$('#card-content').html(inner_html);
+				$('#room-content').val(inner_html);
+			}
 			clearSelectText();
 		});
 		$('#toolbox-undo').click(function ()
 		{
+			$("#toolbox").hide();
 			if (!html_content) return;
 			$('#card-content').html(html_content);
 			$('#room-content').val(html_content);
-			$("#toolbox").hide();
 		})
 
 		// lưu bài học mới hoặc cập nhật
