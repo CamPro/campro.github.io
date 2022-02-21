@@ -421,7 +421,7 @@
 			let index = inner_html.indexOf(select_text);
 			if (index >= 0 && select_text)
 			{
-				inner_html = inner_html.substring(0,index) + "<span class='highlight'>" + inner_html.substring(index,index+select_text.length) + "</span>" + inner_html.substring(index + select_text.length);
+				inner_html = inner_html.substring(0,index) + "<mark class='highlight'>" + inner_html.substring(index,index+select_text.length) + "</mark>" + inner_html.substring(index + select_text.length);
 				$('#card-content').html(inner_html);
 				$('#room-content').val(inner_html);
 			}

@@ -39,5 +39,6 @@
 	position: fixed;
 }
 .highlight {
+	padding: 0px;
 	background-color: yellow;
 }
