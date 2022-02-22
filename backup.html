@@ -236,10 +236,10 @@
 		getFiles();
 
 		/* data post */
-		fsdb.collection("posts").get().then(function(querySnapshot)
+		/*fsdb.collection("posts").get().then(function(querySnapshot)
 		{      
 			$('#post-count').text(querySnapshot.size);
-		});
+		});*/
 		// chọn file
 		$('#file-upload').change(function (e)
 		{
@@ -260,8 +260,9 @@
 
 			$(this).html('<i class="fas fa-spinner fa-spin"></i>');
 
-			var storageRef = firebase.storage().ref().child('files_backup/' + file.name);
-			storageRef.put(file).then((snapshot) =>
+			var storageChild = firebase.storage().ref().child('files_backup/' + file.name);
+
+			storageChild.put(file).then((snapshot) =>
 			{
 				$('#button-file-upload').addClass('input-group-text').html('<i class="fas fa-file-archive"></i>');
 				getFiles();
@@ -269,22 +270,60 @@
 		})
 		function getFiles()
 		{
-			$('#list-files').html('');
-			var storageRef = firebase.storage().ref();
-			var listRef = storageRef.child('files_backup');
+			var storageChild = firebase.storage().ref().child('files_backup');
 
-			listRef.listAll()
+			storageChild.listAll()
 			.then((res) => {
-			res.prefixes.forEach((folderRef) =>
-			{
-			});
-			res.items.forEach((itemRef) =>
-			{
-				let code = '<a class="btn btn-app" data-child="' + itemRef.fullPath + '"><i class="fas fa-file"></i>' + itemRef.name + '</a>';
-				$('#list-files').append(code);
-			});
+				var code = '';
+				res.prefixes.forEach((folderRef) =>
+				{
+				});
+				res.items.forEach((itemRef) =>
+				{
+					code += '<a class="btn btn-app" data-child="' + itemRef.fullPath + '"><span class="badge bg-warning" onclick="fileDelete(this)"><i class="fas fa-trash-alt"></i></span><i class="fas fa-download" onclick="fileDownload(this)"></i>' + itemRef.name + '</a>';
+				});
+				$('#list-files').html(code);
 			}).catch((error) =>
 			{
+				console.log(error);
+			});
+		}
+		function fileDelete(element)
+		{
+			if (!confirm('Xóa tập tin?'))
+			{
+				return;
+			}
+			var child = $(element).parent().data('child');
+
+			var storageChild = firebase.storage().ref().child(child);
+
+			storageChild.delete().then(() =>
+			{
+				getFiles();
+			})
+			.catch((error) =>
+			{
+				console.log(error);
+			});
+		}
+		function fileDownload(element)
+		{
+			var child = $(element).parent().data('child');
+			var storageChild = firebase.storage().ref().child(child);
+
+			storageChild.getDownloadURL()
+			.then((url) =>
+			{
+				var xhr = new XMLHttpRequest();
+				xhr.responseType = 'blob';
+				xhr.onload = (event) => {
+					var blob = xhr.response;
+				};
+				xhr.open('GET', url);
+				xhr.send();
+			})
+			.catch((error) => {
 				console.log(error);
 			});
 		}
@@ -362,10 +401,9 @@
 			});
 		})
 
-
 		var idkey = 0;
 
-		/* get last index */
+		/* get last index 
 		fsdb.collection("keywords").orderBy("index", "desc").limit(1).get()
 		.then((querySnapshot) => {
 			querySnapshot.forEach((doc) =>
@@ -377,7 +415,7 @@
 		})
 		.catch((error) => {
 			console.log(error);
-		});
+		});*/
 
 		$('#keyword-update').click(function ()
 		{
@@ -418,7 +456,8 @@
 
 		var idcrush = 0;
 
-		/* get last index */
+		/* get last index 
+
 		fsdb.collection("crushs").orderBy("index", "desc").limit(1).get()
 		.then((querySnapshot) => {
 			querySnapshot.forEach((doc) =>
@@ -430,7 +469,8 @@
 		})
 		.catch((error) => {
 			console.log(error);
-		});
+		});*/
+
 
 		$('#crush-update').click(function ()
 		{
