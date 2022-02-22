@@ -200,7 +200,7 @@
 							</div>
 						</div>
 						<div class="card-body">
-							<div class="row" id="list-files">
+							<div id="list-files">
 								
 							</div>
 						</div>
@@ -280,7 +280,7 @@
 			});
 			res.items.forEach((itemRef) =>
 			{
-				let code = '<div class="col-lg-1"><a class="btn btn-app"><i class="fas fa-file"></i>' + itemRef.name + '</a></div>';
+				let code = '<a class="btn btn-app" data-child="' + itemRef.fullPath + '"><i class="fas fa-file"></i>' + itemRef.name + '</a>';
 				$('#list-files').append(code);
 			});
 			}).catch((error) =>
