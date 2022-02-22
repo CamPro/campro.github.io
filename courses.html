@@ -254,19 +254,8 @@
 										<small id="lesson-percent"></small>
 										<button class="btn btn-default btn-xs text-info" id="course-upload"><i class="fas fa-cloud-upload-alt"></i></button>
 										<button class="btn btn-primary btn-xs float-right" id="lesson-create"><i class="fas fa-plus"></i></button>
-
-										<div class="input-group d-none">
-											<div class="input-group-prepend">
-												<span class="btn btn-primary input-group-text" id="button-course-upload"><i class="far fa-image"></i></span>
-											</div>
-											<div class="custom-file">
-												<input type="file" class="custom-file-input" id="course-file-upload">
-												<label class="custom-file-label" for="course-file-upload">Chọn ảnh</label>
-											</div>
-										</div>
 									</th>
 								</tr>
-								<tr><td class="d-none"><img src="" class="img-fluid" id="course-picture"></td></tr>
 							</thead>
 							<tbody id="room-lessons">
 							</tbody>
@@ -583,56 +572,6 @@
 			});
 		})
 
-		$('#course-upload').click(function ()
-		{
-			if (!course_id) return;
-			$(this).hide();
-			$('#button-course-upload').html('<i class="far fa-image"></i>');
-			$('#course-file-upload').removeClass('is-invalid').val('');
-			$('#course-file-upload').parents('div.input-group').removeClass('d-none');
-			document.getElementById('course-file-upload').click();
-		})
-		$('#course-file-upload').change(function (e)
-		{
-			file = e.target.files[0];
-			if (!file)
-			{
-				return;
-			}
-			console.log(file.type);
-			if (!file.type.includes('image'))
-			{
-				$(this).addClass('is-invalid');
-				$('#button-course-upload').html('<i class="fas fa-exclamation-triangle text-danger"></i>');
-				return;
-			}
-			else
-			{
-				$(this).removeClass('is-invalid');
-				$('#button-course-upload').html('Tải lên');
-			}
-		})
-		$('#button-course-upload').click(function ()
-		{
-			var extension = file.type;
-			if (!extension.includes('image'))
-			{
-				$('#button-course-upload').html('<i class="fas fa-exclamation-triangle text-danger"></i>');
-				return;
-			}
-			extension = file.name.split('.').pop();
-
-			$(this).html('<i class="fas fa-spinner fa-spin"></i>');
-
-			var storageRef = firebase.storage().ref().child('simple_mind_courses/' + course_id);
-			storageRef.put(file).then((snapshot) =>
-			{
-				$('#course-file-upload').parents('div.input-group').addClass('d-none');
-				$('#course-upload').show();
-				GetLessons(course_id);
-			});
-		})
-
 		function HtmlChange(element)
 		{
 			let content = $(element).val().replace(/width="(\w+.)"/, 'width="100%"').replace(/height="(\w+.)"/, 'height="100%"');
@@ -755,11 +694,6 @@
 			let course = $('tr#' + course_id).find('span.text').text();
 			$('#modal-overlay .modal-title').text(course);
 
-			// khôi phục nút upload
-			$('#course-file-upload').parents('div.input-group').addClass('d-none');
-			$('#course-upload').show();
-			$('#course-picture').attr('src', '').parent().addClass('d-none');
-
 			fsdb.collection("lessons").where('course_id', '==', course_id).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
 				let total = 0;
@@ -793,16 +727,6 @@
 				.catch((error) => {
 					console.log(error);
 				});
-				// lấy hình ảnh mindmap nếu có
-				var storageRef = firebase.storage().ref();
-				storageRef.child('simple_mind_courses/' + course_id).getDownloadURL().then((url) => {
-					$('#course-picture').attr('src', url);
-					$('#course-picture').parent().removeClass('d-none');
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-
 			})
 			.catch((error) => {
 				console.log(error);
