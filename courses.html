@@ -214,10 +214,13 @@
 													<label class="custom-file-label" for="category-file-upload">Chọn ảnh</label>
 												</div>
 											</div>
-
 										</th>
 									</tr>
-									<tr><td class="d-none"><img src="" class="img-fluid" id="category-picture"></td></tr>
+									<tr>
+										<td>
+											<div class="row" id="list-images"></div>
+										</td>
+									</tr>
 								</thead>
 								<tbody id="room-courses">
 								</tbody>
@@ -568,11 +571,10 @@
 				$('#button-category-upload').html('<i class="fas fa-exclamation-triangle text-danger"></i>');
 				return;
 			}
-			extension = file.name.split('.').pop();
 
 			$(this).html('<i class="fas fa-spinner fa-spin"></i>');
 
-			var storageRef = firebase.storage().ref().child('simple_mind_categories/' + category_id);
+			var storageRef = firebase.storage().ref().child('simple_mind_categories/' + category_id + '/' + file.name);
 			storageRef.put(file).then((snapshot) =>
 			{
 				$('#category-file-upload').parents('div.input-group').addClass('d-none');
@@ -670,7 +672,6 @@
 			// khôi phục nút upload
 			$('#category-file-upload').parents('div.input-group').addClass('d-none');
 			$('#category-upload').show();
-			$('#category-picture').attr('src', '').parent().addClass('d-none');
 
 			fsdb.collection("courses").where('category_id', '==', category_id).orderBy("index", "asc").get()
 			.then((querySnapshot) => {
@@ -706,13 +707,31 @@
 				.catch((error) => {
 					console.log(error);
 				});
-				// lấy hình ảnh mindmap nếu có
-				var storageRef = firebase.storage().ref();
-				storageRef.child('simple_mind_categories/' + category_id).getDownloadURL().then((url) => {
-					$('#category-picture').attr('src', url);
-					$('#category-picture').parent().removeClass('d-none');
-				})
-				.catch((error) => {
+				// lấy danh sách hình ảnh mindmap
+				$('#list-images').html('');
+				var storageChild = firebase.storage().ref().child('simple_mind_categories/' + category_id);
+				storageChild.listAll()
+				.then((res) => {
+					res.prefixes.forEach((folderRef) =>
+					{
+					});
+					res.items.forEach((itemRef) =>
+					{
+						itemRef.getDownloadURL().then(function(url)
+						{
+							var code = '<div class="position-relative col-sm-2">';
+							code += '<img src="' + url + '" class="img-fluid">';
+							code += '<div class="text-center"><small>' + itemRef.name + '</small></div></div>';
+							$('#list-images').append(code);
+						})
+						.catch(function(error)
+						{
+							console.log(error);
+						});
+					});
+					
+				}).catch((error) =>
+				{
 					console.log(error);
 				});
 			})
