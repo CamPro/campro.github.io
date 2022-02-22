@@ -659,7 +659,7 @@
 						{
 							var code = '<div class="position-relative col-sm-2" data-child="' + itemRef.fullPath + '">';
 							code += '<img src="' + url + '" class="img-fluid">';
-							code += '<div class="text-center"><small>' + itemRef.name + '</small></div></div>';
+							code += '<div class="text-center"><small>' + itemRef.name + '</small> <small onclick="fileDelete(this)"><i class="fas fa-trash-alt"></i></small></div></div>';
 							$('#list-images').append(code);
 						})
 						.catch(function(error)
@@ -834,6 +834,26 @@
 			.then(() => {
 				$('#room-lessons tr#' + lesson_id + ' span.text').text(title);
 			}).catch((error) => {
+				console.log(error);
+			});
+		}
+
+		function fileDelete(element)
+		{
+			if (!confirm('Xóa hình ảnh?'))
+			{
+				return;
+			}
+			var child = $(element).parents('div.position-relative').data('child');
+
+			var storageChild = firebase.storage().ref().child(child);
+
+			storageChild.delete().then(() =>
+			{
+				GetCourses(category_id);
+			})
+			.catch((error) =>
+			{
 				console.log(error);
 			});
 		}
