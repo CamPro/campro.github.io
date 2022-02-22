@@ -315,13 +315,7 @@
 			storageChild.getDownloadURL()
 			.then((url) =>
 			{
-				var xhr = new XMLHttpRequest();
-				xhr.responseType = 'blob';
-				xhr.onload = (event) => {
-					var blob = xhr.response;
-				};
-				xhr.open('GET', url);
-				xhr.send();
+				window.open(url, '_blank');
 			})
 			.catch((error) => {
 				console.log(error);
