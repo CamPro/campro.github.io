@@ -719,7 +719,7 @@
 					{
 						itemRef.getDownloadURL().then(function(url)
 						{
-							var code = '<div class="position-relative col-sm-2">';
+							var code = '<div class="position-relative col-sm-2" data-child="' + itemRef.fullPath + '">';
 							code += '<img src="' + url + '" class="img-fluid">';
 							code += '<div class="text-center"><small>' + itemRef.name + '</small></div></div>';
 							$('#list-images').append(code);
