@@ -236,10 +236,16 @@
 		getFiles();
 
 		/* data post */
-		/*fsdb.collection("posts").get().then(function(querySnapshot)
-		{      
-			$('#post-count').text(querySnapshot.size);
-		});*/
+		fsdb.collection("posts").orderBy("index", "desc").limit(1).get().then((querySnapshot) => {
+			querySnapshot.forEach((doc) => {
+				let docdata = doc.data();
+				$('#post-count').text(docdata.index);
+			});
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+
 		// chọn file
 		$('#file-upload').change(function (e)
 		{

@@ -403,13 +403,14 @@
 		});
 
 		/* get last index */
-		fsdb.collection("posts").orderBy("index", "desc").limit(1).onSnapshot((querySnapshot) => {
-			querySnapshot.forEach((doc) =>
-			{
+		fsdb.collection("posts").orderBy("index", "desc").limit(1).get().then((querySnapshot) => {
+			querySnapshot.forEach((doc) => {
 				let docdata = doc.data();
-				postIndex = docdata.index;
+				$('#post-index').text(docdata.index);
 			});
-			$('#post-index').text('#' + postIndex);
+		})
+		.catch((error) => {
+			console.log(error);
 		});
 
 		// update posts.json to database
