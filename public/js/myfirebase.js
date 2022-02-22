@@ -213,6 +213,9 @@ function myClock() {
 	let year = d.getFullYear();
 	let clock = day + ", " + date + "/" + month + " " + hr + ":" + min;
 	$('#my-clock').text(clock);
+
+	var pacificDaylightTime = new Date().toLocaleString(undefined, {timeZone: 'America/Los_Angeles'});
+	$('#my-clock').attr('title', pacificDaylightTime + ' (PDT)');
 }
 myClock();
 setInterval(myClock, 30*1000);
