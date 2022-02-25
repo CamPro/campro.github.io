@@ -400,7 +400,7 @@
 		// lưu 1 khóa học mới
 		function SaveCourse(element)
 		{
-			let course = $(element).parents('div.row').find('input').val().trim();
+			let course = $(element).parents('tr').find('input').val().trim();
 
 			if (!category_id)
 			{
