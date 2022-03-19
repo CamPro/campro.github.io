@@ -737,12 +737,18 @@
 		// xóa 1 khóa học
 		function DeleteCourse(element)
 		{
-			if (!confirm('Xóa khóa học?'))
+			if (!confirm('Xóa khóa học sẽ xóa tất cả bài học?'))
 			{
 				return;
 			}
 			course_id = $(element).parents('tr').attr('id');
 
+			// xóa tất cả bài học
+			fsdb.collection("lessons").where('course_id', '==', course_id).delete().then(() => {
+			}).catch((error) => {
+				console.log(error);
+			});
+			// xóa khóa học
 			fsdb.collection("courses").doc(course_id).delete().then(() => {
 				GetCourses(category_id);
 			}).catch((error) => {
