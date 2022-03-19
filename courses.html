@@ -744,10 +744,17 @@
 			course_id = $(element).parents('tr').attr('id');
 
 			// xóa tất cả bài học
-			fsdb.collection("lessons").where('course_id', '==', course_id).delete().then(() => {
-			}).catch((error) => {
-				console.log(error);
-			});
+			fsdb.collection("lessons").where('course_id', '==', course_id).orderBy("index", "asc").get().then(function(querySnapshot)
+			{
+				var batch = fsdb.batch();
+				querySnapshot.forEach(function(doc)
+				{
+					batch.delete(doc.ref);
+				});
+				batch.commit();
+			})
+			.then(function() {}); 
+
 			// xóa khóa học
 			fsdb.collection("courses").doc(course_id).delete().then(() => {
 				GetCourses(category_id);
