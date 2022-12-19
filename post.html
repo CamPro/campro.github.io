@@ -184,6 +184,12 @@
 								<td><a href="" id="post-edit"><button class="btn btn-sm btn-default"><i class="fas fa-edit"></i> Sửa</button></a></td>
 								<td><button class="btn btn-sm btn-default" id="post-read"><i class="fas fa-eye"></i> Đã Đọc <span id="post-number-read"></span></button></td>
 								<td><button class="btn btn-sm btn-default" id="post-delete"><i class="fas fa-trash"></i> Xóa</button></td>
+								<td>
+									<span>
+										<button type="button" class="btn btn-default btn-sm" id="page-col-minus"><i class="fas fa-minus"></i></button>
+										<button type="button" class="btn btn-default btn-sm" id="page-col-plus"><i class="fas fa-plus"></i></button>
+									</span>
+								</td>
 							</tr>
 						</table>
 					</div>
@@ -192,8 +198,7 @@
 			<div class="content">
 				<div class="container-fluid text-lg">
 					<div class="row">
-						<div class="col-lg-2"></div>
-						<div class="col-lg-6">
+						<div class="col-lg-6 ml-auto mr-auto">
 							<h2 class="m-0" id="post-title"></h2>
 							<div id="post-content">
 								*Nội dung*
@@ -298,6 +303,30 @@
 			console.log(error);
 			});*/
 			}
+		});
+
+		$('#page-col-plus').click(function ()
+		{
+			var content_class = $('#post-title').parent().attr('class');
+
+			var col_number = content_class.match(/\d+/)[0];
+			col_number = parseInt(col_number) + 1;
+
+			content_class = content_class.replace(/\d+/, col_number);
+
+			$('#post-title').parent().attr('class', content_class);
+		});
+		
+		$('#page-col-minus').click(function ()
+		{
+			var content_class = $('#post-title').parent().attr('class');
+
+			var col_number = content_class.match(/\d+/)[0];
+			col_number = parseInt(col_number) - 1;
+
+			content_class = content_class.replace(/\d+/, col_number);
+
+			$('#post-title').parent().attr('class', content_class);
 		});
 </script>
 </body>
