@@ -311,18 +311,26 @@
 
 			var col_number = content_class.match(/\d+/)[0];
 			col_number = parseInt(col_number) + 1;
+			
+			if (col_number > 12) {
+				return;
+			}
 
 			content_class = content_class.replace(/\d+/, col_number);
 
 			$('#post-title').parent().attr('class', content_class);
 		});
-		
+
 		$('#page-col-minus').click(function ()
 		{
 			var content_class = $('#post-title').parent().attr('class');
 
 			var col_number = content_class.match(/\d+/)[0];
 			col_number = parseInt(col_number) - 1;
+			
+			if (col_number < 1) {
+				return;
+			}
 
 			content_class = content_class.replace(/\d+/, col_number);
 
