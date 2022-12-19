@@ -169,15 +169,13 @@
 			<div class="content-header">
 				<div class="container-fluid">
 					<div class="row">
-						<table class="table table-responsive">
-							<tr>
-								<td class="mailbox-star"><i class="fas fa-map-marker-alt"></i> <a href="#" id="post-source"></a></td>
-								<td class="mailbox-name"><i class="fas fa-user-edit"></i> <a href="#" id="post-creator"></a></td>
-								<td class="mailbox-subject"><i class="fas fa-cubes"></i> <span id="post-category"></span></td>
-								<td class="mailbox-attachment"><i class="far fa-thumbs-up"></i> <span id="post-vote"></span></td>
-								<td class="mailbox-date"><i class="far fa-calendar-minus"></i> <span id="post-created"></span></td>
-							</tr>
-						</table>
+						<div class="col-lg-1"><i class="fas fa-map-marker-alt"></i> <a href="#" id="post-source"></a></div>
+						<div class="col-lg-1"><i class="fas fa-user-edit"></i> <a href="#" id="post-creator"></a></div>
+						<div class="col-lg-1"><i class="fas fa-cubes"></i> <span id="post-category"></span></div>
+						<div class="col-lg-1"><i class="far fa-thumbs-up"></i> <span id="post-vote"></span></div>
+						<div class="col-lg-1"><i class="far fa-calendar-minus"></i> <span id="post-created"></span></div>
+					</div>
+					<div class="row">
 						<table class="table table-responsive">
 							<tr>
 								<td><a href="" target="_blank" id="post-link"><button class="btn btn-sm btn-default"><i class="fas fa-external-link-alt"></i> Gốc</button></a></td>
@@ -301,9 +299,9 @@
 			fsdb.collection("posts").doc(docid).delete()
 			.catch((error) => {
 			console.log(error);
-			});*/
-			}
-		});
+		});*/
+	}
+});
 
 		$('#page-col-plus').click(function ()
 		{
@@ -336,6 +334,6 @@
 
 			$('#post-title').parent().attr('class', content_class);
 		});
-</script>
+	</script>
 </body>
 </html>
