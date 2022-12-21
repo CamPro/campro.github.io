@@ -1,3 +1,11 @@
+var url = new URL(window.location.href);
+
+fetch(url.origin+'/html_sidebar.html')
+.then(response => response.text())
+.then(data => {
+	$('.sidebar').html(data);
+});
+
 if (sessionStorage.darkMode == 'true')
 {
 	$('#dark-mode').prop('checked', true);
