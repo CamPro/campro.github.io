@@ -4,6 +4,7 @@ fetch(url.origin+'/html_sidebar.html')
 .then(response => response.text())
 .then(data => {
 	$('.sidebar').html(data);
+	$('a.nav-link[href="'+url.pathname+'"]').addClass('active');
 });
 
 if (sessionStorage.darkMode == 'true')
