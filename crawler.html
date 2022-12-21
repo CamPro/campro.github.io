@@ -13,12 +13,12 @@
 		{
 			document.getElementById('post-frame').contentWindow.onkeyup = function()
 			{
-				farmContent();
+				frameToHtmlCode();
 			};
 
 			document.getElementById('post-frame').contentDocument.onchange = function()
 			{
-				farmContent();
+				frameToHtmlCode();
 			};
 		}
 	</script>
@@ -290,7 +290,7 @@
 									<div class="form-group">
 										<textarea class="form-control" rows="20" id="post-content"></textarea>
 										<label class="btn btn-sm btn-default" id="post-view">HTML Preview <i class="fas fa-arrow-down"></i></label>
-										<label class="btn btn-sm btn-default" onclick="farmContent()">HTML Update <i class="fas fa-arrow-up"></i></label>
+										<label class="btn btn-sm btn-default" onclick="frameToHtmlCode()">HTML Update <i class="fas fa-arrow-up"></i></label>
 									</div>
 								</div>
 							</div>
@@ -327,7 +327,7 @@
 
 		var url = new URL(window.location.href);
 
-		fetch('https://raw.githubusercontent.com/CamPro/'+url.host+'/main/pages/posts.json')
+		fetch('https://'+url.host+'/pages/posts.json')
 		.then(response => response.text())
 		.then(data => {
 			var obj = JSON.parse(data);
@@ -376,7 +376,7 @@
 				$('#post-avatar').attr('src', value.image);
 				$('a.post-link').attr('href', value.link);
 
-				fetch('https://raw.githubusercontent.com/CamPro/'+url.host+'/main/pages/'+value.source+'/'+value.slug+'.html')
+				fetch('https://'+url.host+'/pages/'+value.source+'/'+value.slug+'.html')
 				.then(response => response.text())
 				.then(data => {
 					$('#post-content').val(data);
@@ -384,6 +384,8 @@
 				// enable approval
 				$('#post-approval').prop('disabled', false);
 				$('#post-skip').prop('disabled', false);
+				// show html
+				htmlCodeToFrame();
 			}
 		});
 
@@ -416,7 +418,7 @@
 		// update posts.json to database
 		$('#post-sync').click(function ()
 		{
-			fetch('https://raw.githubusercontent.com/CamPro/'+url.host+'/main/pages/posts.json')
+			fetch('https://'+url.host+'/pages/posts.json')
 			.then(response => response.text())
 			.then(data => {
 				var objs = JSON.parse(data);
@@ -512,6 +514,15 @@
 
 		$('#post-view').click(function ()
 		{
+			htmlCodeToFrame();
+		});
+
+		$('#post-title').change(function () {
+			$('#post-slug').val(TextToSlug(this.value));
+		})
+
+		function htmlCodeToFrame()
+		{
 			var myContent = $('#post-content').val();
 			myContent = '<body contentEditable="true">' + myContent + '</body>';
 
@@ -521,13 +532,9 @@
 
 			//change the height of the iframe
 			document.getElementById('post-frame').height = (iframeView.document.body.offsetHeight + 50) + 'px';
-		});
+		}
 
-		$('#post-title').change(function () {
-			$('#post-slug').val(TextToSlug(this.value));
-		})
-
-		function farmContent()
+		function frameToHtmlCode()
 		{
 			var iframeView = document.getElementById('post-frame').contentWindow || document.getElementById('post-frame').contentDocument;
 			myContent = iframeView.document.documentElement.outerHTML;
