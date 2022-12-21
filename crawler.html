@@ -325,7 +325,7 @@
 
 		var url = new URL(window.location.href);
 
-		fetch('https://'+url.host+'/pages/posts.json')
+		fetch(url.origin+'/pages/posts.json')
 		.then(response => response.text())
 		.then(data => {
 			var obj = JSON.parse(data);
@@ -374,7 +374,7 @@
 				$('#post-avatar').attr('src', value.image);
 				$('a.post-link').attr('href', value.link);
 
-				fetch('https://'+url.host+'/pages/'+value.source+'/'+value.slug+'.html')
+				fetch(url.origin+'/pages/'+value.source+'/'+value.slug+'.html')
 				.then(response => response.text())
 				.then(data => {
 					$('#post-content').val(data);
@@ -414,7 +414,7 @@
 		// update posts.json to database
 		$('#post-sync').click(function ()
 		{
-			fetch('https://'+url.host+'/pages/posts.json')
+			fetch(url.origin+'/pages/posts.json')
 			.then(response => response.text())
 			.then(data => {
 				var objs = JSON.parse(data);

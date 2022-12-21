@@ -236,7 +236,7 @@
 		slug = url.searchParams.get("slug");
 		docid = url.searchParams.get("docid");
 
-		fetch('https://'+url.host+'/pages/'+source+'/'+slug+'.html')
+		fetch(url.origin+'/pages/'+source+'/'+slug+'.html')
 		.then(response => response.text())
 		.then(data => {
 			$('#post-content').html(data);
