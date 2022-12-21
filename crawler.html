@@ -380,8 +380,6 @@
 				.then(response => response.text())
 				.then(data => {
 					$('#post-content').val(data);
-					// show html
-					htmlCodeToFrame();
 				});
 				// enable approval
 				$('#post-approval').prop('disabled', false);
