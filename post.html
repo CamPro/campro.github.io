@@ -247,6 +247,10 @@
 			{
 				return;
 			}
+			if (!confirm('Thực sự muốn xoá vĩnh viễn?'))
+			{
+				return;
+			}
 			fsdb.collection("posts").doc(docid).delete()
 			.catch((error) => {
 				console.log(error);
