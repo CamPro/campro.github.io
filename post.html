@@ -191,6 +191,8 @@
 			$('#post-content').html(data);
 		});
 
+		let number_reads = 0;
+
 		fsdb.collection("posts").doc(docid).get().then((doc) => {
 			if (doc.exists)
 			{
@@ -200,7 +202,10 @@
 				$('#post-creator').text(docdata.creator);
 				$('#post-category').text(docdata.category);
 				$('#post-vote').text(docdata.vote);
+
 				$('#post-number-read').text(docdata.number_reads);
+				$('#post-number-readed').text(docdata.number_reads);
+				number_reads = docdata.number_reads;
 
 				$('#post-link').attr('href', docdata.link);
 				$('#post-edit').attr('href', 'post/update.html?docid='+docid);
@@ -222,21 +227,16 @@
 			console.log("Error getting document:", error);
 		});
 
-		let number_reads = 0;
-		fsdb.collection("posts").doc(docid).onSnapshot((doc) =>
-		{
-			number_reads = doc.data().number_reads;
-			$('#post-number-read').text(number_reads);
-			$('#post-number-readed').text(number_reads);
-		});
-
 		$('#post-readed, #post-read').click(function ()
 		{
 			$(this).prop('disabled', true);
 			fsdb.collection("posts").doc(docid).update({
 				number_reads: ++number_reads
 			})
-			.then(() => {}).catch((error) => {
+			.then(() => {
+				$('#post-number-read').text(number_reads);
+				$('#post-number-readed').text(number_reads);
+			}).catch((error) => {
 				console.log(error);
 			});
 		});
