@@ -243,16 +243,14 @@
 
 		$('#post-delete').click(function ()
 		{
-			if (confirm('Xóa kinh điển?'))
+			if (!confirm('Xóa kinh điển?'))
 			{
-				console.log('delete');
-			/*
+				return;
+			}
 			fsdb.collection("posts").doc(docid).delete()
 			.catch((error) => {
-			console.log(error);
-				});
-			*/
-			}
+				console.log(error);
+			});
 		});
 
 		$('.icon-star').click(function () {
