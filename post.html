@@ -214,6 +214,8 @@
 				let created = moment.unix(docdata.created).format("DD/MM/YYYY");
 				$('#post-created').text(created);
 
+				ShowScore(docdata.score);
+
 				if (docdata.title) {
 					document.title = docdata.title;
 				}
