@@ -1,6 +1,6 @@
 var url = new URL(window.location.href);
 
-fetch(url.origin+'/html_sidebar.html')
+fetch('./html_sidebar.html')
 .then(response => response.text())
 .then(data => {
 	$('.sidebar nav').html(data);
@@ -18,6 +18,9 @@ if (sessionStorage.sidebarCollapse == 'true')
 {
 	$('body').addClass('sidebar-collapse');
 }
+
+$('[data-toggle="tooltip"]').tooltip()
+
 $('#dark-mode').click(function ()
 {
 	if ($(this).is(':checked'))
