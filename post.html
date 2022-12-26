@@ -230,6 +230,8 @@
 			console.log("Error getting document:", error);
 		});
 
+		$('[data-toggle="tooltip"]').tooltip();
+
 		$('#post-readed, #post-read').click(function ()
 		{
 			$(this).prop('disabled', true);

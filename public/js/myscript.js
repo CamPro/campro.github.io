@@ -19,8 +19,6 @@ if (sessionStorage.sidebarCollapse == 'true')
 	$('body').addClass('sidebar-collapse');
 }
 
-$('[data-toggle="tooltip"]').tooltip()
-
 $('#dark-mode').click(function ()
 {
 	if ($(this).is(':checked'))
