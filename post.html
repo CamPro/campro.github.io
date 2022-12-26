@@ -276,7 +276,7 @@
 
 		$('#page-col-plus').click(function ()
 		{
-			var content_class = $('#post-title').parent().attr('class');
+			var content_class = $('#post-content').parent().attr('class');
 
 			var col_number = content_class.match(/\d+/)[0];
 			col_number = parseInt(col_number) + 1;
@@ -287,12 +287,12 @@
 
 			content_class = content_class.replace(/\d+/, col_number);
 
-			$('#post-title').parent().attr('class', content_class);
+			$('#post-content').parent().attr('class', content_class);
 		});
 
 		$('#page-col-minus').click(function ()
 		{
-			var content_class = $('#post-title').parent().attr('class');
+			var content_class = $('#post-content').parent().attr('class');
 
 			var col_number = content_class.match(/\d+/)[0];
 			col_number = parseInt(col_number) - 1;
@@ -303,7 +303,7 @@
 
 			content_class = content_class.replace(/\d+/, col_number);
 
-			$('#post-title').parent().attr('class', content_class);
+			$('#post-content').parent().attr('class', content_class);
 		});
 
 		function ShowScore(score)
