@@ -547,9 +547,12 @@
 			var content = $('#room-content').val();
 
 			// rút gọn các thẻ
-			var content = $('#room-content').val();
 			let matches = content.matchAll(/<(\w+) .*?>/g);
+
 			for (match of matches) {
+			    if (match[1] == 'iframe') {
+			    	continue;
+			    }
 			    content = content.replace(match[0], '<' + match[1] + '>');
 			}
 			// loại bỏ ký tự cách
