@@ -567,8 +567,10 @@
 				content = content.replace(/<\w+><\/\w+>/g, '');
 			}
 
-			$('#room-content').val(content);
+			// set html
 			$('#card-content').html(content);
+			content = $('#card-content').html();
+			$('#room-content').val(content);
 		})
 		// set chiều dài iframe
 		function SetFrameHeight(number)
