@@ -545,30 +545,24 @@
 		$('#room-lesson-format').click(function ()
 		{
 			var content = $('#room-content').val();
-			// loại bỏ các thẻ span
-			content = content.replace(/<span.*?>/g, '').replace(/<\/span>/g, '');
+
+			// rút gọn các thẻ
+			var content = $('#room-content').val();
+			let matches = content.matchAll(/<(\w+) .*?>/g);
+			for (match of matches) {
+			    content = content.replace(match[0], '<' + match[1] + '>');
+			}
 			// loại bỏ ký tự cách
 			content = content.replace(/&nbsp;/g, ' ');
-			// rút gọn các thẻ div
-			content = content.replace(/<div.*?>/g, '<div>');
-			// loại bỏ các class, alt, title
-			content = content.replace(/class=".*?"/g, '').replace(/alt=".*?"/g, '').replace(/title=".*?"/g, '');
-			// rút gọn các thẻ p
-			content = content.replace(/<p.*?>/g, '<p>');
-			content = content.replace(/<a.*?>/g, '<a>');
-			content = content.replace(/<div.*?>/g, '<div>');
-			content = content.replace(/<span.*?>/g, '<span>');
-			content = content.replace(/<h1.*?>/g, '<h1>');
-			content = content.replace(/<h2.*?>/g, '<h2>');
-			content = content.replace(/<h3.*?>/g, '<h3>');
-			content = content.replace(/<h4.*?>/g, '<h4>');
-			content = content.replace(/<h5.*?>/g, '<h5>');
-			// rút gọn các thẻ thừa
-			content = content.replace(/<\w+><\/\w+>/g, '');
-			// rút gọn các khoản trống
-			content = content.replace(/>\s+</g, '><');
+			// loại bỏ các khoản trống
+			content = content.replace(/>\s+</g, '><').replace(/\s+>/g, '>').replace(/>\s+/g, '>');
 			// loại bỏ nhiều khoảng trắng
-			content = content.replace(/\s+/g, ' ').replace(/\s+>/g, '>').replace(/>\s+/g, '>');
+			content = content.replace(/\s+/g, ' ');
+			// rút gọn các thẻ thừa
+			for (var i = 0; i < 10; i++)
+			{
+				content = content.replace(/<\w+><\/\w+>/g, '');
+			}
 
 			$('#room-content').val(content);
 			$('#card-content').html(content);
