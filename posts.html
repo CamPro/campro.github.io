@@ -246,9 +246,9 @@
 			console.log(error);
 		});
 
-		var dataSet = [];
-
-		var dataTable = $('#posts_datatable').DataTable({
+		var dataSet = ['', '', '', '', ''];
+		var dataTable = $('#posts_datatable').DataTable();
+		dataTable.DataTable({
 			"paging": true,
 			"lengthChange": true,
 			"searching": true,
@@ -265,7 +265,11 @@
 						querySnapshot.forEach((doc) => {
 							RenderListTable(doc, '#posts_datatable tbody');
 						});
-						dataTable.rows.add(dataSet).draw();
+
+						dataTable.clear(); // Clear your data
+						dataTable.rows.add(dataSet); // Add rows with newly updated data
+						dataTable.draw(); //then draw it
+
 					})
 					.catch((error) => {
 						console.log(error);
