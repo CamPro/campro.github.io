@@ -247,7 +247,12 @@
 		});
 
 		var dataSet = [];
-		var dataTable = $('#posts_datatable').DataTable({
+		let json_posts = localStorage.getItem("posts");
+		if (json_posts) {
+			dataSet = JSON.parse(json_posts);
+		}
+
+		var data_table = $('#posts_datatable').DataTable({
 			"paging": true,
 			"lengthChange": true,
 			"searching": true,
@@ -273,11 +278,12 @@
 							dataSet.push(objs);
 						});
 
-						dataTable = $('#posts_datatable').DataTable();
-						dataTable.clear(); // Clear your data
-						dataTable.rows.add(dataSet); // Add rows with newly updated data
-						dataTable.draw(); //then draw it
+						data_table = $('#posts_datatable').DataTable();
+						data_table.clear(); // Clear your data
+						data_table.rows.add(dataSet); // Add rows with newly updated data
+						data_table.draw(); //then draw it
 
+						localStorage.setItem("posts", JSON.stringify(dataSet));
 					})
 					.catch((error) => {
 						console.log(error);
