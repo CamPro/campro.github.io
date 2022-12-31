@@ -223,6 +223,7 @@
 			else
 			{
 				console.log("No such document!");
+				$('.content-header .container-fluid').html("Không tìm thấy dữ liệu!");
 			}
 		}).catch((error) => {
 			console.log("Error getting document:", error);
