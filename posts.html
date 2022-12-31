@@ -107,6 +107,7 @@
 								<table id="posts_datatable" class="table table-bordered table-striped text-nowrap">
 									<thead>
 										<tr>
+											<th></th>
 											<th>Tiêu Đề</th>
 											<th>Nguồn</th>
 											<th>Danh Mục</th>
@@ -294,6 +295,7 @@
 				}
 			}],
 			"columns": [
+				{ "data": "index" },
 				{
 					"data": "title",
 					"render": function ( data, type, row, meta ) {
@@ -314,6 +316,8 @@
 				{ "data": "vote" },
 			],
 		}).buttons().container().appendTo('#posts_datatable_wrapper .col-md-6:eq(0)');
+
+		$('.dataTables_filter input').css('width', 1000);
 
 		$('#list-new-more').click(function ()
 		{
