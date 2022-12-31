@@ -1,11 +1,12 @@
 var url = new URL(window.location.href);
-
-fetch((url.host == '' ? '.' : url.origin) + '/html_sidebar.html')
-.then(response => response.text())
-.then(data => {
-	$('.sidebar nav').html(data);
-	$('a.nav-link[href="' + url.pathname + '"]').addClass('active');
-});
+if (url.host) {
+	fetch(url.origin + '/html_sidebar.html')
+	.then(response => response.text())
+	.then(data => {
+		$('.sidebar nav').html(data);
+		$('a.nav-link[href="' + url.pathname + '"]').addClass('active');
+	});
+}
 
 if (sessionStorage.darkMode == 'true')
 {

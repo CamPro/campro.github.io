@@ -259,12 +259,21 @@
 			"buttons": ["copy", "csv", "print", "colvis", {
 				text: 'Tải tất cả Kinh Điển',
 				action: function ( e, dt, node, config ) {
-					fsdb.collection("posts").get()
+					fsdb.collection("posts").limit(11).get()
 					.then((querySnapshot) => {
 						querySnapshot.forEach((doc) => {
-							RenderListTable(doc, '#posts_datatable tbody');
+							let docid = doc.id;
+							let docdata = doc.data();
+
+							let objs = {
+								'id': docid
+							};
+							Object.assign(objs, docdata);
+
+							dataSet.push(objs);
 						});
 
+						dataTable = $('#posts_datatable').DataTable();
 						dataTable.clear(); // Clear your data
 						dataTable.rows.add(dataSet); // Add rows with newly updated data
 						dataTable.draw(); //then draw it
@@ -276,12 +285,23 @@
 				}
 			}],
 			"columns": [
-			{ "data": "engine" },
-			{ "data": "browser" },
-			{
-				"data": "platform",
-				"render": "[, ].name"
-			}
+				{
+					"data": "title",
+					"render": function ( data, type, row, meta ) {
+						let linkurl = './post.html?source=' + row.source + '&slug=' + row.slug + '&docid=' + row.id;
+						return '<a href="' + linkurl + '" target="_blank">' + row.title + '</a>';
+					}
+				},
+				{ "data": "source" },
+				{ "data": "category" },
+				{ "data": "creator" },
+				{
+					"data": "created",
+					"render": function ( data, type, row, meta ) {
+						let created = moment.unix(row.created).format("DD/MM/YYYY");
+						return created;
+					}
+				},
 			],
 		}).buttons().container().appendTo('#posts_datatable_wrapper .col-md-6:eq(0)');
 
@@ -350,7 +370,7 @@
 			let docdata = doc.data();
 
 			let created = moment.unix(docdata.created).format("DD/MM/YYYY");
-			let linkurl = '/post.html?source=' + docdata.source + '&slug=' + docdata.slug + '&docid=' + docid;
+			let linkurl = './post.html?source=' + docdata.source + '&slug=' + docdata.slug + '&docid=' + docid;
 
 			var item = '<li class="item">';
 			item += '<div class="product-img">';
@@ -381,28 +401,6 @@
 			$(ul).append(item);
 		}
 
-		function RenderListTable(doc, table)
-		{
-			let docid = doc.id;
-			let docdata = doc.data();
-
-			let created = moment.unix(docdata.created).format("DD/MM/YYYY");
-			let linkurl = '/post.html?source=' + docdata.source + '&slug=' + docdata.slug + '&docid=' + docid;
-
-			dataSet.push([docdata.title, docdata.source, docdata.category, docdata.creator, created]);
-			
-			/*
-			var item = '<tr>';
-			item += '<td><a href="' + linkurl + '" class="product-title">' + docdata.title + '</a></td>';
-			item += '<td>' + docdata.source + '</td>';
-			item += '<td>' + docdata.category + '</td>';
-			item += '<td>' + docdata.creator + '</td>';
-			item += '<td>' + created + '</td>';
-			item += '</tr>';
-
-			$(table).append(item);
-			*/
-		}
 	</script>
 </body>
 </html>
