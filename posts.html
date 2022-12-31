@@ -248,7 +248,7 @@
 
 		var dataSet = ['', '', '', '', ''];
 		var dataTable = $('#posts_datatable').DataTable();
-		dataTable.DataTable({
+		dataTable = $('#posts_datatable').DataTable({
 			"paging": true,
 			"lengthChange": true,
 			"searching": true,
@@ -258,9 +258,9 @@
 			"responsive": true,
 			"data": dataSet,
 			"buttons": ["copy", "csv", "print", "colvis", {
-                text: 'Tải tất cả Kinh Điển',
-                action: function ( e, dt, node, config ) {
-                    fsdb.collection("posts").get()
+				text: 'Tải tất cả Kinh Điển',
+				action: function ( e, dt, node, config ) {
+					fsdb.collection("posts").get()
 					.then((querySnapshot) => {
 						querySnapshot.forEach((doc) => {
 							RenderListTable(doc, '#posts_datatable tbody');
@@ -274,9 +274,17 @@
 					.catch((error) => {
 						console.log(error);
 					});
-                }
-            }]
-    	}).buttons().container().appendTo('#posts_datatable_wrapper .col-md-6:eq(0)');
+				}
+			}],
+			"columns": [
+			{ "data": "engine" },
+			{ "data": "browser" },
+			{
+				"data": "platform",
+				"render": "[, ].name"
+			}
+			],
+		}).buttons().container().appendTo('#posts_datatable_wrapper .col-md-6:eq(0)');
 
 		$('#list-new-more').click(function ()
 		{
