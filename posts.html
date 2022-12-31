@@ -259,7 +259,7 @@
 			"buttons": ["copy", "csv", "print", "colvis", {
 				text: 'Tải tất cả Kinh Điển',
 				action: function ( e, dt, node, config ) {
-					fsdb.collection("posts").limit(11).get()
+					fsdb.collection("posts").get()
 					.then((querySnapshot) => {
 						querySnapshot.forEach((doc) => {
 							let docid = doc.id;
