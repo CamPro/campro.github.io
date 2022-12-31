@@ -103,19 +103,22 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-lg-12">
-							<table id="posts_datatable" class="table table-bordered table-striped">
-								<thead>
-									<tr>
-										<th>Tiêu Đề</th>
-										<th>Nguồn</th>
-										<th>Danh Mục</th>
-										<th>Tác Giả</th>
-										<th>Ngày Tạo</th>
-									</tr>
-								</thead>
-								<tbody>
-								</tbody>
-							</table>
+							<div class="table-responsive">
+								<table id="posts_datatable" class="table table-bordered table-striped text-nowrap">
+									<thead>
+										<tr>
+											<th>Tiêu Đề</th>
+											<th>Nguồn</th>
+											<th>Danh Mục</th>
+											<th>Tác Giả</th>
+											<th>Ngày Tạo</th>
+											<th>Vote</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 					<div class="row">
@@ -259,10 +262,10 @@
 			"ordering": true,
 			"info": true,
 			"autoWidth": false,
-			"responsive": true,
+			"responsive": false,
 			"data": dataSet,
 			"buttons": ["copy", "csv", "print", "colvis", {
-				text: 'Tải tất cả Kinh Điển',
+				text: 'Làm mới tất cả Kinh Điển',
 				action: function ( e, dt, node, config ) {
 					fsdb.collection("posts").get()
 					.then((querySnapshot) => {
@@ -304,10 +307,11 @@
 				{
 					"data": "created",
 					"render": function ( data, type, row, meta ) {
-						let created = moment.unix(row.created).format("DD/MM/YYYY");
+						let created = moment.unix(row.created).format("YYYY-MM-DD");//format("DD/MM/YYYY");
 						return created;
 					}
 				},
+				{ "data": "vote" },
 			],
 		}).buttons().container().appendTo('#posts_datatable_wrapper .col-md-6:eq(0)');
 
