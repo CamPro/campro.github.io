@@ -269,6 +269,9 @@
 				action: function ( e, dt, node, config ) {
 					fsdb.collection("posts").get()
 					.then((querySnapshot) => {
+
+						dataSet = [];
+
 						querySnapshot.forEach((doc) => {
 							let docid = doc.id;
 							let docdata = doc.data();
