@@ -246,10 +246,8 @@
 			console.log(error);
 		});
 
-		var dataSet = ['', '', '', '', ''];
-		var dataTable = null;
-		
-		dataTable = $('#posts_datatable').DataTable({
+		var dataSet = [];
+		var dataTable = $('#posts_datatable').DataTable({
 			"paging": true,
 			"lengthChange": true,
 			"searching": true,
@@ -373,7 +371,7 @@
 			item += '</div>';
 			item += '<div class="card-comment">';
 			item += '<div class="comment-text">' + docdata.category;
-			item += '<div class="float-right"><small><a href="' + docdata.link + '" class="text-gray" target="_blank" id="post-link"><i class="fas fa-external-link-alt"></i></a></small> <small><a href="/post/update.html?docid=' + docid + '" class="text-gray" id="post-link"><i class="fas fa-edit"></i></a></small></div>';
+			item += '<div class="float-right"><small><a href="' + docdata.link + '" class="text-gray" target="_blank" id="post-link"><i class="fas fa-external-link-alt"></i></a></small> <small><a href="/post_edit.html?docid=' + docid + '" class="text-gray" id="post-link"><i class="fas fa-edit"></i></a></small></div>';
 			item += '</div>';
 			item += '</div>';
 			item += '</span>';

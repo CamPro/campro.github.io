@@ -211,7 +211,7 @@
 				number_reads = docdata.number_reads;
 
 				$('#post-link').attr('href', docdata.link);
-				$('#post-edit').attr('href', 'post/update.html?docid='+docid);
+				$('#post-edit').attr('href', '/post_edit.html?docid='+docid);
 
 				let created = moment.unix(docdata.created).format("DD/MM/YYYY");
 				$('#post-created').text(created);

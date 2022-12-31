@@ -1,6 +1,6 @@
 var url = new URL(window.location.href);
 
-fetch(url.origin + '/html_sidebar.html')
+fetch((url.host == '' ? '.' : url.origin) + '/html_sidebar.html')
 .then(response => response.text())
 .then(data => {
 	$('.sidebar nav').html(data);
