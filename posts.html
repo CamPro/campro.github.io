@@ -230,7 +230,7 @@
 			console.log(error);
 		});
 
-		var firstRead = fsdb.collection("posts").orderBy("number_reads", "asc").limit(3).get()
+		var firstRead = fsdb.collection("posts").orderBy("score", "asc").limit(3).get()
 		.then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				RenderList(doc, '#list-read-post');
@@ -382,7 +382,7 @@
 
 		$('#list-read-more').click(function ()
 		{
-			fsdb.collection("posts").orderBy("number_reads", "asc").startAfter(lastRead).limit(limit_post).get()
+			fsdb.collection("posts").orderBy("score", "asc").startAfter(lastRead).limit(limit_post).get()
 			.then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					RenderList(doc, '#list-read-post');

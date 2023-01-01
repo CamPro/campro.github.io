@@ -258,11 +258,12 @@
 			var score = $(this).data('star');
 			score = parseInt(score);
 
+			ShowScore(score);
+
 			fsdb.collection("posts").doc(docid).update({
 				score: score
-			}).then(() => {
-				ShowScore(score);
-			}).catch((error) => {
+			}).then(() => {}).catch((error) => {
+				ShowScore(0);
 				Toast.fire({ icon: 'error', title: error });
 			});
 		})
