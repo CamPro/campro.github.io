@@ -200,21 +200,15 @@
 			$('#post-content').html(data);
 		});
 
-		let number_reads = 0;
-
 		fsdb.collection("posts").doc(docid).get().then((doc) => {
 			if (doc.exists)
 			{
 				let docdata = doc.data();
-				$('#post-source').text(docdata.source);
 				$('#post-title').text(docdata.title);
+				$('#post-source').text(docdata.source);
 				$('#post-creator').text(docdata.creator);
 				$('#post-category').text(docdata.category);
 				$('#post-vote').text(docdata.vote);
-
-				$('#post-number-read').text(docdata.number_reads);
-				$('#post-number-readed').text(docdata.number_reads);
-				number_reads = docdata.number_reads;
 
 				$('#post-link').attr('href', docdata.link);
 				$('#post-edit').attr('href', '/post_edit.html?docid='+docid);
