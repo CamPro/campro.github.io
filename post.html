@@ -230,10 +230,10 @@
 			}
 			else
 			{
-				console.log("No such document!");
 				$('.content-header .container-fluid').html("Không tìm thấy dữ liệu!");
 			}
 		}).catch((error) => {
+			Toast.fire({ icon: 'error', title: error });
 			console.log("Error getting document:", error);
 		});
 
@@ -241,11 +241,7 @@
 
 		$('#post-delete').click(function ()
 		{
-			if (!confirm('Xóa kinh điển?'))
-			{
-				return;
-			}
-			if (!confirm('Thực sự muốn xoá vĩnh viễn?'))
+			if (!confirm('Xóa kinh điển vĩnh viễn?'))
 			{
 				return;
 			}
@@ -255,7 +251,6 @@
 			})
 			.catch((error) => {
 				Toast.fire({ icon: 'error', title: error });
-				console.log(error);
 			});
 		});
 
@@ -265,12 +260,11 @@
 
 			fsdb.collection("posts").doc(docid).update({
 				score: score
-			})
-			.then(() => {}).catch((error) => {
-				console.log(error);
+			}).then(() => {
+				ShowScore(score);
+			}).catch((error) => {
+				Toast.fire({ icon: 'error', title: error });
 			});
-
-			ShowScore(score);
 		})
 
 		$('#page-col-plus').click(function ()
