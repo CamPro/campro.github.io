@@ -113,6 +113,7 @@
 											<th>Tác Giả</th>
 											<th>Ngày Tạo</th>
 											<th>Vote</th>
+											<th>Điểm</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -282,7 +283,7 @@
 							Object.assign(objs, docdata);
 
 							// giam du lieu luu tru
-							objs["image"] = "";
+							delete objs.image;
 
 							dataSet.push(objs);
 						});
@@ -318,6 +319,7 @@
 					}
 				},
 				{ "data": "vote" },
+				{ "data": "score" },
 			],
 		}).buttons().container().prependTo('#posts_datatable_wrapper');
 
