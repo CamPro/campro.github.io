@@ -106,15 +106,6 @@
 							<div class="table-responsive">
 								<table id="posts_datatable" class="table table-bordered table-striped text-nowrap">
 									<thead>
-										<tr>
-											<th>Tiêu Đề</th>
-											<th>Nguồn</th>
-											<th>Danh Mục</th>
-											<th>Tác Giả</th>
-											<th>Ngày Tạo</th>
-											<th>Vote</th>
-											<th>Điểm</th>
-										</tr>
 									</thead>
 									<tbody>
 									</tbody>
@@ -294,6 +285,8 @@
 						data_table.draw(); //then draw it
 
 						localStorage.setItem("posts", JSON.stringify(dataSet));
+
+						Toast.fire({ icon: 'success', title: 'Đã làm mới xong.' });
 					})
 					.catch((error) => {
 						console.log(error);
@@ -303,23 +296,37 @@
 			"columns": [
 				{
 					"data": "title",
+					"title": "Tiêu Đề",
 					"render": function ( data, type, row, meta ) {
 						let linkurl = './post.html?source=' + row.source + '&slug=' + row.slug + '&docid=' + row.id;
 						return '<a href="' + linkurl + '" target="_blank">' + row.title + '</a>';
 					}
 				},
-				{ "data": "source" },
-				{ "data": "category" },
-				{ "data": "creator" },
+				{
+					"data": "score",
+					"title": "Điểm"
+				},
+				{
+					"data": "source",
+					"title": "Nguồn Gốc"
+				},
+				{
+					"data": "category",
+					"title": "Chủ Đề"
+				},
+				{
+					"data": "creator",
+					"title": "Người tạo"
+				},
 				{
 					"data": "created",
+					"title": "Ngày Tạo",
 					"render": function ( data, type, row, meta ) {
 						let created = moment.unix(row.created).format("YYYY-MM-DD");//format("DD/MM/YYYY");
 						return created;
 					}
 				},
 				{ "data": "vote" },
-				{ "data": "score" },
 			],
 		}).buttons().container().prependTo('#posts_datatable_wrapper');
 
