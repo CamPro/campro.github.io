@@ -274,7 +274,7 @@
 			$('a.post-link').attr('href', '#');
 			$('#post-content').val('');
 			htmlCodeToFrame();
-			
+
 			if (value)
 			{
 				tempIndex = Object.keys(value)[0];
@@ -437,6 +437,10 @@
 		});
 
 		$('#post-title').change(function () {
+			let slug = $('#post-slug').val();
+			if (slug) {
+				return;
+			}
 			$('#post-slug').val(TextToSlug(this.value));
 		})
 
