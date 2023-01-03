@@ -121,7 +121,7 @@
 									</span>
 								</div>
 								<div class="col-lg-3">
-									<span class="post-favourite"><i class="fas fa-gem"></i> Thích</span>
+									<button class="btn btn-sm btn-default post-favourite"><i class="fas fa-gem"></i> <span>Thích</span></button>
 								</div>
 							</div>
 						</div>
@@ -137,7 +137,7 @@
 							<span class="icon-star" data-star="8" data-toggle="tooltip" data-html="true" title="<h4>8 điểm: Xuất sắc khá</h4><p>- Nên đọc nhiều lần</p>"><i class="far fa-star"></i></span>
 							<span class="icon-star" data-star="9" data-toggle="tooltip" data-html="true" title="<h4>9 điểm: Xuất sắc chuẩn</h4><p>- Nên đọc nhiều lần</p> <p>- Nên in ra giấy</p>"><i class="far fa-star"></i></span>
 							<span class="icon-star" data-star="10" data-toggle="tooltip" data-html="true" title="<h4>10 điểm: Xuất sắc vượt trội</h4><p>- Nên đọc nhiều lần</p> <p>- Nên in ra giấy</p>"><i class="far fa-star"></i></span>
-							<span class="icon-description"></span>
+							<span class="icon-description text-orange text-bold"></span>
 						</div>
 					</div>
 				</div>
@@ -165,7 +165,7 @@
 					<span class="icon-star" data-star="8" data-toggle="tooltip" title="8 điểm"><i class="far fa-star"></i></span>
 					<span class="icon-star" data-star="9" data-toggle="tooltip" title="9 điểm"><i class="far fa-star"></i></span>
 					<span class="icon-star" data-star="10" data-toggle="tooltip" title="10 điểm"><i class="far fa-star"></i></span>
-					<span class="icon-description"></span>
+					<span class="icon-description text-orange text-bold"></span>
 				</div>
 			</div>
 		</div>
@@ -297,9 +297,13 @@
 			$('#post-content').parent().attr('class', content_class);
 		});
 
+		$('.post-favourite').click(function () {
+			$(this).addClass('text-blue text-bold').find('span').text('Yêu thích')
+		})
+
 		function ShowScore(score)
 		{
-			$('.icon-description').html('<b class="text-orange">' + score + '</b> điểm.');
+			$('.icon-description').html(score + ' điểm.');
 
 			for (var i = 1; i <= 10; i++) {
 				if (i <= score) {
