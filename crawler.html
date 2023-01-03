@@ -273,7 +273,8 @@
 			$('#post-avatar').attr('src', '#');
 			$('a.post-link').attr('href', '#');
 			$('#post-content').val('');
-
+			htmlCodeToFrame();
+			
 			if (value)
 			{
 				tempIndex = Object.keys(value)[0];
