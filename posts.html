@@ -118,15 +118,7 @@
 						<div class="col-sm-6">
 							<div class="card">
 								<div class="card-header">
-									<h3 class="card-title">
-										<div class="">
-											<input list="sources" type="text" class="form-control" id="post-source" value="">
-											<datalist id="sources">
-												<option value="spiderum">Spiderum</option>
-												<option value="monsterbox">Monster Box</option>
-											</datalist>
-										</div>
-									</h3>
+									<h3 class="card-title">Kinh Thư Mới Nhất</h3>
 								</div>
 								<div class="card-body p-0">
 									<ul class="products-list product-list-in-card pl-2 pr-2" id="list-new-post">
@@ -141,7 +133,7 @@
 						<div class="col-sm-6">
 							<div class="card">
 								<div class="card-header">
-									<h3 class="card-title">Tàng Kinh Các</h3>
+									<h3 class="card-title">Tàng Kinh Các - Kinh Điển Top</h3>
 								</div>
 								<div class="card-body p-0">
 									<ul class="products-list product-list-in-card pl-2 pr-2" id="list-top-post">
@@ -157,7 +149,7 @@
 						<div class="col-sm-6">
 							<div class="card">
 								<div class="card-header">
-									<h3 class="card-title">Kinh Thư Còn Ấp Ủ</h3>
+									<h3 class="card-title">Kinh Thư Chưa Chấm</h3>
 								</div>
 								<div class="card-body p-0">
 									<ul class="products-list product-list-in-card pl-2 pr-2" id="list-read-post">
@@ -337,10 +329,7 @@
 
 		$('#list-new-more').click(function ()
 		{
-			var select_source = $('#post-source').val();
-			if (select_source)
-			{
-				fsdb.collection("posts").where('source', '==', select_source).orderBy("created", "desc").startAfter(lastNew).limit(limit_post).get()
+			fsdb.collection("posts").orderBy("created", "desc").startAfter(lastNew).limit(limit_post).get()
 				.then((querySnapshot) => {
 					querySnapshot.forEach((doc) => {
 						RenderList(doc, '#list-new-post');
@@ -350,20 +339,6 @@
 				.catch((error) => {
 					console.log(error);
 				});
-			}
-			else
-			{
-				fsdb.collection("posts").orderBy("created", "desc").startAfter(lastNew).limit(limit_post).get()
-				.then((querySnapshot) => {
-					querySnapshot.forEach((doc) => {
-						RenderList(doc, '#list-new-post');
-						lastNew = doc;
-					});
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-			}
 		})
 
 		$('#list-top-more').click(function ()
@@ -407,7 +382,7 @@
 			item += '<a href="' + linkurl + '" target="_blank"><img src="' + docdata.image + '" class="img-size-50" style="width: 50px !important;"></a>';
 			item += '</div>';
 			item += '<div class="product-info">';
-			item += '<a href="' + linkurl + '" class="product-title">' + docdata.title;
+			item += '<a href="' + linkurl + '" class="product-title" target="_blank">' + docdata.title;
 			item += '<span class="badge text-success float-right"><i class="far fa-thumbs-up"></i> ' + docdata.vote + '</span>';
 			item += '</a>';
 			item += '<span class="product-description">';
