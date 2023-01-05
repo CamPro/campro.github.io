@@ -125,7 +125,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-6">
+						<div class="col-lg-5">
 							<span class="icon-star" data-star="1" data-toggle="tooltip" data-html="true" title="<h4>1 điểm</h4><p>- Nên đọc 0-1 lần</p><p>- Nên xoá</p>"><i class="far fa-star"></i></span>
 							<span class="icon-star" data-star="2" data-toggle="tooltip" data-html="true" title="<h4>2 điểm</h4><p>- Nên đọc 1-2 lần</p><p>- Nên xoá</p>"><i class="far fa-star"></i></span>
 							<span class="icon-star" data-star="3" data-toggle="tooltip" data-html="true" title="<h4>3 điểm</h4><p>- Nên đọc 1-3 lần</p><p>- Có thể xoá</p>"><i class="far fa-star"></i></span>
@@ -139,6 +139,7 @@
 							<span class="icon-star" data-star="10" data-toggle="tooltip" data-html="true" title="<h4>10 điểm: Xuất sắc vượt trội</h4><p>- Nên đọc nhiều lần</p> <p>- Nên in ra giấy</p>"><i class="far fa-star"></i></span>
 							<span class="icon-description text-orange text-bold"></span>
 						</div>
+						<div class="col-lg-1"><span id="post-length"></span></div>
 					</div>
 				</div>
 			</div>
@@ -201,6 +202,8 @@
 		.then(response => response.text())
 		.then(data => {
 			$('#post-content').html(data);
+			let post_length = $('#post-content').text().split(' ').length;
+			$('#post-length').text(post_length + ' chữ');
 		});
 
 		fsdb.collection("posts").doc(docid).get().then((doc) => {
