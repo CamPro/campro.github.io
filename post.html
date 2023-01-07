@@ -155,6 +155,7 @@
 				</div>
 				<div class="clearfix"></div>
 				<div class="text-center">
+					<span class="text-red">Hey!, chấm điểm đi:</span>
 					<span class="icon-star" data-star="1" data-toggle="tooltip" title="1 điểm"><i class="far fa-star"></i></span>
 					<span class="icon-star" data-star="2" data-toggle="tooltip" title="2 điểm"><i class="far fa-star"></i></span>
 					<span class="icon-star" data-star="3" data-toggle="tooltip" title="3 điểm"><i class="far fa-star"></i></span>
@@ -203,7 +204,7 @@
 		.then(data => {
 			$('#post-content').html(data);
 			let post_length = $('#post-content').text().split(' ').length;
-			$('#post-length').html('<b>' + post_length + '</b> chữ - <b>' + (parseInt(post_length)/300) + '</b> phút');
+			$('#post-length').html('<b>' + post_length + '</b> chữ - <b>' + Math.round(parseInt(post_length)/300) + '</b> phút');
 		});
 
 		fsdb.collection("posts").doc(docid).get().then((doc) => {
