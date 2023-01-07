@@ -155,7 +155,7 @@
 				</div>
 				<div class="clearfix"></div>
 				<div class="text-center">
-					<span class="text-red">Hey!, chấm điểm đi:</span>
+					<span class="text-yellow">Hey!, chấm điểm đi:</span>
 					<span class="icon-star" data-star="1" data-toggle="tooltip" title="1 điểm"><i class="far fa-star"></i></span>
 					<span class="icon-star" data-star="2" data-toggle="tooltip" title="2 điểm"><i class="far fa-star"></i></span>
 					<span class="icon-star" data-star="3" data-toggle="tooltip" title="3 điểm"><i class="far fa-star"></i></span>
@@ -194,6 +194,8 @@
 		let slug = "";
 		let docid = "";
 
+		var important_words = ['sự thật', 'thật sự', 'tư duy'];
+
 		var url = new URL(window.location.href);
 		source = url.searchParams.get("source");
 		slug = url.searchParams.get("slug");
@@ -202,7 +204,11 @@
 		fetch(url.origin+'/pages/'+source+'/'+slug+'.html')
 		.then(response => response.text())
 		.then(data => {
+			// highlight
+			data = HighlightImportantWords(data);
+
 			$('#post-content').html(data);
+
 			let post_length = $('#post-content').text().split(' ').length;
 			$('#post-length').html('<b>' + post_length + '</b> chữ - <b>' + Math.round(parseInt(post_length)/300) + '</b> phút');
 		});
@@ -316,7 +322,29 @@
 					$('[data-star="'+i+'"]').removeClass('text-orange').find('i').removeClass('fas').addClass('far');
 				}
 			}
-		}	
+		}
+
+		function HighlightImportantWords(text) {
+			important_words.forEach(word => {
+				let select_text = word.toLocaleLowerCase();
+				let index = 0;
+				while (index >= 0) {
+					let data_finder = text.toLocaleLowerCase();
+					index = data_finder.indexOf(select_text, index);
+					console.log(index)
+					if (index >= 0)
+					{
+						text = text.substring(0, index) + "<span class='text-red'>" + text.substring(index, index + select_text.length) + "</span>" + text.substring(index + select_text.length);
+						index += 25;
+					}
+					else
+					{
+						break;
+					}
+				}
+			})
+			return text;
+		}
 
 	</script>
 </body>
