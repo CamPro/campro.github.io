@@ -194,7 +194,7 @@
 		let slug = "";
 		let docid = "";
 
-		var important_words = [];//'sự thật', 'thật sự', 'tư duy', 'thực sự', 'sự thực'];
+		var important_words = ['sự thật', 'thật sự', 'tư duy', 'thực sự', 'sự thực'];
 
 		var url = new URL(window.location.href);
 		source = url.searchParams.get("source");
@@ -205,8 +205,7 @@
 		.then(response => response.text())
 		.then(data => {
 			// highlight
-			data = HighlightImportantWords(data);
-
+			//data = HighlightImportantWords(data);
 			$('#post-content').html(data);
 
 			let post_length = $('#post-content').text().split(' ').length;
