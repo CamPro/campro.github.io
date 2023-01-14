@@ -104,6 +104,7 @@
 					<button class="btn btn-default" id="know-backup">Sao Lưu Kho Kiến Thức</button>
 					<button class="btn btn-default" id="keyword-backup">Sao Lưu Từ Khóa</button>
 					<button class="btn btn-default" id="post-reindex">Đánh index Kho Tàng (<span id="post-reindex-number"></span>)</button>
+					<button class="btn btn-default" disabled id="multi-delete-post">Xoá nhiều</button>
 					<textarea class="form-control" rows="25" id="content-data" placeholder="Từ khóa | catelog"></textarea>
 					<button class="btn btn-default" id="keyword-update">Cập Nhật Từ Khóa (<span id="keyword-count"></span>)</button>
 					<button class="btn btn-default" id="crush-update">Cập Nhật Thả Thính (<span id="crush-count"></span>)</button>
@@ -249,7 +250,33 @@
 				console.log(error);
 			});
 		}
-
+		$('#multi-delete-post').click(function ()
+		{	
+			if (!confirm('Xóa nhiều?'))
+			{
+				return;
+			}
+			// get posts
+			fsdb.collection("posts").where("creator", "==", "quora.com").get()
+			.then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					// delete each doc
+					fsdb.collection("posts").doc(doc.id).delete()
+					.then(() => {
+						console.log('Đã xoá: ', doc.id);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+					// end delete
+				});
+				Toast.fire({ icon: 'success', title: 'Đã xoá xong.' });
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+			
+		})
 		$('#post-backup').click(function ()
 		{
 			let char = false;
