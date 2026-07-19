@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Gallery Coins</title>
 	<link rel="stylesheet" href="./public/plugins/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="./public/plugins/sweetalert2/sweetalert2.min.css">
 	<link rel="stylesheet" href="./public/plugins/ekko-lightbox/ekko-lightbox.css">
 	<link rel="stylesheet" href="./public/css/adminlte.min.css">
 	<link rel="stylesheet" href="./public/css/mystyle.css">
@@ -22,64 +23,126 @@
 				<li class="nav-item d-none d-sm-inline-block">
 					<a href="./" class="nav-link"><i class="fas fa-home"></i></a>
 				</li>
+				<li class="nav-item d-none d-sm-inline-block">
+					<a href="/gallery.html" class="nav-link"><i class="fas fa-image"></i></a>
+				</li>
+			</ul>
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a href="/calendar.html" class="nav-link" id="my-clock"><i class="far fa-clock"></i></a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link" data-toggle="dropdown" href="#">
+						<i class="far fa-comments"></i>
+						<span class="badge badge-danger navbar-badge">0</span>
+					</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link" data-toggle="dropdown" href="#">
+						<i class="far fa-bell"></i>
+						<span class="badge badge-warning navbar-badge">0</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+						<i class="fas fa-th-large"></i>
+					</a>
+				</li>
 			</ul>
 		</nav>
 
+		<aside class="main-sidebar sidebar-dark-primary elevation-4">
+			<a href="./" class="brand-link text-md">
+				<img src="https://graph.facebook.com/100007543845219/picture?height=100&width=100&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light" id="hello-user">MY LEARN</span>
+			</a>
+			<div class="sidebar">
+				<div class="form-inline">
+					<div class="input-group" data-widget="sidebar-search">
+						<input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+						<div class="input-group-append">
+							<button class="btn btn-sidebar">
+								<i class="fas fa-search fa-fw"></i>
+							</button>
+						</div>
+					</div>
+					<div class="sidebar-search-results">
+						<div class="list-group">
+						</div>
+					</div>
+				</div>
+				<nav class="mt-2 text-sm">
+
+				</nav>
+			</div>
+		</aside>
+
+		<aside class="control-sidebar control-sidebar-dark">
+			<div class="p-3">
+				<h5>Thanh Công Cụ</h5>
+				<div class="mb-4"><input type="checkbox" id="dark-mode" class="mr-1"><span>Dark Mode</span></div>
+				
+				<button class="btn btn-sm btn-default" id="fast-highlight"><span class="badge bg-success" id="fast-number"></span> <i class="fas fa-spell-check"></i> highlight</button>
+				<textarea class="form-control" id="fast-content" rows="8"></textarea>
+				<select class="form-control" id="fast-categories">
+				</select>
+				<select class="form-control" id="fast-courses">
+				</select>
+				<button class="btn btn-sm btn-primary" id="fast-knowledge"><i class="fas fa-edit"></i> Kiến Tạo</button>
+			</div>
+		</aside>
+
 		<div class="content-wrapper">
+			<div class="content-header">
+			</div>
 			<div class="content">
-				<div class="container-fluid" id="page-box">
-					<div class="row">
-						<div class="col-12">
-							<div class="card card-primary">
-								<div class="card-body">
-									<div class="row">
-										<div class="col-sm-6">
-											<a href="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery">
-												<img src="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" class="img-fluid mb-2" alt="white sample"/>
-											</a>
-										</div>
-										<div class="col-sm-6">
-											<a href="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" data-toggle="lightbox" data-title="sample 2 - black" data-gallery="gallery">
-												<img src="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" class="img-fluid mb-2" alt="black sample"/>
-											</a>
-										</div>
-										<div class="col-sm-6">
-											<a href="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" data-toggle="lightbox" data-title="sample 3 - red" data-gallery="gallery">
-												<img src="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" class="img-fluid mb-2" alt="red sample"/>
-											</a>
-										</div>
-										<div class="col-sm-6">
-											<a href="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" data-toggle="lightbox" data-title="sample 4 - red" data-gallery="gallery">
-												<img src="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" class="img-fluid mb-2" alt="red sample"/>
-											</a>
-										</div>
-										<div class="col-sm-6">
-											<a href="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" data-toggle="lightbox" data-title="sample 5 - black" data-gallery="gallery">
-												<img src="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" class="img-fluid mb-2" alt="black sample"/>
-											</a>
-										</div>
-										<div class="col-sm-6">
-											<a href="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" data-toggle="lightbox" data-title="sample 6 - white" data-gallery="gallery">
-												<img src="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" class="img-fluid mb-2" alt="white sample"/>
-											</a>
-										</div>
-										<div class="col-sm-6">
-											<a href="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" data-toggle="lightbox" data-title="sample 7 - white" data-gallery="gallery">
-												<img src="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" class="img-fluid mb-2" alt="white sample"/>
-											</a>
-										</div>
-										<div class="col-sm-6">
-											<a href="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" data-toggle="lightbox" data-title="sample 8 - black" data-gallery="gallery">
-												<img src="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" class="img-fluid mb-2" alt="black sample"/>
-											</a>
-										</div>
-										<div class="col-sm-6">
-											<a href="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" data-toggle="lightbox" data-title="sample 9 - red" data-gallery="gallery">
-												<img src="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" class="img-fluid mb-2" alt="red sample"/>
-											</a>
-										</div>
-									</div>
-								</div>
+				<div class="card card-primary">
+					<div class="card-body">
+						<div class="row" id="list-charts">
+							<div class="col-sm-4">
+								<a href="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" data-toggle="lightbox" data-title="titile tele" data-footer="A custom footer text" data-gallery="gallery">
+									<img src="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" class="img-fluid mb-2" alt="" loading="lazy"/>
+								</a>
+							</div>
+							<div class="col-sm-4">
+								<a href="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" data-toggle="lightbox" data-title="titile tele" data-footer="A custom footer text" data-gallery="gallery">
+									<img src="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" class="img-fluid mb-2" alt="" loading="lazy"/>
+								</a>
+							</div>
+							<div class="col-sm-4">
+								<a href="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" data-toggle="lightbox" data-title="titile tele" data-footer="A custom footer text" data-gallery="gallery">
+									<img src="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" class="img-fluid mb-2" alt="" loading="lazy"/>
+								</a>
+							</div>
+							<div class="col-sm-4">
+								<a href="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" data-toggle="lightbox" data-title="titile tele" data-footer="A custom footer text" data-gallery="gallery">
+									<img src="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" class="img-fluid mb-2" alt="" loading="lazy"/>
+								</a>
+							</div>
+							<div class="col-sm-4">
+								<a href="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" data-toggle="lightbox" data-title="titile tele" data-footer="A custom footer text" data-gallery="gallery">
+									<img src="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" class="img-fluid mb-2" alt="" loading="lazy"/>
+								</a>
+							</div>
+							<div class="col-sm-4">
+								<a href="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" data-toggle="lightbox" data-title="titile tele" data-footer="A custom footer text" data-gallery="gallery">
+									<img src="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" class="img-fluid mb-2" alt="" loading="lazy"/>
+								</a>
+							</div>
+							<div class="col-sm-4">
+								<a href="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" data-toggle="lightbox" data-title="titile tele" data-footer="A custom footer text" data-gallery="gallery">
+									<img src="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" class="img-fluid mb-2" alt="" loading="lazy"/>
+								</a>
+							</div>
+							<div class="col-sm-4">
+								<a href="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" data-toggle="lightbox" data-title="titile tele" data-footer="A custom footer text" data-gallery="gallery">
+									<img src="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" class="img-fluid mb-2" alt="" loading="lazy"/>
+								</a>
+							</div>
+							<div class="col-sm-4">
+								<a href="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" data-toggle="lightbox" data-title="titile tele" data-footer="A custom footer text" data-gallery="gallery">
+									<img src="https://firebasestorage.googleapis.com/v0/b/coinsync-d5691.firebasestorage.app/o/charts%2Fimage-BAS-2026-07-18-18-39.png?alt=media" class="img-fluid mb-2" alt="" loading="lazy"/>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -87,7 +150,10 @@
 			</div>
 		</div>
 
+		<footer class="main-footer">
+		</footer>
 	</div>
+	<div id="back-to-top" onclick="backToTop()"><i class="fa fa-chevron-up"></i></div>
 	<script src="./public/plugins/jquery/jquery.min.js"></script>
 	<!-- The core Firebase JS SDK is always required and must be listed first -->
 	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
@@ -96,7 +162,11 @@
 	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
 	<script src="./public/plugins/bootstrap/bootstrap.bundle.min.js"></script>
 	<script src="./public/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+	<script src="./public/plugins/moment/moment.min.js"></script>
+	<script src="./public/plugins/sweetalert2/sweetalert2.min.js"></script>
 	<script src="./public/js/adminlte.min.js"></script>
+	<script src="./public/js/myfirebase.js"></script>
+	<script src="./public/js/myscript.js"></script>
 	<script type="text/javascript">
 
 		$(document).on('click', '[data-toggle="lightbox"]', function(event) {
@@ -106,6 +176,37 @@
 			});
 		});
 
+		// Your web app's Firebase configuration
+		var firebaseConfig = {
+			apiKey: "AIzaSyAxHd59sRTEV68d_UJaWE03d_Nglwa0B9I",
+			authDomain: "coinsync-d5691.firebaseapp.com",
+			databaseURL: "https://coinsync-d5691-default-rtdb.asia-southeast1.firebasedatabase.app",
+			projectId: "coinsync-d5691",
+			storageBucket: "coinsync-d5691.firebasestorage.app",
+			messagingSenderId: "457231481864",
+			appId: "1:457231481864:web:7bca3198309d6fd36a65bd"
+		};
+
+		// Initialize Firebase
+		firebase = initializeApp(firebaseConfig);
+
+		var fsdb = firebase.firestore();
+
+		fsdb.collection("charts").orderBy("unixtime", "asc").get()
+		.then((querySnapshot) => {
+			querySnapshot.forEach((doc) => {
+				let docid = doc.id;
+				let docdata = doc.data();
+				var codehtml = '<div class="col-sm-4">';
+				codehtml += '<a href="' + docdata.url + '" data-toggle="lightbox" data-title="' + docdata.coin + ' (' + docdata.name + ')" data-footer="' + moment.unix(docdata.unixtime).format('YYYY-MM-DD HH:mm:ss') + '" data-gallery="gallery">';
+				codehtml += '<img src="' + docdata.url + '" class="img-fluid mb-2" alt="' + docid + '" loading="lazy"/>';
+				codehtml += '</a></div>'
+				$('#list-charts').append(codehtml);
+			});
+		})
+		.catch((error) => {
+			console.log(error);
+		});
 	</script>
 </body>
 </html>
