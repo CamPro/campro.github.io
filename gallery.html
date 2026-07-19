@@ -111,8 +111,8 @@
 	<div id="back-to-top" onclick="backToTop()"><i class="fa fa-chevron-up"></i></div>
 	<script src="./public/plugins/jquery/jquery.min.js"></script>
 	<!-- The core Firebase JS SDK is always required and must be listed first -->
-	<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
 	<script src="./public/plugins/bootstrap/bootstrap.bundle.min.js"></script>
 	<script src="./public/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
 	<script src="./public/plugins/moment/moment.min.js"></script>
@@ -140,9 +140,9 @@
 		};
 
 		// Initialize Firebase
-		var fbApp = initializeApp(firebaseConfig);
+		firebase.initializeApp(firebaseConfig);
 
-		var fsdb = fbApp.firestore();
+		var fsdb = firebase.firestore();
 
 		fsdb.collection("charts").orderBy("unixtime", "asc").get()
 		.then((querySnapshot) => {
