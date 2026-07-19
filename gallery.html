@@ -131,12 +131,12 @@
 		$('#search-image').on('change keyup', function(event) {
 			var keyword = $(this).val();
 			document.querySelectorAll('[data-toggle="lightbox"]').forEach(elm => {
-				var imageTitle = elm.attr('data-title');
+				var imageTitle = $(elm).attr('data-title');
 				if (imageTitle.includes(keyword)) {
-					elm.removeClass('d-none');
+					$(elm).removeClass('d-none');
 				}
 				else {
-					elm.addClass('d-none');
+					$(elm).addClass('d-none');
 				}
 			});
 		});
