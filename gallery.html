@@ -129,9 +129,9 @@
 		});
 
 		$('#search-image').on('change keyup', function(event) {
-			var keyword = $(this).val();
+			var keyword = $(this).val().toLowerCase();
 			document.querySelectorAll('[data-toggle="lightbox"]').forEach(elm => {
-				var imageTitle = $(elm).attr('data-title');
+				var imageTitle = $(elm).attr('data-title').toLowerCase();
 				if (imageTitle.includes(keyword)) {
 					$(elm).removeClass('d-none');
 				}
