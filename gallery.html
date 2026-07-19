@@ -29,7 +29,7 @@
 			</ul>
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a href="/calendar.html" class="nav-link" id="my-clock"><i class="far fa-clock"></i></a>
+					<input class="form-control" type="search" placeholder="Search" aria-label="Search" id="search-image">
 				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link" data-toggle="dropdown" href="#">
@@ -125,6 +125,19 @@
 			event.preventDefault();
 			$(this).ekkoLightbox({
 				alwaysShowClose: true
+			});
+		});
+
+		$('#search-image').on('change keyup', function(event) {
+			var keyword = $(this).val();
+			document.querySelectorAll('[data-toggle="lightbox"]').forEach(elm => {
+				var imageTitle = elm.attr('data-title');
+				if (imageTitle.includes(keyword)) {
+					elm.removeClass('d-none');
+				}
+				else {
+					elm.addClass('d-none');
+				}
 			});
 		});
 
