@@ -163,7 +163,7 @@
 				let docid = doc.id;
 				let docdata = doc.data();
 				var codehtml = '<div class="col-sm-4">';
-				codehtml += '<a href="' + docdata.url + '" data-toggle="lightbox" data-title="' + docdata.coin + ' (' + docdata.name + ')" data-footer="' + moment.unix(docdata.unixtime).format('YYYY-MM-DD HH:mm:ss') + '" data-gallery="gallery">';
+				codehtml += '<a href="' + docdata.url + '" data-toggle="lightbox" data-title="' + docdata.coin + '" data-footer="' + docdata.name + ' ' + moment.unix(docdata.unixtime).format('YYYY-MM-DD HH:mm:ss') + '" data-gallery="gallery">';
 				codehtml += '<img src="' + docdata.url + '" class="img-fluid mb-2" alt="' + docid + '" loading="lazy"/>';
 				codehtml += '</a></div>'
 				$('#list-charts').append(codehtml);
