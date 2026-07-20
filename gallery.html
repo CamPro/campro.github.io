@@ -130,10 +130,10 @@
 			document.querySelectorAll('[data-toggle="lightbox"]').forEach(elm => {
 				var imageTitle = $(elm).attr('data-title').toLowerCase();
 				if (imageTitle.includes(keyword)) {
-					$(elm).removeClass('d-none');
+					$(elm).parent().removeClass('d-none');
 				}
 				else {
-					$(elm).addClass('d-none');
+					$(elm).parent().addClass('d-none');
 				}
 			});
 		});
